@@ -1,0 +1,8 @@
+database,database_variant,source_sheet,process_name,location,unit,reference_product,category,extra_type,catalog_source_file,placeholder_comment
+Agribalyse,organic_curated,manual_organic_fertilizers,"a. Manure, from cattle, stocked in concrete surface or pit",GLO,kg,"Cattle manure, solid",organic fertiliser,,agribalyse_organic_fertilizers.csv,"Cattle, solid"
+Agribalyse,organic_curated,manual_organic_fertilizers,"f. Slurry, from cattle, stocked in silo",GLO,kg,"Cattle slurry, liquid",organic fertiliser,,agribalyse_organic_fertilizers.csv,"Cattle, liquid"
+Agribalyse,organic_curated,manual_organic_fertilizers,"f. Slurry, from swine, stocked in silo",GLO,kg,"Swine slurry, liquid",organic fertiliser,,agribalyse_organic_fertilizers.csv,"Swine, liquid"
+Agribalyse,organic_curated,manual_organic_fertilizers,"f. Manure, from poultry, stocked in concrete surface or pit",GLO,kg,"Poultry manure",organic fertiliser,,agribalyse_organic_fertilizers.csv,"Poultry, droppings"
+Agribalyse,organic_curated,manual_organic_fertilizers,"a. Average compost, from green waste, biowaste, sludge, manure, slurry",GLO,kg,Compost,organic fertiliser,,agribalyse_organic_fertilizers.csv,Compost
+Agribalyse,organic_curated,manual_organic_fertilizers,"a. Compost, of solid fraction of digestate from manure and green waste",GLO,kg,"Compost from digestate",organic fertiliser,,agribalyse_organic_fertilizers.csv,Compost_digestate
+Agribalyse,organic_curated,manual_organic_fertilizers,"f. Average agricultural digestate",GLO,kg,Digestate,organic fertiliser,,agribalyse_organic_fertilizers.csv,Digestate

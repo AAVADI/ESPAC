@@ -1,0 +1,24 @@
+
+occupatio, transformation to and from --> DONE
+
+water source (lake, river, well) --> DONE
+
+seed according to crop category --> DONE
+
+fuel (diesel) in MJ --> DONE
+
+general comment of the process (actual area) --> DONE
+
+pesticide emissions primary partitioning --> DONE
+
+uncertainty!!! --> DONE
+
+
+change the name of exported CSV according with the summary strategy... 
+propagate the new naming through the next notebooks. 
+Adapt accordingly the names of exported XMLs.
+Label all previous non-compliant CSVs for me to delete. --> DONE
+
+check mono/asociado using keywords SOLO, ASOCIADO in field nuevacondicion --> DONE
+
+summary by crop group should be made with confounded provinces (like it is done per region) --> DONE

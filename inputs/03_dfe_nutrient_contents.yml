@@ -1,0 +1,587 @@
+meta:
+  generated_by: Codex
+  purpose: Nutrient-content assumptions for DFE calculations (ESPAC)
+  strict_mapping: true
+  strict_mapping_version: 2
+  created_from:
+  - data/PRO data v1.xlsx
+sources:
+  organic:
+    pro_dataset:
+      path: data/PRO data v1.xlsx
+      sheet: PRO data
+      notes:
+      - Strict mapping excludes processed ammonia-stripped products, mineral concentrates,
+        organo-minerals, sludges and rows without Type in {fert, amend}.
+      - Elemental P and K fractions are derived from P2O5 and K2O using stoichiometric
+        conversion factors.
+  mineral:
+    references:
+    - tag: MSU_Extension_Table2
+      label: Mississippi State University Extension - common fertilizer analyses
+      url: https://extension.msstate.edu/publications/information-sheets/useful-nutrient-management-planning-data
+    - tag: OSU_Extension_Table5
+      label: Oregon State University Extension EM9234 - typical fertilizer concentrations
+      url: https://extension.oregonstate.edu/sites/default/files/catalog/auto/EM9234.pdf
+    notes:
+    - NPK_kgha is assumed to be 15-15-15 because ESPAC does not identify the grade.
+    - AP_kgha uses TSP (0-45-0) and AS_kgha uses MOP (0-0-60) as representative phosphate/potash
+      products.
+unit_conversions:
+  P2O5_to_P: 0.4364
+  K2O_to_K: 0.8301
+organic_from_pro_data:
+  classification_rules:
+    allowed_types:
+    - amend
+    - fert
+    exclude_name_contains:
+    - mineral concentrate
+    - liquid k-fertiliser
+    - organo-mineral fertiliser
+    - organic fertiliser (
+    - animal meals
+    - organic amendment (<3% n)
+    - biological sludge
+    - sludge
+    - ammonia stripped
+    logic:
+    - digestate or compost -> Organic_fermentado_kgha
+    - solid fraction + (slurry|manure) and not digestate -> Organic_estiercol_kgha
+    - manure|droppings|litter and not digestate/compost -> Organic_estiercol_kgha
+    - slurry|effluent and not digestate/solid fraction -> Organic_liquido_kgha
+  profiles:
+    Organic_estiercol_kgha:
+      selection_count: 16
+      recommended_fraction_basis: median
+      elemental_fractions:
+        median:
+          N: 0.008650000000000001
+          P: 0.0030684184048638133
+          K: 0.010702753442497746
+        mean:
+          N: 0.013575931469929716
+          P: 0.0053088205385852395
+          K: 0.010519691978472391
+      selected_products:
+      - Products: Swine manure, fattening pigs, litter
+        Type: amend
+        NTK__Mean: 9.4
+        P2O5__Mean: 7.7
+        K2O__Mean: 14.0
+      - Products: Cattle manure, accumulated litter
+        Type: amend
+        NTK__Mean: 5.9
+        P2O5__Mean: 2.8
+        K2O__Mean: 9.5
+      - Products: Cattle manure, compacted
+        Type: amend
+        NTK__Mean: 4.7
+        P2O5__Mean: 2.3
+        K2O__Mean: 5.6
+      - Products: Cattle manure, loose
+        Type: amend
+        NTK__Mean: 4.5
+        P2O5__Mean: 2.2
+        K2O__Mean: 4.9
+      - Products: Cattle manure, French average
+        Type: amend
+        NTK__Mean: 4.7949206349206355
+        P2O5__Mean: 2.3365079365079366
+        K2O__Mean: 5.899365079365079
+      - Products: Broiler manure, acces to course
+        Type: fert
+        NTK__Mean: 20.6
+        P2O5__Mean: 18.4
+        K2O__Mean: 19.0
+      - Products: Broiler manure, conventional
+        Type: fert
+        NTK__Mean: 21.9
+        P2O5__Mean: 14.7
+        K2O__Mean: 19.0
+      - Products: Poultry manure, French average
+        Type: fert
+        NTK__Mean: 21.679000000000002
+        P2O5__Mean: 15.328999999999999
+        K2O__Mean: 19.0
+      - Products: Laying hen droppings, organic
+        Type: fert
+        NTK__Mean: 22.0
+        P2O5__Mean: 35.1
+        K2O__Mean: 22.2
+      - Products: Laying hen droppings, dried
+        Type: fert
+        NTK__Mean: 39.5
+        P2O5__Mean: 37.8
+        K2O__Mean: 25.7
+      - Products: Sheep manure
+        Type: amend
+        NTK__Mean: 6.7
+        P2O5__Mean: 4.0
+        K2O__Mean: 12.0
+      - Products: Goat manure
+        Type: amend
+        NTK__Mean: 6.1
+        P2O5__Mean: 5.2
+        K2O__Mean: 12.0
+      - Products: Solid fraction of cattle slurry and manure (10%), dried
+        Type: amend
+        NTK__Mean: 15.305251048222985
+        P2O5__Mean: 6.362412487918486
+        K2O__Mean: 13.78666050475303
+      - Products: Solid fraction of swine slurry and manure (10%), dried
+        Type: amend
+        NTK__Mean: 23.33573183573184
+        P2O5__Mean: 28.94594594594595
+        K2O__Mean: 14.045454545454547
+      - Products: Solid fraction of swine slurry
+        Type: amend
+        NTK__Mean: 7.9
+        P2O5__Mean: 10.3
+        K2O__Mean: 3.7
+      - Products: Solid fraction of cattle slurry
+        Type: amend
+        NTK__Mean: 2.9
+        P2O5__Mean: 1.1666666666666667
+        K2O__Mean: 2.433333333333333
+      trace_metal_content_from_pro:
+        units: mg/kg product (wet matter basis, as confirmed for PRO data; moisture content varies by product)
+        recommended_basis: median
+        non_null_counts:
+          Cd: 6
+          Cr: 6
+          Cu: 10
+          Hg: 4
+          Ni: 6
+          Pb: 6
+          Zn: 10
+        median_mg_per_kg:
+          Cd: 0.144285
+          Cr: 4.70445
+          Cu: 39.17
+          Hg: 0.0753
+          Ni: 3.2302
+          Pb: 1.51054
+          Zn: 175.785
+        mean_mg_per_kg:
+          Cd: 0.15157833333333334
+          Cr: 4.9246550000000004
+          Cu: 61.472669999999994
+          Hg: 0.06265
+          Ni: 4.119191666666667
+          Pb: 1.6671133333333332
+          Zn: 201.83737000000002
+    Organic_fermentado_kgha:
+      selection_count: 21
+      recommended_fraction_basis: median
+      elemental_fractions:
+        median:
+          N: 0.00735
+          P: 0.00322791988
+          K: 0.007922142360000002
+        mean:
+          N: 0.010359125300561291
+          P: 0.006486525975221288
+          K: 0.01080344800921303
+      selected_products:
+      - Products: Raw and solid fraction of digestate, from manure and crops, dried
+        Type: fert
+        NTK__Mean: 24.700000000000003
+        P2O5__Mean: 41.334500000000006
+        K2O__Mean: 41.211000000000006
+      - Products: Solid fraction of digestate, from manure and crops, dried and pelletised
+        Type: amend
+        NTK__Mean: 24.700000000000003
+        P2O5__Mean: 41.334500000000006
+        K2O__Mean: 41.211000000000006
+      - Products: Liquid fraction of digestate, from manure and crops
+        Type: fert
+        NTK__Mean: 4.689749999999999
+        P2O5__Mean: 0.6990225000000001
+        K2O__Mean: 2.6082225000000006
+      - Products: Solid fraction of digestate, from manure and crops
+        Type: amend
+        NTK__Mean: 5.720000000000001
+        P2O5__Mean: 9.572199999999999
+        K2O__Mean: 9.543600000000003
+      - Products: Liquid fraction of digestate from slurry mix (swine, cattle)
+        Type: fert
+        NTK__Mean: 3.8075863117870727
+        P2O5__Mean: 1.5414423532699622
+        K2O__Mean: 10.45507489246911
+      - Products: Digestate, of biowaste, raw
+        Type: fert
+        NTK__Mean: 5.920100000000001
+        P2O5__Mean: 8.5747905
+        K2O__Mean: 21.854603000000004
+      - Products: Digestate, of swine slurry
+        Type: fert
+        NTK__Mean: 6.032000000000001
+        P2O5__Mean: 3.6988080000000005
+        K2O__Mean: 13.958720000000003
+      - Products: Digestate, of cattle slurry
+        Type: fert
+        NTK__Mean: 2.672
+        P2O5__Mean: 4.5662142
+        K2O__Mean: 7.105607850000002
+      - Products: Digestate, of mixed manure and slurry
+        Type: fert
+        NTK__Mean: 7.251900000000001
+        P2O5__Mean: 3.0759279999999998
+        K2O__Mean: 5.896366250000001
+      - Products: Digestate, of manure and maize silage
+        Type: fert
+        NTK__Mean: 6.0
+        P2O5__Mean: 5.6105
+        K2O__Mean: 3.795750000000001
+      - Products: Digestate, of green waste and biowaste
+        Type: fert
+        NTK__Mean: 5.920100000000001
+        P2O5__Mean: 2.6883455
+        K2O__Mean: 5.131552750000001
+      - Products: Compost, of swine slurry + straw
+        Type: amend
+        NTK__Mean: 7.35
+        P2O5__Mean: 7.557
+        K2O__Mean: 6.3865
+      - Products: Compost, of solid fraction (by gravitation) of swine slurry
+        Type: amend
+        NTK__Mean: 20.6
+        P2O5__Mean: 31.0
+        K2O__Mean: 19.0
+      - Products: Compost, of solid fraction (by centrifugation) of swine slurry
+        Type: amend
+        NTK__Mean: 16.8
+        P2O5__Mean: 46.4
+        K2O__Mean: 5.6
+      - Products: Compost, of solid fraction of swine slurry
+        Type: amend
+        NTK__Mean: 18.700000000000003
+        P2O5__Mean: 38.7
+        K2O__Mean: 12.3
+      - Products: Compost, of solid fraction of digestate from manure and green waste
+        Type: amend
+        NTK__Mean: 12.0
+        P2O5__Mean: 26.335
+        K2O__Mean: 7.23
+      - Products: Compost, of cattle manure
+        Type: amend
+        NTK__Mean: 6.7
+        P2O5__Mean: 3.6
+        K2O__Mean: 10.8
+      - Products: Compost, of swine manure
+        Type: amend
+        NTK__Mean: 13.3
+        P2O5__Mean: 18.4
+        K2O__Mean: 24.8
+      - Products: Compost, of green waste
+        Type: amend
+        NTK__Mean: 7.793819999999999
+        P2O5__Mean: 4.2365
+        K2O__Mean: 5.07305
+      - Products: Compost, of biowaste (<10% green waste)
+        Type: amend
+        NTK__Mean: 8.65831
+        P2O5__Mean: 7.3967
+        K2O__Mean: 11.206500000000002
+      - Products: Compost, of green waste + biowaste
+        Type: amend
+        NTK__Mean: 8.226065
+        P2O5__Mean: 5.8166
+        K2O__Mean: 8.139775
+      trace_metal_content_from_pro:
+        units: mg/kg product (wet matter basis, as confirmed for PRO data; moisture content varies by product)
+        recommended_basis: median
+        non_null_counts:
+          Cd: 11
+          Cr: 12
+          Cu: 14
+          Hg: 6
+          Ni: 12
+          Pb: 12
+          Zn: 14
+        median_mg_per_kg:
+          Cd: 0.33
+          Cr: 15.370525
+          Cu: 67.83000000000001
+          Hg: 0.034205
+          Ni: 9.044
+          Pb: 8.35
+          Zn: 184.4255
+        mean_mg_per_kg:
+          Cd: 0.4281013636363637
+          Cr: 15.832522500000001
+          Cu: 114.57669178571429
+          Hg: 0.05678333333333333
+          Ni: 9.172113333333334
+          Pb: 27.08704625
+          Zn: 360.15995607142855
+    Organic_liquido_kgha:
+      selection_count: 8
+      recommended_fraction_basis: median
+      elemental_fractions:
+        median:
+          N: 0.00345
+          P: 0.0006546000000000001
+          K: 0.00207525
+        mean:
+          N: 0.0033
+          P: 0.00068733
+          K: 0.002282775
+      selected_products:
+      - Products: Swine slurry, sows, piglets and fattening pigs
+        Type: fert
+        NTK__Mean: 3.5
+        P2O5__Mean: 2.1
+        K2O__Mean: 2.5
+      - Products: Swine slurry, fattening pigs
+        Type: fert
+        NTK__Mean: 5.8
+        P2O5__Mean: 3.2
+        K2O__Mean: 4.8
+      - Products: Swine slurry, pregnant sows
+        Type: fert
+        NTK__Mean: 2.2
+        P2O5__Mean: 1.5
+        K2O__Mean: 1.5
+      - Products: Swine slurry, French average
+        Type: fert
+        NTK__Mean: 3.5
+        P2O5__Mean: 2.1
+        K2O__Mean: 2.5
+      - Products: Cattle slurry
+        Type: fert
+        NTK__Mean: 3.4
+        P2O5__Mean: 1.5
+        K2O__Mean: 3.6
+      - Products: Cattle slurry, diluted
+        Type: fert
+        NTK__Mean: 1.4
+        P2O5__Mean: 0.7
+        K2O__Mean: 2.1
+      - Products: Liquid fraction of swine slurry
+        Type: fert
+        NTK__Mean: 3.6
+        P2O5__Mean: 0.6
+        K2O__Mean: 2.8
+      - Products: Liquid fraction of cattle slurry
+        Type: fert
+        NTK__Mean: 3.0
+        P2O5__Mean: 0.9
+        K2O__Mean: 2.2
+      trace_metal_content_from_pro:
+        units: mg/kg product (wet matter basis, as confirmed for PRO data; moisture content varies by product)
+        recommended_basis: median
+        non_null_counts:
+          Cd: 5
+          Cr: 5
+          Cu: 6
+          Hg: 1
+          Ni: 5
+          Pb: 5
+          Zn: 6
+        median_mg_per_kg:
+          Cd: 0.5
+          Cr: 13.1
+          Cu: 166.5
+          Hg: 0.013000000000000001
+          Ni: 9.0
+          Pb: 1.8
+          Zn: 957.0
+        mean_mg_per_kg:
+          Cd: 0.4419999999999999
+          Cr: 8.78
+          Cu: 191.54666666666665
+          Hg: 0.013000000000000001
+          Ni: 7.936
+          Pb: 2.636
+          Zn: 809.6583333333333
+mineral_common_analyses:
+  profiles:
+    urea_46_0_0:
+      label: Urea
+      analysis_grade_pct:
+        N: 46
+        P2O5: 0
+        K2O: 0
+      elemental_fractions:
+        N: 0.46
+        P: 0.0
+        K: 0.0
+      source_tag: MSU_Extension_Table2
+    ammonium_nitrate_34_0_0:
+      label: Ammonium nitrate
+      analysis_grade_pct:
+        N: 34
+        P2O5: 0
+        K2O: 0
+      elemental_fractions:
+        N: 0.34
+        P: 0.0
+        K: 0.0
+      source_tag: MSU_Extension_Table2
+    can_27_0_0:
+      label: Calcium ammonium nitrate
+      analysis_grade_pct:
+        N: 27
+        P2O5: 0
+        K2O: 0
+      elemental_fractions:
+        N: 0.27
+        P: 0.0
+        K: 0.0
+      source_tag: OSU_Extension_Table5
+    uan_32_0_0:
+      label: UAN solution
+      analysis_grade_pct:
+        N: 32
+        P2O5: 0
+        K2O: 0
+      elemental_fractions:
+        N: 0.32
+        P: 0.0
+        K: 0.0
+      source_tag: MSU_Extension_Table2
+    map_11_48_0:
+      label: MAP
+      analysis_grade_pct:
+        N: 11
+        P2O5: 48
+        K2O: 0
+      elemental_fractions:
+        N: 0.11
+        P: 0.209472
+        K: 0.0
+      source_tag: MSU_Extension_Table2
+    tsp_0_45_0:
+      label: Triple superphosphate
+      analysis_grade_pct:
+        N: 0
+        P2O5: 45
+        K2O: 0
+      elemental_fractions:
+        N: 0.0
+        P: 0.19638
+        K: 0.0
+      source_tag: OSU_Extension_Table5
+    mop_0_0_60:
+      label: Muriate of potash
+      analysis_grade_pct:
+        N: 0
+        P2O5: 0
+        K2O: 60
+      elemental_fractions:
+        N: 0.0
+        P: 0.0
+        K: 0.49805999999999995
+      source_tag: MSU_Extension_Table2
+    npk_15_15_15:
+      label: Generic NPK (assumed)
+      analysis_grade_pct:
+        N: 15
+        P2O5: 15
+        K2O: 15
+      elemental_fractions:
+        N: 0.15
+        P: 0.06546
+        K: 0.12451499999999999
+      source_tag: Assumption_common_grade_15_15_15
+espac_default_mappings:
+  mineral_fertilizer_nutrient_fractions:
+    Urea_kgha:
+      N: 0.46
+      P: 0.0
+      K: 0.0
+      profile: urea_46_0_0
+    Limestone_kgha:
+      N: 0.0
+      P: 0.0
+      K: 0.0
+      profile: null
+    NPK_kgha:
+      N: 0.15
+      P: 0.06546
+      K: 0.12451499999999999
+      profile: npk_15_15_15
+    MAP_kgha:
+      N: 0.11
+      P: 0.209472
+      K: 0.0
+      profile: map_11_48_0
+    UAN_kgha:
+      N: 0.32
+      P: 0.0
+      K: 0.0
+      profile: uan_32_0_0
+    AN_kgha:
+      N: 0.34
+      P: 0.0
+      K: 0.0
+      profile: ammonium_nitrate_34_0_0
+    AP_kgha:
+      N: 0.0
+      P: 0.19638
+      K: 0.0
+      profile: tsp_0_45_0
+    AS_kgha:
+      N: 0.0
+      P: 0.0
+      K: 0.49805999999999995
+      profile: mop_0_0_60
+    CAN_kgha:
+      N: 0.27
+      P: 0.0
+      K: 0.0
+      profile: can_27_0_0
+  organic_nutrient_fractions:
+    Organic_estiercol_kgha:
+      N: 0.008650000000000001
+      P: 0.0030684184048638133
+      K: 0.010702753442497746
+      phase: solid
+      profile: Organic_estiercol_kgha
+      trace_metals_mg_per_kg: &id001
+        Cd: 0.144285
+        Cr: 4.70445
+        Cu: 39.17
+        Hg: 0.0753
+        Ni: 3.2302
+        Pb: 1.51054
+        Zn: 175.785
+    Organic_fermentado_kgha:
+      N: 0.00735
+      P: 0.00322791988
+      K: 0.007922142360000002
+      phase: mixed
+      profile: Organic_fermentado_kgha
+      trace_metals_mg_per_kg: &id002
+        Cd: 0.33
+        Cr: 15.370525
+        Cu: 67.83000000000001
+        Hg: 0.034205
+        Ni: 9.044
+        Pb: 8.35
+        Zn: 184.4255
+    Organic_liquido_kgha:
+      N: 0.00345
+      P: 0.0006546000000000001
+      K: 0.00207525
+      phase: liquid
+      profile: Organic_liquido_kgha
+      trace_metals_mg_per_kg: &id003
+        Cd: 0.5
+        Cr: 13.1
+        Cu: 166.5
+        Hg: 0.013000000000000001
+        Ni: 9.0
+        Pb: 1.8
+        Zn: 957.0
+  organic_trace_metal_factors_mg_per_kg:
+    Organic_estiercol_kgha: *id001
+    Organic_fermentado_kgha: *id002
+    Organic_liquido_kgha: *id003
+  organic_trace_metals_notes:
+  - Row-level trace metals for ESPAC organic inputs can be estimated as sum(Organic_*_kgha
+    * metal_mg_per_kg / 1e6).
+  - Values are medians of PRO products selected by the strict ESPAC category mapping.
+  - Units are mg/kg product on a wet-matter basis (confirmed for PRO data); moisture content varies across products and is embedded in the reported values.

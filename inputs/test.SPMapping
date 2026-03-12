@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <categories>
+    <category name="Agricultural" type="process">
+      <subCategory name="ECUADOR" processType="material"/>
+    </category>
+    <category name="air" type="substance" internalName="Air">
+      <subCategory name="(unspecified)" substanceType="Air" abbreviation="(unspecified)"/>
+      <subCategory name="high population density" substanceType="Air" abbreviation="high. pop."/>
+      <subCategory name="indoor" substanceType="Air" abbreviation="indoor"/>
+      <subCategory name="low population density" substanceType="Air" abbreviation="low. pop."/>
+      <subCategory name="low population density, long-term" substanceType="Air" abbreviation="low. pop., long-term"/>
+      <subCategory name="lower stratosphere + upper troposphere" substanceType="Air" abbreviation="stratosphere + troposphere"/>
+      <subCategory name="stratosphere" substanceType="Air" abbreviation="stratosphere"/>
+    </category>
+    <category name="economic" type="substance" internalName="Economic">
+      <subCategory name="(unspecified)" substanceType="Eco" abbreviation="(unspecified)"/>
+    </category>
+    <category name="non mat." type="substance" internalName="Non mat.">
+      <subCategory name="(unspecified)" substanceType="Ivt" abbreviation="(unspecified)"/>
+    </category>
+    <category name="raw" type="substance" internalName="Raw">
+      <subCategory name="(unspecified)" substanceType="Raw" abbreviation="(unspecified)"/>
+      <subCategory name="biotic" substanceType="Raw" abbreviation="biotic"/>
+      <subCategory name="in air" substanceType="Raw" abbreviation="in air"/>
+      <subCategory name="in ground" substanceType="Raw" abbreviation="in ground"/>
+      <subCategory name="in water" substanceType="Raw" abbreviation="in water"/>
+      <subCategory name="land" substanceType="Raw" abbreviation="land"/>
+    </category>
+    <category name="social" type="substance" internalName="Social">
+      <subCategory name="(unspecified)" substanceType="Soc" abbreviation="(unspecified)"/>
+    </category>
+    <category name="soil" type="substance" internalName="Soil">
+      <subCategory name="(unspecified)" substanceType="Soi" abbreviation="(unspecified)"/>
+      <subCategory name="agricultural" substanceType="Soi" abbreviation="agricultural"/>
+      <subCategory name="forestry" substanceType="Soi" abbreviation="forestry"/>
+      <subCategory name="industrial" substanceType="Soi" abbreviation="industrial"/>
+      <subCategory name="urban, non industrial" substanceType="Soi" abbreviation="urban, non industrial"/>
+    </category>
+    <category name="waste" type="substance" internalName="Waste">
+      <subCategory name="(unspecified)" substanceType="Sol" abbreviation="(unspecified)"/>
+    </category>
+    <category name="water" type="substance" internalName="Water">
+      <subCategory name="(unspecified)" substanceType="Wat" abbreviation="(unspecified)"/>
+      <subCategory name="fossilwater" substanceType="Wat" abbreviation="fossilwater"/>
+      <subCategory name="groundwater" substanceType="Wat" abbreviation="groundwater"/>
+      <subCategory name="groundwater, long-term" substanceType="Wat" abbreviation="groundwater, long-term"/>
+      <subCategory name="lake" substanceType="Wat" abbreviation="lake"/>
+      <subCategory name="ocean" substanceType="Wat" abbreviation="ocean"/>
+      <subCategory name="river" substanceType="Wat" abbreviation="river"/>
+      <subCategory name="river, long-term" substanceType="Wat" abbreviation="river, long-term"/>
+    </category>
+  </categories>
+  <processes>
+    <process name="a. Local production available as food" newName="" localName="a. Local production available as food" unit="t" location="GLO" infrastructureProcess="false" processType="material" processIdentifier="IRTA1027000120232300017">
+      <category name="Agricultural"/>
+      <category name="ECUADOR"/>
+    </process>
+  </processes>
+  <mappings>
+    <categories/>
+    <units/>
+    <quantities/>
+    <substances/>
+    <processes/>
+    <sources/>
+    <dummyProcesses/>
+    <locations/>
+  </mappings>
+</root>
