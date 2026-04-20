@@ -463,6 +463,171 @@ assumptions:
       vegetable: 0.0
       oilseed: 0.8
       grass: 0.5
+  soc_sequestration:
+    purpose: Annual soil organic carbon (SOC) sequestration rates for permanent systems (pastures and perennial tree crops) in Ecuador
+    method: IPCC Tier 1 tropical sequestration; Ecuador-specific calibration from regional literature, CIAT/ICRAF studies, and field evidence
+    units: kg C per hectare per year (kg C/ha/yr)
+    references:
+    - "FAO 2023: Global assessment of soil carbon in grasslands (FAO Animal Production and Health Paper 187)"
+    - "IPCC AR6 WG III Ch7 (AFOLU) - grassland and agroforestry carbon management mitigation potential"
+    - "IPCC 2006 Guidelines & 2019 Refinement Vol 4: Agriculture agroforestry SOC"
+    - "Tropical pasture studies: Brazil & Colombian Llanos; improved grasslands 0.4-1.8 Mg C/ha/yr"
+    - "CIAT research: Coffee (shade-grown) agroforestry SOC in Andean Ecuador"
+    - "ICRAF Manabí cacao-shade tree systems: SOC accumulation in humid tropical oxisols"
+    - "Banana production systems: pseudostem mulching & cover crop effects on soil carbon"
+    - "FAO AGRIS indexed mango orchard study: 1.53 Mg C/ha/yr SOC build rate in mango orchard"
+    - "FAO AGRIS indexed oil-palm review: SOC accumulation up to 1.9 Mg C/ha/yr under organic-matter-centered management"
+    - "FAO AGRIS indexed pineapple chronosequence: SOC broadly similar to pasture/forest, implying near-zero net annual change"
+    - "FAO AGRIS indexed peach-palm study: peach palm SOC stocks comparable to native vegetation"
+    - "FAO AGRIS indexed Latin America and Caribbean agroforestry meta-analysis: mean 0.21 Mg C/ha/yr, 95% CI 0.03-0.45"
+    - "FAO modelling for sugarcane with organic inputs: 8-10 t C/ha over 12 years (~0.67-0.83 Mg C/ha/yr)"
+    pasture:
+      purpose: Permanent cultivated pastures (Brachiaria, Panicum species) tropical humid zones (0-1500m) in South America
+      mean_kgChayr: 250.0
+      min_kgChayr: 180.0
+      max_kgChayr: 330.0
+      notes:
+      - "Mean: South America-tailored improved pasture sequestration, from FAO 2023 Figure 6 Central & South America annual increment ≈ 0.25 t C/ha/yr"
+      - "Min: regional lower bound from FAO improved grassland rates (≈0.18 t C/ha/yr)"
+      - "Max: South America upper potential from FAO Figure 6 regional averages (≈0.33 t C/ha/yr)"
+      - "Applies to Category='cultivated_pasture' or Crop_group='forages_pastures'"
+    tree_crops:
+      coffee:
+        purpose: Coffee shade-grown agroforestry system (Ecuador dominant practice)
+        ecology: Andean highlands 800-2000m typical; native shade trees (Inga, Chalum) provide litter & root inputs
+        mean_kgChayr: 1400.0
+        min_kgChayr: 600.0
+        max_kgChayr: 2200.0
+        notes:
+        - "Mean: standard shade-grown coffee with diverse upper canopy (Ecuador norm)"
+        - "Min: lower shade diversity or management; monoculture coffee only ~525 kg C/ha/yr"
+        - "Max: intensive agroforestry with nitrogen-fixing trees (Inga); saturated after 15-20 yrs"
+        - "Source: CIAT Ecuador coffee-shade studies; Andean agroforestry literature"
+      cacao:
+        purpose: Cacao shade-grown traditional system (Manabí, Esmeraldas dominant)
+        ecology: Humid tropical lowland-midtropics 0-1200m; natural shade integration common
+        mean_kgChayr: 1100.0
+        min_kgChayr: 400.0
+        max_kgChayr: 1800.0
+        notes:
+        - "Mean: traditional Ecuadorian shade-grown cacao (already integrated shade management)"
+        - "Min: poorly managed, minimal shade ecosystem services"
+        - "Max: organic certification + active agroforestry; clay-rich Vertisols favor C retention"
+        - "Source: ICRAF Manabí cacao-shade studies; regional agroforestry research"
+      banana_plantain:
+        purpose: Banana (highland & commercial) and plantain production systems
+        ecology: Tropical 0-2000m; commercial monoculture baseline; potential for improvement
+        mean_kgChayr: 400.0
+        min_kgChayr: 100.0
+        max_kgChayr: 800.0
+        management_modifiers:
+          pseudostem_mulching: 300.0
+          legume_cover_crop: 250.0
+          reduced_tillage: 150.0
+        notes:
+        - "Mean: commercial monoculture baseline (Los Ríos, Manabí) with frequent soil disturbance"
+        - "Min: highly degraded, intensive tillage, no residue retention"
+        - "Max: with pseudostem mulching + cover crops + reduced tillage"
+        - "Source: FAO banana production systems; agronomic management studies"
+      citrus:
+        purpose: Citrus orchards (orange, lemon, mandarin, lime)
+        ecology: Tropical-subtropical 500-1500m; conventional pest management typical
+        mean_kgChayr: 500.0
+        min_kgChayr: 150.0
+        max_kgChayr: 900.0
+        notes:
+        - "Mean: conventional citrus with moderate management"
+        - "Min: intensive tillage, pesticide-dependent systems"
+        - "Max: organic management with cover crops & mulching"
+        - "Source: Cross-regional inference; limited Ecuador-specific data"
+      avocado:
+        purpose: Avocado orchards (Ecuador Highland preference at 1500-2500m)
+        ecology: Highland tropical-subtropical; moderate canopy cover
+        mean_kgChayr: 850.0
+        min_kgChayr: 600.0
+        max_kgChayr: 1100.0
+        notes:
+        - "Mean: highland Ecuador avocado (Nariño-Loja regions)"
+        - "Min: minimal understorey management"
+        - "Max: active agroforestry with shade tree retention & mulching"
+        - "Source: Litter/productivity analogue studies; limited direct field measurement"
+      mango:
+        purpose: Mango orchards
+        ecology: Lowland to mid-elevation perennial orchard systems
+        mean_kgChayr: 1530.0
+        min_kgChayr: 1000.0
+        max_kgChayr: 2000.0
+        notes:
+        - "Mean follows a FAO AGRIS indexed mango-orchard estimate of 1.53 Mg C/ha/yr"
+        - "Min/max are conservative widening around the reported orchard build rate to reflect site and management variability"
+      passionfruit:
+        purpose: Passionfruit / maracuyÃ¡ trellised perennial fruit systems
+        ecology: Perennial tropical fruit system; FAO-specific crop evidence weak
+        mean_kgChayr: 210.0
+        min_kgChayr: 30.0
+        max_kgChayr: 450.0
+        notes:
+        - "Proxy from FAO AGRIS indexed Latin America and Caribbean agroforestry meta-analysis"
+        - "Used because no robust FAO crop-specific annual SOC sequestration rate was located for Passiflora edulis"
+      pineapple:
+        purpose: Pineapple perennial crop rows represented in ESPAC permanent category
+        ecology: Intensive tropical fruit systems with weak evidence for net SOC gain
+        mean_kgChayr: 0.0
+        min_kgChayr: 0.0
+        max_kgChayr: 100.0
+        notes:
+        - "FAO AGRIS indexed chronosequence evidence indicates pineapple SOC was not significantly different from pasture or forest reference stocks"
+        - "Mean kept at zero as the most defensible FAO-first default"
+      tree_tomato:
+        purpose: Tree tomato / tomate de Ã¡rbol perennial fruit systems
+        ecology: Andean perennial fruit system; FAO-specific crop evidence weak
+        mean_kgChayr: 210.0
+        min_kgChayr: 30.0
+        max_kgChayr: 450.0
+        notes:
+        - "Proxy from FAO AGRIS indexed Latin America and Caribbean agroforestry meta-analysis"
+        - "Used because no robust FAO crop-specific annual SOC sequestration rate was located for Solanum betaceum"
+      oil_palm:
+        purpose: African oil palm plantations
+        ecology: Humid tropical plantation systems with strong management dependence
+        mean_kgChayr: 950.0
+        min_kgChayr: 300.0
+        max_kgChayr: 1900.0
+        notes:
+        - "Max follows FAO AGRIS indexed evidence of up to 1.9 Mg C/ha/yr under organic-matter-centered management"
+        - "Mean is set conservatively at half that upper managed value for generic plantation conditions"
+      peach_palm:
+        purpose: Palmito / peach palm systems
+        ecology: Perennial palm agroforestry systems with limited annual-rate evidence
+        mean_kgChayr: 210.0
+        min_kgChayr: 30.0
+        max_kgChayr: 450.0
+        notes:
+        - "Proxy from FAO AGRIS indexed Latin America and Caribbean agroforestry meta-analysis"
+        - "FAO AGRIS indexed peach-palm evidence supports high retained SOC stocks but not a clean annual sequestration coefficient"
+      other_permanents:
+        purpose: Unspecified permanent perennial crops
+        ecology: Mixed perennial systems without crop-specific FAO coefficients
+        mean_kgChayr: 210.0
+        min_kgChayr: 30.0
+        max_kgChayr: 450.0
+        notes:
+        - "Generic FAO-first fallback from the FAO AGRIS indexed Latin America and Caribbean agroforestry meta-analysis"
+      sugarcane:
+        purpose: Sugarcane rows classified as permanent in ESPAC
+        ecology: Managed cane systems where SOC response depends strongly on residue and organic input return
+        mean_kgChayr: 750.0
+        min_kgChayr: 0.0
+        max_kgChayr: 830.0
+        notes:
+        - "Derived from FAO modelling indicating 8-10 t C/ha over 12 years under organic-input management"
+        - "Min retained at zero because FAO also indicates systems without organic inputs may be net emitters"
+    notes:
+    - "Sequestration occurs during system establishment and maintenance; rates plateau 15-30 years post-establishment"
+    - "Tree crop rates are higher than annual crops due to continuous root inputs & litter accumulation"
+    - "Management practices (shade retention, mulching, agroforestry) increase rates by 20-40% vs. monoculture"
+    - "Organic systems consistently outperform conventional by 20-40% due to reduced soil disturbance & enhanced biological activity"
+    - "Regional climate-elevation effects: highland (>1500m) rates are ~15% higher due to slower decomposition; coastal <500m rates ~13% lower"
   crop_type_inference:
     keyword_groups:
       cereal:
@@ -518,6 +683,422 @@ assumptions:
     fallback_by_category:
       permanent: fruit
       transitory: cereal
+livestock_dfe:
+  meta:
+    purpose: Livestock direct field emissions and manure-management defaults for notebook 3.
+    note: Enteric fermentation and manure CH4/N2O factors follow IPCC 2019 Tier 1 defaults; NH3 and NOx follow EMEP/EEA Guidebook 2023 Tier 1 defaults. Profiles are exploratory defaults for ESPAC livestock summary tables and should be reviewed before publication use.
+  common_factors:
+    ipcc_2019:
+      indirect_n2o_ef4_volatilisation: 0.009
+      indirect_n2o_ef5_leaching: 0.011
+      n2o_to_n2_ratio_for_manure_management: 3.0
+      climate_zone_by_region:
+        Costa: tropical_moist
+        Oriente: tropical_moist
+        Sierra: tropical_montane
+        Insular: tropical_dry
+        (unknown): tropical_moist
+    ipcc_2019_awms_n_loss_factors:
+      swine:
+        uncovered_anaerobic_lagoon:
+          frac_gas_ms: 0.40
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        liquid_slurry_gt_1_month:
+          frac_gas_ms: 0.48
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        pit_storage_lt_1_month:
+          frac_gas_ms: 0.25
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.002
+        solid_storage:
+          frac_gas_ms: 0.22
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.010
+        drylot:
+          frac_gas_ms: 0.45
+          frac_leach_ms: 0.035
+          ef3_direct_n2o: 0.020
+        daily_spread:
+          frac_gas_ms: 0.07
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        anaerobic_digester:
+          frac_gas_ms: 0.05
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0006
+        pasture_range_paddock:
+          frac_gas_ms: 0.0
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+      dairy_cow:
+        liquid_slurry_gt_1_month:
+          frac_gas_ms: 0.48
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        solid_storage:
+          frac_gas_ms: 0.14
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.010
+        drylot:
+          frac_gas_ms: 0.30
+          frac_leach_ms: 0.035
+          ef3_direct_n2o: 0.020
+        daily_spread:
+          frac_gas_ms: 0.07
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        pasture_range_paddock:
+          frac_gas_ms: 0.0
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+      other_cattle:
+        liquid_slurry_gt_1_month:
+          frac_gas_ms: 0.48
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        solid_storage:
+          frac_gas_ms: 0.22
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.010
+        drylot:
+          frac_gas_ms: 0.30
+          frac_leach_ms: 0.035
+          ef3_direct_n2o: 0.020
+        daily_spread:
+          frac_gas_ms: 0.07
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        pasture_range_paddock:
+          frac_gas_ms: 0.0
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+      poultry:
+        liquid_slurry_gt_1_month:
+          frac_gas_ms: 0.40
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        solid_storage:
+          frac_gas_ms: 0.20
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.001
+        daily_spread:
+          frac_gas_ms: 0.07
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        pasture_range_paddock:
+          frac_gas_ms: 0.0
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        other:
+          frac_gas_ms: 0.0
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+      other_animals:
+        solid_storage:
+          frac_gas_ms: 0.05
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.010
+        drylot:
+          frac_gas_ms: 0.30
+          frac_leach_ms: 0.035
+          ef3_direct_n2o: 0.020
+        daily_spread:
+          frac_gas_ms: 0.07
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+        pasture_range_paddock:
+          frac_gas_ms: 0.0
+          frac_leach_ms: 0.0
+          ef3_direct_n2o: 0.0
+    ipcc_2019_manure_ch4_factors_g_ch4_per_kg_vs:
+      cattle_low_productivity:
+        solid_storage:
+          tropical: 4.4
+        drylot:
+          tropical: 1.7
+        daily_spread:
+          tropical: 0.9
+        pasture_range_paddock:
+          tropical: 0.6
+      swine_low_productivity:
+        uncovered_anaerobic_lagoon:
+          tropical_montane: 147.7
+          tropical_wet: 155.4
+          tropical_moist: 155.4
+          tropical_dry: 155.4
+        liquid_slurry_gt_1_month:
+          tropical_montane: 147.7
+          tropical_wet: 141.8
+          tropical_moist: 143.8
+          tropical_dry: 143.8
+        pit_storage_lt_1_month:
+          tropical_montane: 73.8
+          tropical_wet: 69.9
+          tropical_moist: 81.6
+          tropical_dry: 81.6
+        solid_storage:
+          tropical: 9.7
+        drylot:
+          tropical: 3.9
+        daily_spread:
+          tropical: 1.9
+        anaerobic_digester:
+          tropical: 21.2
+        pasture_range_paddock:
+          tropical: 0.6
+      poultry_high_productivity:
+        liquid_slurry_gt_1_month:
+          tropical_montane: 198.6
+          tropical_wet: 190.7
+          tropical_moist: 193.4
+          tropical_dry: 193.4
+        solid_storage:
+          tropical: 13.1
+        drylot:
+          tropical: 5.2
+        anaerobic_digester:
+          tropical: 13.1
+        pasture_range_paddock:
+          tropical: 0.6
+      poultry_low_productivity:
+        all_systems:
+          tropical: 2.4
+      sheep_low_productivity:
+        solid_storage:
+          tropical: 4.4
+        drylot:
+          tropical: 1.7
+        pasture_range_paddock:
+          tropical: 0.6
+      goats_low_productivity:
+        solid_storage:
+          tropical: 4.4
+        drylot:
+          tropical: 1.7
+        pasture_range_paddock:
+          tropical: 0.6
+      horses_low_productivity:
+        solid_storage:
+          tropical: 8.7
+        drylot:
+          tropical: 3.5
+        pasture_range_paddock:
+          tropical: 0.6
+      mules_asses_low_productivity:
+        solid_storage:
+          tropical: 8.7
+        drylot:
+          tropical: 3.5
+        pasture_range_paddock:
+          tropical: 0.6
+  profiles:
+    cattle_dairy:
+      applies_to:
+        product: [cattle_live, milk]
+        system: [dairy]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 87.0
+        nex_kg_head_yr: 57.3
+        vs_kg_head_day: 3.734
+        manure_ch4_factor_profile: cattle_low_productivity
+        n_loss_profile: dairy_cow
+        awms_share:
+          solid_storage: 0.05
+          drylot: 0.38
+          pasture_range_paddock: 0.57
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 26.4
+        nh3_housing_storage_yard_kg_head_yr: 16.1
+        nh3_manure_application_kg_head_yr: 6.0
+        nh3_grazing_kg_head_yr: 4.4
+        nox_as_no2_kg_head_yr: 0.752
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    cattle_other:
+      applies_to:
+        product: [cattle_live, milk]
+        system: [beef, dual-purpose, (unknown)]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 54.0
+        nex_kg_head_yr: 44.2
+        vs_kg_head_day: 3.382
+        manure_ch4_factor_profile: cattle_low_productivity
+        n_loss_profile: other_cattle
+        awms_share:
+          solid_storage: 0.03
+          drylot: 0.05
+          pasture_range_paddock: 0.92
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 10.0
+        nh3_housing_storage_yard_kg_head_yr: 5.7
+        nh3_manure_application_kg_head_yr: 2.2
+        nh3_grazing_kg_head_yr: 2.0
+        nox_as_no2_kg_head_yr: 0.217
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    swine_mixed:
+      applies_to:
+        product: [swine_live]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 1.0
+        nex_kg_head_yr: 14.2
+        vs_kg_head_day: 0.254
+        manure_ch4_factor_profile: swine_low_productivity
+        n_loss_profile: swine
+        awms_share:
+          uncovered_anaerobic_lagoon: 0.05
+          liquid_slurry_gt_1_month: 0.35
+          pit_storage_lt_1_month: 0.15
+          solid_storage: 0.15
+          drylot: 0.15
+          daily_spread: 0.05
+          anaerobic_digester: 0.05
+          pasture_range_paddock: 0.05
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 6.5
+        nh3_housing_storage_yard_kg_head_yr: 3.7
+        nh3_manure_application_kg_head_yr: 2.8
+        nh3_grazing_kg_head_yr: 0.0
+        nox_as_no2_kg_head_yr: 0.002
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    ovine_low:
+      applies_to:
+        product: [ovine_live]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 5.0
+        nex_kg_head_yr: 4.7
+        vs_kg_head_day: 0.328
+        manure_ch4_factor_profile: sheep_low_productivity
+        n_loss_profile: other_animals
+        awms_share:
+          solid_storage: 0.17
+          drylot: 0.03
+          pasture_range_paddock: 0.80
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 1.4
+        nh3_housing_storage_yard_kg_head_yr: 0.4
+        nh3_manure_application_kg_head_yr: 0.2
+        nh3_grazing_kg_head_yr: 0.8
+        nox_as_no2_kg_head_yr: 0.012
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    goat_low:
+      applies_to:
+        product: [goat_live]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 5.0
+        nex_kg_head_yr: 6.3
+        vs_kg_head_day: 0.369
+        manure_ch4_factor_profile: goats_low_productivity
+        n_loss_profile: other_animals
+        awms_share:
+          solid_storage: 0.17
+          drylot: 0.03
+          pasture_range_paddock: 0.80
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 1.4
+        nh3_housing_storage_yard_kg_head_yr: 0.4
+        nh3_manure_application_kg_head_yr: 0.2
+        nh3_grazing_kg_head_yr: 0.8
+        nox_as_no2_kg_head_yr: 0.012
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    horse_low:
+      applies_to:
+        product: [horse_live]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 18.0
+        nex_kg_head_yr: 41.3
+        vs_kg_head_day: 2.130
+        manure_ch4_factor_profile: horses_low_productivity
+        n_loss_profile: other_animals
+        awms_share:
+          solid_storage: 0.17
+          drylot: 0.03
+          pasture_range_paddock: 0.80
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 15.8
+        nh3_housing_storage_yard_kg_head_yr: 7.0
+        nh3_manure_application_kg_head_yr: 2.7
+        nh3_grazing_kg_head_yr: 6.1
+        nox_as_no2_kg_head_yr: 0.250
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    mule_ass_low:
+      applies_to:
+        product: [mule_live, donkey_live]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 10.0
+        nex_kg_head_yr: 14.2
+        vs_kg_head_day: 0.936
+        manure_ch4_factor_profile: mules_asses_low_productivity
+        n_loss_profile: other_animals
+        awms_share:
+          solid_storage: 0.17
+          drylot: 0.03
+          pasture_range_paddock: 0.80
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 15.8
+        nh3_housing_storage_yard_kg_head_yr: 7.0
+        nh3_manure_application_kg_head_yr: 2.7
+        nh3_grazing_kg_head_yr: 6.1
+        nox_as_no2_kg_head_yr: 0.250
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    eggs_layers:
+      applies_to:
+        product: [eggs]
+        system: [layers, (unknown)]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 0.0
+        nex_kg_head_yr: 0.49
+        vs_kg_head_day: 0.0108
+        manure_ch4_factor_profile: poultry_high_productivity
+        n_loss_profile: poultry
+        awms_share:
+          liquid_slurry_gt_1_month: 0.58
+          solid_storage: 0.42
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 0.48
+        nh3_housing_storage_yard_kg_head_yr: 0.32
+        nh3_manure_application_kg_head_yr: 0.15
+        nh3_grazing_kg_head_yr: 0.0
+        nox_as_no2_kg_head_yr: 0.0001
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
+    eggs_other_poultry:
+      applies_to:
+        product: [eggs]
+        system: [dual-purpose poultry, meat poultry]
+      ipcc_profile:
+        enteric_ch4_kg_head_yr: 0.0
+        nex_kg_head_yr: 0.42
+        vs_kg_head_day: 0.0100
+        manure_ch4_factor_profile: poultry_low_productivity
+        n_loss_profile: poultry
+        awms_share:
+          daily_spread: 0.50
+          pasture_range_paddock: 0.50
+      emep_eea_2023:
+        nh3_total_kg_head_yr: 0.17
+        nh3_housing_storage_yard_kg_head_yr: 0.13
+        nh3_manure_application_kg_head_yr: 0.04
+        nh3_grazing_kg_head_yr: 0.0
+        nox_as_no2_kg_head_yr: 0.027
+      citations:
+      - https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch10_Livestock.pdf
+      - https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023/part-b-sectoral-guidance-chapters/3-agriculture/3-b-manure-management-2023
 references_sheet_preview:
 - 'Unnamed: 0': ''
   'Unnamed: 1': Version

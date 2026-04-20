@@ -12,6 +12,51 @@ conversion_factors:
     QUINTAL: 45.359237
     TONELADA: 1000.0
     LITRO: 1.0
+crop_yield_proxies:
+  cultivated_pasture:
+    default:
+      median_kgha: 15000.0
+      min_kgha: 10000.0
+      max_kgha: 20000.0
+      yield_data_status: regional_proxy_dm_yield
+      yield_basis_note: Fallback cultivated-pasture dry-matter yield proxy for tropical improved pasture when ESPAC does not distinguish species clearly.
+    by_crop:
+      BRACHIARIA:
+        median_kgha: 25000.0
+        min_kgha: 20000.0
+        max_kgha: 30000.0
+        yield_data_status: ecuador_proxy_dm_yield
+        yield_basis_note: Cultivated-pasture dry-matter yield proxy for Brachiaria based on Ecuador evidence from humid-tropics cultivar studies and Guayas field-response studies; working range retained at 20-30 t DM/ha/year.
+      GRAMALOTE:
+        median_kgha: 15000.0
+        min_kgha: 10000.0
+        max_kgha: 20000.0
+        yield_data_status: ecuador_proxy_dm_yield
+        yield_basis_note: Cultivated-pasture dry-matter yield proxy for gramalote or Axonopus-type pasture; Ecuador references support a working range near 10-20 t DM/ha/year, with the midpoint retained as proxy.
+      SABOYA:
+        median_kgha: 25000.0
+        min_kgha: 18000.0
+        max_kgha: 33000.0
+        yield_data_status: ecuador_proxy_dm_yield
+        yield_basis_note: Cultivated-pasture dry-matter yield proxy for Saboya or Panicum maximum; Ecuador cut-based evidence is combined with tropical FAO benchmarks to retain an annualized working range of 18-33 t DM/ha/year.
+      PASTO MIEL (CHILENA):
+        median_kgha: 10000.0
+        min_kgha: 9000.0
+        max_kgha: 14000.0
+        yield_data_status: ecuador_proxy_dm_yield
+        yield_basis_note: Cultivated-pasture dry-matter yield proxy for pasto miel or Setaria-type pasture; Ecuador evidence and FAO tropical benchmarks support a working range near 9-14 t DM/ha/year.
+      PASTO MIXTO:
+        median_kgha: 17000.0
+        min_kgha: 12000.0
+        max_kgha: 25000.0
+        yield_data_status: regional_proxy_dm_yield
+        yield_basis_note: Cultivated-pasture dry-matter yield proxy for mixed pasture, set as an inferred midpoint spanning the Ecuador-supported tropical grass proxies used in this project.
+      OTROS PASTOS CULTIVADOS:
+        median_kgha: 15000.0
+        min_kgha: 10000.0
+        max_kgha: 20000.0
+        yield_data_status: regional_proxy_dm_yield
+        yield_basis_note: Fallback cultivated-pasture dry-matter yield proxy for uncategorized tropical improved pasture, retained as a conservative 10-20 t DM/ha/year range.
 energy_assumptions:
   default_diesel_l_ha_irrigated: 65.15
   default_electricity_kwh_ha_irrigated: 0.0
@@ -27,6 +72,486 @@ energy_assumptions:
       horticultural: 0.65
       perennial: 0.60
       fiber: 0.70
+livestock_feed_assumptions:
+  enabled: true
+  unit_basis: as-fed kg/head/day
+  note: Assumption-based total feed intake used to convert ESPAC feed-share fields into approximate absolute feed intensities for exploratory livestock LCIs.
+  cattle_total_feed_kg_head_day:
+    dairy: 12.0
+    dual-purpose: 10.0
+    beef: 8.0
+    (unknown): 10.0
+  swine_total_feed_kg_head_day:
+    (all swine): 2.5
+livestock_output_normalization:
+  note: Product-normalization factors for the standalone livestock pipeline. Meat-oriented livestock rows use representative live weight and carcass-yield proxies to express results per kg meat output. Milk is normalized to kg fat- and protein-corrected milk (FPCM). Eggs are normalized to kg shell eggs.
+  live_weight_kg_by_product_system:
+    cattle_live:
+      dairy: 450.0
+      dual-purpose: 400.0
+      beef: 400.0
+      (unknown): 400.0
+    milk:
+      dairy: 450.0
+      dual-purpose: 400.0
+      beef: 400.0
+      (unknown): 400.0
+    swine_live:
+      (all swine): 75.23
+    ovine_live:
+      (all ovine): 60.44
+    goat_live:
+      (all holdings): 23.0
+    meat_poultry:
+      (all holdings): 2.0
+    eggs:
+      layers: 1.514
+      dual-purpose poultry: 1.514
+      meat poultry: 1.514
+      (unknown): 1.514
+    horse_live:
+      (all holdings): 312.0
+    donkey_live:
+      (all holdings): 180.0
+    mule_live:
+      (all holdings): 350.0
+  meat_yield_fraction_by_product_system:
+    cattle_live:
+      dairy: 0.50
+      dual-purpose: 0.50
+      beef: 0.50
+      (unknown): 0.50
+    swine_live:
+      (all swine): 0.66
+    ovine_live:
+      (all ovine): 0.46
+    goat_live:
+      (all holdings): 0.46
+    meat_poultry:
+      (all holdings): 0.75
+    citations:
+      - title: FAO Technical Conversion Factors for Agricultural Commodities
+        url: https://www.fao.org/fileadmin/templates/ess/documents/methodology/tcf.pdf
+        citation_note: Uses livestock carcass-weight shares of live weight as stable meat-output proxies; the pipeline applies 50% for cattle, 66% for pigs, 46% for sheep and goats, and 75% for chicken.
+  milk:
+    normalization_product: kg FPCM
+    raw_milk_density_kg_per_l: 1.03
+    default_fat_pct: 3.69
+    default_true_protein_pct: 3.20
+    fpcm_formula:
+      source: IDF 2010
+      equation: FPCM_kg = milk_kg * (0.1226 * fat_pct + 0.0776 * true_protein_pct + 0.2534)
+    kg_fpcm_per_l_raw_milk: 0.98273742
+    liters_per_kg_fpcm: 1.017565025
+    citations:
+      - title: FAO density database
+        url: https://www.fao.org/4/ap815e/ap815e.pdf
+        citation_note: Uses 1.03 kg/L as a standard density for whole cow milk.
+      - title: Bulletin of the International Dairy Federation 445/2010
+        url: https://www.ukidf.org/documents/bulletin445.pdf
+        citation_note: Defines FPCM as milk_kg * (0.1226 * fat_pct + 0.0776 * true_protein_pct + 0.2534) using 4.0% fat and 3.3% true protein as the standard milk basis.
+      - title: Ecuador dairy meta-analysis
+        url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9658222/
+        citation_note: Reports Ecuador mean milk composition around 3.69% fat and 3.20% protein; used here as the default raw-milk composition for the FPCM conversion.
+  eggs:
+    normalization_product: kg shell eggs
+    egg_weight_kg_per_egg: 0.056699
+    eggs_per_kg: 17.63699536
+    citations:
+      - title: USDA Shell Egg Specification Guide for Consumers
+        url: https://www.ams.usda.gov/sites/default/files/media/S01ShellEggSpecGuideforVolumeBuyers.pdf
+        citation_note: Large shell eggs are 24 oz per dozen, equivalent to about 56.7 g per egg; used here as the default shell-egg mass for converting egg counts to kg.
+livestock_infra_water_electricity_proxy_table:
+  note: Direct ESPAC capture is very limited in livestock modules. The only direct infrastructure field currently used is cattle/milk milking system (`gl_sistema_ordenio`). Proxy selection now prioritizes Ecuador sources first, then Latin American and FAO sources, and finally non-regional fallback references where no stronger source was found. Water and electricity proxies are exported with explicit provenance fields.
+  cattle_live:
+    dairy:
+      infrastructure_proxy: Latin American dairy cattle holding with milking area, wash water, and milk cooling
+      water_l_head_day: 66.0
+      electricity_kwh_head_day: 1.5
+      citations:
+        - title: FAO small-scale dairy manual
+          url: https://www.fao.org/4/t1265e/t1275e01.htm
+          citation_note: Uses 4 to 6 L water per kg dry matter intake; the worked example for a 300 kg cow producing 10 kg milk/day gives about 66 L/day, adopted here as the dairy drinking-water proxy.
+        - title: FAO Livestock housing water requirements
+          url: https://www.fao.org/3/S1250E/S1250E12.htm
+          citation_note: Reports dry dairy cow water requirements around 40 to 60 L/day, supporting the order of magnitude adopted for low-intensity tropical dairy systems.
+        - title: Uruguay MGAP dairy intermediate-consumption report
+          url: https://www.gub.uy/ministerio-ganaderia-agricultura-pesca/sites/ministerio-ganaderia-agricultura-pesca/files/documentos/publicaciones/informe_consumo_intermedio.pdf
+          citation_note: Provides Latin American dairy infrastructure energy benchmarks for milking-room electricity and milk cooling; a rounded 1.5 kWh/cow/day proxy was adopted as a moderate regional milking-plus-cooling estimate.
+    dual-purpose:
+      infrastructure_proxy: pasture-based dual-purpose cattle holding
+      water_l_head_day: 50.0
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: FAO Livestock housing water requirements
+          url: https://www.fao.org/3/S1250E/S1250E12.htm
+          citation_note: Reports dry dairy cow water requirements around 40 to 60 L/day; the midpoint 50 L/day was adopted for dual-purpose cattle where milk intensity is lower than specialized dairy.
+    beef:
+      infrastructure_proxy: pasture-based beef cattle holding
+      water_l_head_day: 50.0
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: FAO Livestock housing water requirements
+          url: https://www.fao.org/3/S1250E/S1250E12.htm
+          citation_note: Reports dry dairy cow water requirements around 40 to 60 L/day; the midpoint 50 L/day was adopted for beef cattle.
+    (unknown):
+      infrastructure_proxy: cattle holding, system unspecified
+      water_l_head_day: 50.0
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: FAO Livestock housing water requirements
+          url: https://www.fao.org/3/S1250E/S1250E12.htm
+          citation_note: Reports dry dairy cow water requirements around 40 to 60 L/day; the midpoint 50 L/day was adopted when the cattle system is unspecified.
+  milk:
+    dairy:
+      infrastructure_proxy: Latin American dairy milking and milk-handling setup
+      water_l_head_day: 66.0
+      electricity_kwh_head_day: 1.5
+      citations:
+        - title: FAO small-scale dairy manual
+          url: https://www.fao.org/4/t1265e/t1275e01.htm
+          citation_note: Uses 4 to 6 L water per kg dry matter intake; the worked example for a 300 kg cow producing 10 kg milk/day gives about 66 L/day, adopted here as the milk-row water proxy.
+        - title: FAO Milking, milk collection and transport
+          url: https://www.fao.org/4/i2433e/i2433e07.pdf
+          citation_note: Gives wash-water benchmarks for hand, bucket, and pipeline milking plus plate-cooler water loads, supporting a dedicated dairy handling infrastructure proxy.
+        - title: Uruguay MGAP dairy intermediate-consumption report
+          url: https://www.gub.uy/ministerio-ganaderia-agricultura-pesca/sites/ministerio-ganaderia-agricultura-pesca/files/documentos/publicaciones/informe_consumo_intermedio.pdf
+          citation_note: Provides Latin American dairy infrastructure energy benchmarks for milking-room electricity and milk cooling; a rounded 1.5 kWh/cow/day proxy was adopted as a moderate regional milking-plus-cooling estimate.
+    dual-purpose:
+      infrastructure_proxy: small-scale milk handling setup in dual-purpose cattle system
+      water_l_head_day: 60.0
+      electricity_kwh_head_day: 0.6
+      citations:
+        - title: FAO small-scale dairy manual
+          url: https://www.fao.org/4/t1265e/t1275e01.htm
+          citation_note: Lactating-cow water use increases with dry matter intake and milk output; a reduced 60 L/day proxy was retained for lower-intensity dual-purpose milk systems.
+        - title: Uruguay MGAP dairy intermediate-consumption report
+          url: https://www.gub.uy/ministerio-ganaderia-agricultura-pesca/sites/ministerio-ganaderia-agricultura-pesca/files/documentos/publicaciones/informe_consumo_intermedio.pdf
+          citation_note: Latin American dairy energy benchmarks were scaled down to 0.6 kWh/head/day for lower-intensity dual-purpose milk handling.
+    beef:
+      infrastructure_proxy: occasional milk handling within beef-oriented cattle holding
+      water_l_head_day: 60.0
+      electricity_kwh_head_day: 0.3
+      citations:
+        - title: FAO small-scale dairy manual
+          url: https://www.fao.org/4/t1265e/t1275e01.htm
+          citation_note: Lactating-cow water use increases with dry matter intake and milk output; a reduced 60 L/day proxy was retained for low-intensity milk output in non-dairy systems.
+        - title: Uruguay MGAP dairy intermediate-consumption report
+          url: https://www.gub.uy/ministerio-ganaderia-agricultura-pesca/sites/ministerio-ganaderia-agricultura-pesca/files/documentos/publicaciones/informe_consumo_intermedio.pdf
+          citation_note: Latin American dairy energy benchmarks were strongly downscaled to 0.3 kWh/head/day for occasional milk handling in beef-oriented systems.
+    (unknown):
+      infrastructure_proxy: milk handling setup, system unspecified
+      water_l_head_day: 60.0
+      electricity_kwh_head_day: 0.6
+      citations:
+        - title: FAO small-scale dairy manual
+          url: https://www.fao.org/4/t1265e/t1275e01.htm
+          citation_note: Lactating-cow water use increases with dry matter intake and milk output; a reduced 60 L/day proxy was retained for milk rows with unspecified system.
+        - title: Uruguay MGAP dairy intermediate-consumption report
+          url: https://www.gub.uy/ministerio-ganaderia-agricultura-pesca/sites/ministerio-ganaderia-agricultura-pesca/files/documentos/publicaciones/informe_consumo_intermedio.pdf
+          citation_note: Latin American dairy energy benchmarks were scaled to 0.6 kWh/head/day for milk rows with unspecified system.
+  swine_live:
+    (all swine):
+      infrastructure_proxy: Ecuador smallholder pigsty or swine pen with feeder and drinker
+      water_l_head_day: 7.0
+      electricity_kwh_head_day: 0.062
+      citations:
+        - title: FAO Livestock housing for pigs
+          url: https://www.fao.org/3/s1250e/S1250E14.htm
+          citation_note: Pig water consumption varies by class from about 2.5 L/day at 25 kg to 7.0 L/day at 90 to 120 kg; 7.0 L/head/day was adopted as a practical market-pig proxy for mixed ESPAC swine rows.
+        - title: Caracterización de granjas porcinas de Banasur, Pasaje, El Oro
+          url: https://polodelconocimiento.com/ojs/index.php/es/article/view/1043/html
+          citation_note: Provides Ecuador smallholder swine-system context and supports the use of a simple pen-based infrastructure proxy, although it does not provide a clean biological drinking-water factor.
+        - title: National Hog Farmer study summary
+          url: https://www.nationalhogfarmer.com/livestock-management/study-goes-to-pig-barns-to-find-actual-energy-use
+          citation_note: Finishing-barn electricity around 11.2 kWh per finished pig produced was annualized over a 180-day finishing period to derive a daily proxy.
+  ovine_live:
+    (all ovine):
+      infrastructure_proxy: grazing ovine holding with shelter and trough
+      water_l_head_day: 7.6
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: FAO-linked livestock watering structures guideline
+          url: https://www.fao.org/fileadmin/user_upload/emergencies/docs/UNEP_FAO_South_Sudan_WH_Structures_guidelines.pdf
+          citation_note: Reports feeder lamb and kid water requirements around 7.6 L/day and adult ewe or doe requirements above that level; 7.6 L/head/day was retained as a conservative live-animal proxy for mixed ovine rows.
+  goat_live:
+    (all holdings):
+      infrastructure_proxy: grazing goat holding with shelter and trough
+      water_l_head_day: 9.5
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: FAO-linked livestock watering structures guideline
+          url: https://www.fao.org/fileadmin/user_upload/emergencies/docs/UNEP_FAO_South_Sudan_WH_Structures_guidelines.pdf
+          citation_note: Reports ewe or doe water requirements around 9.5 L/day and milking ewe or doe requirements around 13.2 L/day; 9.5 L/head/day was adopted as a general goat live-animal proxy.
+  meat_poultry:
+    (all holdings):
+      infrastructure_proxy: broiler house or coop for meat birds
+      water_l_head_day: 0.275
+      electricity_kwh_head_day: 0.005
+      citations:
+        - title: FAO Rural structures in the tropics
+          url: https://www.fao.org/4/s1250e/S1250E0q.htm
+          citation_note: Table 10.15 reports broiler drinking-water requirements around 0.20 to 0.35 L/bird/day at 9 to 12 weeks; the midpoint 0.275 L/bird/day was adopted.
+        - title: Iowa layer-house electricity summary
+          url: https://blogs.millersville.edu/aest/2022/05/13/dr-haughery-publishes-research-findings/
+          citation_note: In the absence of a stronger broiler electricity factor in ESPAC, a conservative small-poultry-house electricity proxy of 0.005 kWh/bird/day was retained.
+  horse_live:
+    (all holdings):
+      infrastructure_proxy: horse holding with shelter, trough, and simple handling area
+      water_l_head_day: 45.0
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: WSU horse winter water note
+          url: https://s3.wp.wsu.edu/uploads/sites/2070/2024/01/1.24.pdf
+          citation_note: Horses need at least 10 to 12 gallons/day; a rounded 45 L/day proxy was adopted.
+  donkey_live:
+    (all holdings):
+      infrastructure_proxy: donkey holding with shelter and trough
+      water_l_head_day: 18.0
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: WSU horse winter water note
+          url: https://s3.wp.wsu.edu/uploads/sites/2070/2024/01/1.24.pdf
+          citation_note: Donkey water proxy was scaled from the horse baseline by representative body weight because no ESPAC or Ecuador-specific donkey water field was available.
+  mule_live:
+    (all holdings):
+      infrastructure_proxy: mule holding with shelter and trough
+      water_l_head_day: 35.0
+      electricity_kwh_head_day: 0.0
+      citations:
+        - title: WSU horse winter water note
+          url: https://s3.wp.wsu.edu/uploads/sites/2070/2024/01/1.24.pdf
+          citation_note: Mule water proxy was scaled from the horse baseline by representative body weight because no ESPAC or Ecuador-specific mule water field was available.
+  eggs:
+    layers:
+      infrastructure_proxy: layer house or coop with drinkers and lighting
+      water_l_head_day: 0.222
+      electricity_kwh_head_day: 0.0101
+      citations:
+        - title: Producción sostenible en avicultura
+          url: https://dokumen.pub/produccion-sostenible-en-avicultura-l-6359269.html
+          citation_note: Reports 222.03 L per 1000 hens per day, equivalent to 0.222 L/hen/day; used as the preferred Latin American-style layer water proxy.
+        - title: FAO small-scale poultry production
+          url: https://www.fao.org/4/y4628e/y4628e03.htm
+          citation_note: Reports that a laying hen can consume up to about 0.25 L/day of water, supporting the adopted 0.222 L/hen/day proxy.
+        - title: Iowa layer-house electricity summary
+          url: https://blogs.millersville.edu/aest/2022/05/13/dr-haughery-publishes-research-findings/
+          citation_note: Layer-house electricity around 10.1 kWh/day per 1000 birds was used, equivalent to 0.0101 kWh/bird/day.
+    dual-purpose poultry:
+      infrastructure_proxy: small poultry house or coop
+      water_l_head_day: 0.222
+      electricity_kwh_head_day: 0.005
+      citations:
+        - title: Producción sostenible en avicultura
+          url: https://dokumen.pub/produccion-sostenible-en-avicultura-l-6359269.html
+          citation_note: Reports 222.03 L per 1000 hens per day, equivalent to 0.222 L/hen/day; used as the preferred practical water proxy for dual-purpose poultry rows.
+        - title: FAO small-scale poultry production
+          url: https://www.fao.org/4/y4628e/y4628e03.htm
+          citation_note: Reports that a laying hen can consume up to about 0.25 L/day of water, supporting the adopted 0.222 L/hen/day proxy.
+        - title: Iowa layer-house electricity summary
+          url: https://blogs.millersville.edu/aest/2022/05/13/dr-haughery-publishes-research-findings/
+          citation_note: A reduced fraction of the layer-house benchmark was retained as a small-scale poultry electricity fallback because no stronger Ecuador, Latin American, or FAO per-bird electricity factor was identified.
+    meat poultry:
+      infrastructure_proxy: poultry house or coop for meat birds
+      water_l_head_day: 0.222
+      electricity_kwh_head_day: 0.005
+      citations:
+        - title: Producción sostenible en avicultura
+          url: https://dokumen.pub/produccion-sostenible-en-avicultura-l-6359269.html
+          citation_note: Reports 222.03 L per 1000 hens per day, equivalent to 0.222 L/hen/day; used as the preferred practical water proxy for poultry rows where ESPAC does not isolate broiler water demand.
+        - title: FAO small-scale poultry production
+          url: https://www.fao.org/4/y4628e/y4628e03.htm
+          citation_note: Reports that a laying hen can consume up to about 0.25 L/day of water, supporting the adopted 0.222 L/hen/day proxy.
+        - title: Iowa layer-house electricity summary
+          url: https://blogs.millersville.edu/aest/2022/05/13/dr-haughery-publishes-research-findings/
+          citation_note: A reduced fraction of the layer-house benchmark was retained as a small-scale poultry electricity fallback because no stronger Ecuador, Latin American, or FAO per-bird electricity factor was identified.
+    (unknown):
+      infrastructure_proxy: poultry shelter or coop, system unspecified
+      water_l_head_day: 0.222
+      electricity_kwh_head_day: 0.005
+      citations:
+        - title: Producción sostenible en avicultura
+          url: https://dokumen.pub/produccion-sostenible-en-avicultura-l-6359269.html
+          citation_note: Reports 222.03 L per 1000 hens per day, equivalent to 0.222 L/hen/day; used as the preferred practical water proxy for unspecified poultry rows.
+        - title: FAO small-scale poultry production
+          url: https://www.fao.org/4/y4628e/y4628e03.htm
+          citation_note: Reports that a laying hen can consume up to about 0.25 L/day of water, supporting the adopted 0.222 L/hen/day proxy.
+        - title: Iowa layer-house electricity summary
+          url: https://blogs.millersville.edu/aest/2022/05/13/dr-haughery-publishes-research-findings/
+          citation_note: A reduced poultry-house electricity proxy was retained as a fallback where ESPAC does not distinguish the shelter or lighting setup and no stronger Ecuador, Latin American, or FAO per-bird electricity factor was identified.
+livestock_diet_proxy_table:
+  eggs:
+    applies_to:
+      product: eggs
+    proxy_quality: Ecuador direct
+    intake_kg_head_day: 0.081
+    intake_basis: as-fed
+    representative_body_weight_kg:
+    ration_split_pct:
+      forage: 0.0
+      tree_forage: 0.0
+      compound_feed: 100.0
+      mineral: 0.0
+    proxy_components_kg_head_day:
+      forage: 0.0
+      tree_forage: 0.0
+      compound_feed: 0.081
+      mineral: 0.0
+    note: Semipasture or free-range scavenging was not quantified in the source; proxy covers balanced feed only.
+    citations:
+      - title: Evaluación de parámetros productivos en crianza de gallinas criollas (gallina feliz). Patoa de Vallejo-Pujilí
+        url: https://repositorio.utc.edu.ec/handle/27000/7769
+        citation_note: Reports 0.081 ± 0.002 kg balanced feed per hen per day in a semipasture system in Cotopaxi.
+  ovine_live:
+    applies_to:
+      product: ovine_live
+    proxy_quality: Ecuador composite
+    intake_kg_head_day: 1.272
+    intake_basis: dry-matter
+    representative_body_weight_kg: 60.44
+    ration_split_pct:
+      forage: 78.1
+      tree_forage: 21.5
+      compound_feed: 0.0
+      mineral: 0.4
+    proxy_components_kg_head_day:
+      forage: 0.994
+      tree_forage: 0.273
+      compound_feed: 0.0
+      mineral: 0.005
+    note: Composite Ecuador proxy. Total intake is based on an ovine feeding trial; tree-forage share comes from Acacia mearnsii voluntary intake; mineral intake comes from a Blackbelly sheep grazing study in the Ecuadorian Amazon.
+    citations:
+      - title: UTA thesis by Erika Esthefanía Lluay Guilcapi (bitstream 32507)
+        url: https://repositorio.uta.edu.ec/bitstream/123456789/32507/1/Tesis%20182%20Medicina%20Veterinaria%20y%20Zootecnia%20-Lluay%20Guilcapi%20Erika%20Esthefan%C3%ADa.pdf
+        citation_note: Reports voluntary dry matter intake of 1268.85 g/day in weaned sheep in Ecuador.
+      - title: Evaluación de la preferencia de consumo de leguminosas arbóreas con potencial forrajero en rumiantes menores
+        url: https://repositorio.uta.edu.ec/items/770d67bf-97e2-485a-8227-d941b7f4e1b2
+        citation_note: Reports ovine Acacia mearnssi voluntary intake of 272.50 g/kg MS and 12.60 g/kg PV^0.75 at 60.44 kg live weight.
+      - title: Effect of Mineral Supplementation on the Macromineral Concentration in Blood in Pre- and Postpartum Blackbelly Sheep
+        url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7401505/
+        citation_note: Reports 0.005 kg per animal per day mineral supplementation under free-grazing conditions in the Ecuadorian Amazon.
+  goat_live:
+    applies_to:
+      product: goat_live
+    proxy_quality: Ecuador plus fallback composite
+    intake_kg_head_day: 1.011
+    intake_basis: dry-matter
+    representative_body_weight_kg: 23.0
+    ration_split_pct:
+      forage: 79.0
+      tree_forage: 21.0
+      compound_feed: 0.0
+      mineral: 0.0
+    proxy_components_kg_head_day:
+      forage: 0.799
+      tree_forage: 0.212
+      compound_feed: 0.0
+      mineral: 0.0
+    note: Composite proxy. Total intake is a fallback mature-doe dry matter intake example; tree-forage share is based on Ecuadorian caprine preference data and native browse literature from the Ecuadorian Sierra.
+    citations:
+      - title: Evaluación de la preferencia de consumo de leguminosas arbóreas con potencial forrajero en rumiantes menores
+        url: https://repositorio.uta.edu.ec/items/770d67bf-97e2-485a-8227-d941b7f4e1b2
+        citation_note: Reports caprine Acacia melanoxylon voluntary intake of 211.07 g/kg MS and 20.155 g/kg PV^0.75 at 23 kg live weight.
+      - title: Cabras Lecheras Selección y Hábitos de Consumo de Plantas Nativas en la Sierra Ecuatoriana
+        url: https://polodelconocimiento.com/ojs/index.php/es/article/download/7592/pdf
+        citation_note: Ecuador review identifying native browse and shrub resources as a central component of dairy goat feeding in the Sierra.
+      - title: Goat Nutrition
+        url: https://sfyl.ifas.ufl.edu/duval/agriculture-and-agribusiness-management/livestock-and-poultry/goats/goat-nutrition/
+        citation_note: Provides a mature-doe dry matter intake example of about 1.011 kg/day (2.23 lb/day) used as fallback total intake.
+  meat_poultry:
+    applies_to:
+      product: meat_poultry
+    proxy_quality: FAO direct
+    intake_kg_head_day: 0.068
+    intake_basis: as-fed
+    representative_body_weight_kg: 2.0
+    ration_split_pct:
+      forage: 0.0
+      tree_forage: 0.0
+      compound_feed: 100.0
+      mineral: 0.0
+    proxy_components_kg_head_day:
+      forage: 0.0
+      tree_forage: 0.0
+      compound_feed: 0.068
+      mineral: 0.0
+    note: Broiler feed proxy based on FAO cumulative feed demand of 4 to 6 kg per bird to reach 2 kg live weight by 9 to 12 weeks, converted to an average daily intake.
+    citations:
+      - title: FAO Rural structures in the tropics
+        url: https://www.fao.org/4/s1250e/S1250E0q.htm
+        citation_note: Reports that one broiler grown from day-old chick to 2 kg live weight at 9 to 12 weeks requires 4 to 6 kg feed; the midpoint was annualized to about 0.068 kg/bird/day.
+  horse_live:
+    applies_to:
+      product: horse_live
+    proxy_quality: Non-Ecuador fallback inference
+    intake_kg_head_day: 6.75
+    intake_basis: dry-matter
+    representative_body_weight_kg: 312.0
+    ration_split_pct:
+      forage: 100.0
+      tree_forage: 0.0
+      compound_feed: 0.0
+      mineral: 0.0
+    proxy_components_kg_head_day:
+      forage: 6.75
+      tree_forage: 0.0
+      compound_feed: 0.0
+      mineral: 0.0
+    note: Derived as 1.5% of body weight in forage dry matter for a representative Ecuadorian criollo horse at the midpoint of the reported 290 to 334 kg live-weight range.
+    citations:
+      - title: Caracterización cromohipológica y zoométrica de caballos criollos
+        url: https://redi.cedia.edu.ec/document/74588
+        citation_note: Reports an approximate live-weight range of 290 to 334 kg for the evaluated Ecuadorian criollo horse population; the midpoint was used as the representative horse live weight.
+      - title: Understanding Hay Quality Even Good Hay Can Have Bad Things In It
+        url: https://aaep.org/post/understanding-hay-quality-even-good-hay-can-have-bad-things-in-it/
+        citation_note: AAEP guidance indicates horses should receive about 1 to 1.5% of body weight in forage; proxy uses the upper end and the Ecuadorian criollo horse weight midpoint adopted above.
+  donkey_live:
+    applies_to:
+      product: donkey_live
+    proxy_quality: Non-Ecuador fallback inference
+    intake_kg_head_day: 3.6
+    intake_basis: dry-matter
+    representative_body_weight_kg: 180.0
+    ration_split_pct:
+      forage: 100.0
+      tree_forage: 0.0
+      compound_feed: 0.0
+      mineral: 0.0
+    proxy_components_kg_head_day:
+      forage: 3.6
+      tree_forage: 0.0
+      compound_feed: 0.0
+      mineral: 0.0
+    note: Derived as 2.0% of body weight in dry matter, using the midpoint of the 1.75% to 2.25% maintenance guideline for a representative 180 kg donkey.
+    citations:
+      - title: Management recommendations for donkeys and mules
+        url: https://www.ontario.ca/page/management-recommendations-donkeys-and-mules
+        citation_note: Ontario guidance gives 1.75% to 2.25% of body weight dry matter intake for maintenance in donkeys and mules; proxy uses the midpoint and a representative 180 kg body weight.
+      - title: Feeding Donkeys Straw and Hay Q and A with The Donkey Sanctuary
+        url: https://www.thehaypillow.com/blogs/news/feeding-donkeys-straw-and-hay-q-a-with-the-donkey-sanctuary
+        citation_note: Reports research-based guidance that donkeys need about 1.5% of their body weight per day in dry feed, supporting a forage-first maintenance proxy.
+  mule_live:
+    applies_to:
+      product: mule_live
+    proxy_quality: Non-Ecuador fallback inference
+    intake_kg_head_day: 7.0
+    intake_basis: dry-matter
+    representative_body_weight_kg: 350.0
+    ration_split_pct:
+      forage: 100.0
+      tree_forage: 0.0
+      compound_feed: 0.0
+      mineral: 0.0
+    proxy_components_kg_head_day:
+      forage: 7.0
+      tree_forage: 0.0
+      compound_feed: 0.0
+      mineral: 0.0
+    note: Derived as 2.0% of body weight in dry matter, using the midpoint of the 1.75% to 2.25% maintenance guideline for a representative 350 kg mule.
+    citations:
+      - title: Management recommendations for donkeys and mules
+        url: https://www.ontario.ca/page/management-recommendations-donkeys-and-mules
+        citation_note: Ontario guidance gives 1.75% to 2.25% of body weight dry matter intake for maintenance in donkeys and mules; proxy uses the midpoint and a representative 350 kg body weight.
 irrigation_efficiency_by_equipment:
   surcos: 0.575
   aspersión: 0.65
