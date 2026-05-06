@@ -1,0 +1,6 @@
+sheet_name,header_row_detected,rows_raw,cols_raw,rows_clean,cols_clean,non_null_cells
+ESPAC,1,32,23,29,22,164
+regional differences,3,28,27,23,22,164
+comparisons,1,20,24,18,14,132
+individual tropical crops,10,93,146,81,146,892
+uncertainty,2,70,9,62,9,537

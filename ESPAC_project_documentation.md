@@ -103,7 +103,6 @@ This is the main 2024 ESPAC raw delivery used by notebook 1 to build the analyti
 
 - `inputs/02_LCI_template.xlsx`
 - `inputs/04-05_Model_annual_crops.XML`
-- `inputs/04_Model_annual_crops_edited.XML`
 - `inputs/livestock00001.XML`
 - `inputs/livestock00002.XML`
 - `inputs/livestock00003.XML`
@@ -140,15 +139,18 @@ These files store most of the configurable project logic, including:
 ### Shared and intermediate outputs
 
 - `outputs/01_espac_2024.sqlite`
+- `outputs/pipeline_run_manifest.json`
 - `outputs/02_latest_filtered_export_summary.json`
 - `outputs/02_latest_livestock_filtered_export_summary.json`
 
-These JSON files record the currently selected filtered export metadata for the crop and livestock branches.
+`outputs/pipeline_run_manifest.json` is now the authoritative run registry used to track immutable stage snapshots (`02`, `03-05`, and `05_xml`) and to resolve notebook 6 data runs.
+The `02_latest_...json` files remain for compatibility and convenience, but they are advisory when manifest records exist.
 
 ### Crop CSV outputs
 
 Tracked crop filtered outputs currently include:
 
+- `summary_province`
 - `summary_region`
 - `summary_crop_national`
 - `summary_cropping_system`
@@ -156,6 +158,7 @@ Tracked crop filtered outputs currently include:
 
 Tracked crop DFE outputs currently include:
 
+- `outputs/CSVs/03-05_espac_crop_lci_table_filtered_dfe__summary_province.csv`
 - `outputs/CSVs/03-05_espac_crop_lci_table_filtered_dfe__summary_region.csv`
 - `outputs/CSVs/03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national.csv`
 - `outputs/CSVs/03-05_espac_crop_lci_table_filtered_dfe__summary_cropping_system.csv`
@@ -172,6 +175,8 @@ Tracked livestock outputs currently include summary tables for:
 - `national`
 - `product`
 
+Livestock summary tables now include explicit product-routed animal input columns, such as `Animal_input_calf_live_weight_kg_per_1kg_product`, `Animal_input_piglet_live_weight_kg_per_1kg_product`, and `Animal_input_kid_goat_live_weight_kg_per_1kg_product`. These columns are generated during the CSV stage so downstream DFE and XML steps do not have to infer the concerned animal from the shared `Animals_total_live_weight_kg_per_1kg_product` value. Where the routed animal input is an economically allocated technosphere process, notebook 2 applies the process allocation factor directly to the median, minimum, and maximum values before export. For cattle, swine, and ovine meat rows, notebook 2 also applies an `Animal_input_age_related_factor` before aggregation so uncertainty bounds are based on ESPAC stock/outflow variation rather than a flat carcass-yield constant; goat kid-goat and meat-poultry one-day-chicken bounds use aggregate live-weight/reference-output ranges when no usable sales/outflow field is available. CSV-stage non-pasture compound-feed components (`Supplement_feed_kg_per_1kg_product`, `Common_feed_kg_per_1kg_product`, `Waste_feed_kg_per_1kg_product`, `Unallocated_feed_kg_per_1kg_product`, and `Proxy_compound_feed_kg_per_1kg_product`) are scaled by the ratio between the routed animal input and the generic animal live-weight basis before feed totals are recomputed, so compound feed follows the concerned input animal rather than the unallocated herd basis.
+
 Tracked livestock DFE outputs currently include:
 
 - `outputs/CSVs/03-05_espac_livestock_lci_table_filtered_dfe__summary_region.csv`
@@ -187,12 +192,28 @@ Additional synthetic or locked diagnostic exports may exist locally, but they ar
 Tracked crop XML outputs currently exist in:
 
 - `outputs/05_xml_exports_crop_lci/summary_crop_group_national/`
-- `outputs/05_xml_exports_crop_lci/summary_crop_national/`
-- `outputs/05_xml_exports_crop_lci/summary_region/`
+- `outputs/05_xml_exports_crop_lci/summary_province/` (currently empty)
 
 Tracked livestock XML outputs currently exist in:
 
 - `outputs/05_xml_exports_livestock_lci/summary_product/`
+
+### Numbered summary strategies used in XML filenames
+
+XML filenames now use compact numbered strategy tags in the form `strategy_X`, where `X` is the project-wide strategy identifier below.
+
+- `strategy_1`: `province` — applies to `both` crops and livestock
+- `strategy_2`: `region` — applies to `both` crops and livestock
+- `strategy_3`: `crop_national` — applies to `crops`
+- `strategy_4`: `cropping_system` — applies to `crops`
+- `strategy_5`: `irrig_m3_class` — applies to `crops`
+- `strategy_6`: `farm_size_class` — applies to `crops`
+- `strategy_7`: `crop_group` — applies to `crops`
+- `strategy_8`: `crop_group_national` — applies to `crops`
+- `strategy_9`: `product` — applies to `livestock`
+- `strategy_10`: `national` — applies to `livestock`
+
+These identifiers are shared across crop and livestock XML generation so the filename convention stays stable across branches.
 
 ## 7. Workflow summary
 
@@ -228,12 +249,34 @@ Current crop summary levels reflected in the repo include:
 
 Cultivated pasture is treated as part of the crop-side foreground system and exported with its own grouping behavior.
 
+#### 7.2.1 Curated crop-group membership source
+
+Crop-group membership (for example `cereals`, `fruits`, `vegetables`) is maintained as a curated list in:
+
+- `scripts/crop_groups.py` (`_build_curated_map`)
+
+This file is the authoritative implementation used by the crop pipeline when assigning `Crop_group` values.
+
+Project notes describing the intended constituency list are also recorded in:
+
+- `ToDo.txt` (section beginning with "improve the crop groups management strategy...")
+
+Only four explicit exception labels are allowed to use rule-based routing outside the curated direct map:
+
+- `OTROS PERMANENTES`
+- `OTROS TRANSITORIOS`
+- `VIVEROS DE PERMANENTES`
+- `VIVEROS TRANSITORIOS`
+
+All other crop-group assignments should come from the curated list in `scripts/crop_groups.py`.
+
 ### 7.3 Notebook 2 livestock: livestock LCI extraction and aggregation
 
 `notebooks/2_livestock_espac_2024_sqlite_explorer.ipynb`:
 
 - extracts livestock, milk, and egg records from livestock-related ESPAC modules;
 - converts them into livestock LCI tables;
+- assigns explicit product-routed animal input columns for meat, milk, and egg inventories;
 - applies aggregation and uncertainty export logic;
 - exports filtered livestock summary tables.
 
@@ -253,16 +296,93 @@ The livestock pipeline also writes a cattle pasture linkage diagnostic:
 
 That file is useful diagnostically but should be treated as a supporting analysis table rather than a final LCI product.
 
+#### 7.3.1 Milk cow productive-life determination (latest update)
+
+Milk live-weight normalization in notebook 2 now amortizes producing-cow biomass over an explicit Ecuador milk-producing-years parameter.
+
+Current implementation:
+
+- parameter key: `livestock_output_normalization.milk.producing_years_ec`
+- parameter file value: `5.5` years in `inputs/02-05_espac_lci_coefficients.yml`
+- notebook fallback default aligned to `5.5` in `notebooks/2_livestock_espac_2024_sqlite_explorer.ipynb`
+
+The internal ESPAC hint used for calibration comes from a weighted stock/outflow ratio built from survey variables:
+
+- weighted milking-cow stock proxy: `gl_k812 + gl_vacajeord`
+- weighted annual adult-cow outflow proxy: `vgv_nchvacas`
+- expansion factor: `fact_exp_fin`
+
+Computed national hint (latest run):
+
+- `sum((gl_k812 + gl_vacajeord) * fact_exp_fin) / sum(vgv_nchvacas * fact_exp_fin) = 6.933344` years
+
+Reproducible estimator snippet (Python + SQLite):
+
+```python
+import sqlite3
+import pandas as pd
+
+conn = sqlite3.connect("outputs/01_espac_2024.sqlite")
+gl = pd.read_sql_query(
+    "SELECT identificador, fact_exp_fin, gl_k812, gl_vacajeord FROM inec_glnac",
+    conn,
+)
+vgv = pd.read_sql_query(
+    "SELECT identificador, vgv_nchvacas FROM inec_vgvnac",
+    conn,
+)
+conn.close()
+
+def num(s):
+    return pd.to_numeric(s, errors="coerce").fillna(0.0)
+
+gl = gl.groupby("identificador", as_index=False).first()
+vgv = vgv.groupby("identificador", as_index=False).first()
+
+gl["w"] = pd.to_numeric(gl["fact_exp_fin"], errors="coerce").fillna(0.0)
+gl["milked_cows"] = num(gl["gl_k812"]) + num(gl["gl_vacajeord"])
+vgv["sold_adult_cows"] = num(vgv["vgv_nchvacas"])
+
+m = gl[["identificador", "w", "milked_cows"]].merge(
+    vgv[["identificador", "sold_adult_cows"]],
+    on="identificador",
+    how="left",
+).fillna(0.0)
+
+years_hint = (m["milked_cows"] * m["w"]).sum() / (m["sold_adult_cows"] * m["w"]).sum()
+print(years_hint)  # 6.933344 (latest run)
+```
+
+Because the project decision target for milk-cow productive age was constrained to a 5 to 6 year range, the operational value was set to `5.5` years as a conservative midpoint within that band.
+
+#### 7.3.2 Egg laying-hen productive-life determination
+
+Egg live-weight and hen-feed normalization now follows the same productive-life amortization pattern used for milk-producing cows.
+
+Current implementation:
+
+- parameter key: `livestock_output_normalization.eggs.producing_years_ec`
+- parameter file value: `1.5` years in `inputs/02-05_espac_lci_coefficients.yml`
+- egg output period key: `livestock_output_normalization.eggs.output_periods_per_year`
+- egg output period value: `52`, because ESPAC `ap_k1238`/`ap_k1240` egg counts are treated as weekly egg output/destination counts before conversion to annual kg shell eggs
+- notebook fallback default aligned to `1.5` in `notebooks/2_livestock_espac_2024_sqlite_explorer.ipynb`
+
+Notebook 2 annualizes reported egg counts with 52 periods/year before converting to kg shell eggs. It also applies the productive-life parameter before CSV export by dividing laying-hen live weight and per-head feed proxy columns by the configured egg-producing years. The resulting `Animal_input_laying_hen_live_weight_kg_per_1kg_product` and feed-per-kg columns are therefore already productive-life amortized before DFE and XML generation. The CSV-stage compound-feed proportionality rule also applies to egg proxy and total feed, although the current egg ratio is one because the routed laying-hen input and generic laying-hen live-weight basis are aligned after productive-life normalization.
+
+Egg land occupation and transformation are also populated from the configured non-cage layer-house area proxy in `livestock_infra_water_electricity_proxy_table.eggs` (`area_m2_head = 0.286`, using `producing_animals_head`). Notebook 2 converts this to `Infrastructure_area_ha` and fills `Area_ha` where no direct ESPAC poultry area is available, so `Area_ha_per_1kg_product` is available for the strategy 9 XML land-use exchanges.
+
 ### 7.4 Notebook 3 crops: crop DFE augmentation
 
 `notebooks/3_crops_espac_direct_field_emissions.ipynb`:
 
 - reads the filtered crop summary selected in `outputs/02_latest_filtered_export_summary.json`;
 - adds crop direct field emission estimates;
-- exports DFE-augmented crop tables and uncertainty tables.
+- exports DFE-augmented crop tables and uncertainty tables;
+- writes immutable stage `03-05` snapshots and appends validated run records to `outputs/pipeline_run_manifest.json`.
 
 The crop DFE stage currently supports the committed summary outputs present in the repo, especially:
 
+- `summary_province`
 - `summary_region`
 - `summary_crop_national`
 - `summary_crop_group_national`
@@ -274,9 +394,18 @@ The crop DFE stage currently supports the committed summary outputs present in t
 
 - reads the filtered livestock summary selected in `outputs/02_latest_livestock_filtered_export_summary.json`;
 - applies the current exploratory livestock DFE logic;
-- exports DFE-augmented livestock tables and uncertainty tables.
+- exports DFE-augmented livestock tables and uncertainty tables;
+- writes immutable stage `03-05` snapshots and appends validated run records to `outputs/pipeline_run_manifest.json`.
+
+The livestock DFE outputs retain the routed animal-input columns from notebook 2. This keeps the animal technosphere basis explicit in the DFE-augmented CSVs and avoids later reuse of one generic live-weight value across several animal exchanges.
 
 The livestock DFE branch is explicitly exploratory and proxy-heavy. It is operational, but its outputs should still be documented carefully as a developing component.
+
+Latest consistency update:
+
+- the milk lifetime constant in notebook 3 was aligned with notebook 2's 5.5-year setting;
+- `MILK_PRODUCTIVE_LIFE_LACTATIONS` is now `6.581967213114754` (equivalent to 5.5 years at 305 days per lactation);
+- synthetic-summary notes now report approximately 6.6 lactations of 305 days for milk headcount calculations.
 
 ### 7.6 Notebook 4: crop exchange roundtrip
 
@@ -290,7 +419,6 @@ Important helper scripts include:
 
 - `scripts/nb04_process_name_matcher.py`
 - `scripts/nb04_xml_exchange_table_tool.py`
-- `scripts/check_simapro_import_bundle.py`
 - `scripts/fix_simapro_reference_categories.py`
 - `scripts/fix_simapro_reference_exchange_comment.py`
 
@@ -302,13 +430,14 @@ This stage is still partly manual and is the least automated part of the crop wo
 
 - reads crop DFE outputs;
 - applies the crop XML template and exchange mapping logic;
-- writes XML files for the supported crop summary levels.
+- writes XML files for the supported crop summary levels;
+- appends stage `05_xml` lineage records to `outputs/pipeline_run_manifest.json`.
 
-The current committed crop XML naming scheme is simplified compared with older legacy names. For example, files are now written as:
+The current crop XML naming scheme uses labeled record parts plus a numbered strategy tag. For example, files are now written as:
 
-- `00001_cereals_summary_crop_group_national.xml`
-- `00001_AGUACATE_FRUTA_FRESCA__summary_crop_national.xml`
-- `00001_AGUACATE_FRUTA_FRESCA__costa_summary_region.xml`
+- `00001_group_forages_pastures_strategy_8.xml`
+- `00001_group_cereals_strategy_8.xml`
+- `00007_group_vegetables_strategy_8.xml`
 
 ### 7.8 Notebook 5 livestock: livestock XML generation
 
@@ -316,17 +445,22 @@ The current committed crop XML naming scheme is simplified compared with older l
 
 - reads livestock DFE or filtered livestock LCI outputs;
 - applies the livestock XML templates;
-- writes livestock XML files to `outputs/05_xml_exports_livestock_lci/summary_product/`.
+- uses the routed `Animal_input_*_live_weight_kg_per_1kg_product` columns when populating animal technosphere exchanges;
+- writes livestock XML files to `outputs/05_xml_exports_livestock_lci/summary_product/`;
+- appends stage `05_xml` lineage records to `outputs/pipeline_run_manifest.json`.
 
-Current committed livestock XML outputs include:
+Current livestock XML outputs include files named with the same numbered strategy convention. Examples include:
 
-- `cattle_live_product.xml`
-- `eggs_product.xml`
-- `goat_live_product.xml`
-- `meat_poultry_product.xml`
-- `milk_product.xml`
-- `ovine_live_product.xml`
-- `swine_live_product.xml`
+- `product_cattle_live_strategy_9.xml`
+- `product_donkey_live_strategy_9.xml`
+- `product_eggs_strategy_9.xml`
+- `product_goat_live_strategy_9.xml`
+- `product_horse_live_strategy_9.xml`
+- `product_meat_poultry_strategy_9.xml`
+- `product_milk_strategy_9.xml`
+- `product_mule_live_strategy_9.xml`
+- `product_ovine_live_strategy_9.xml`
+- `product_swine_live_strategy_9.xml`
 
 ## 8. Current methodological features reflected in the repo
 
@@ -338,7 +472,7 @@ The crop workflow currently includes:
 - grouping at several geographic and product levels;
 - YAML-driven yield and coefficient logic;
 - crop DFE augmentation;
-- crop XML export for region, crop-national, and crop-group-national summaries.
+- crop XML export currently committed for crop-group-national summaries (with the `summary_province` export folder also present, currently empty).
 
 Permanent-system SOC handling is now integrated into the crop DFE and crop XML chain through the current DFE configuration file. Some coefficients are still proxies and should be treated as provisional rather than Ecuador-specific final parameters.
 
@@ -348,9 +482,32 @@ The livestock workflow currently includes:
 
 - species/product-specific extraction from ESPAC livestock modules;
 - proxy completion for diet, water, electricity, and output normalization;
+- CSV-stage routing of concerned animal inputs for livestock XML exchanges;
 - cattle pasture linkage logic;
 - exploratory livestock DFE augmentation;
 - livestock XML export at `summary_product` level.
+
+Recent milk-method change reflected in outputs:
+
+- milk cow live-weight amortization now uses `producing_years_ec = 5.5` years;
+- the strategy 9 milk XML dairy-cow exchange (`dairy cow, at farm {BR} Economic, U`) currently reflects this update and the 3.76% dairy-cow economic allocation factor with mean value `0.5565159927553089` kg per 1 kg FPCM in `outputs/05_xml_exports_livestock_lci/summary_product/product_milk_strategy_9.xml`.
+
+Recent egg-method change reflected in outputs:
+
+- laying-hen live weight and hen feed now use `producing_years_ec = 1.5` years;
+- reported ESPAC egg counts are treated as weekly counts and annualized with `output_periods_per_year = 52` before shell-egg kg conversion;
+- the strategy 9 egg XML laying-hen exchange (`laying hen <17 weeks, at farm {RER} Economic, U`) currently reflects this update with mean value `0.0611318932629714` kg per 1 kg shell eggs in `outputs/05_xml_exports_livestock_lci/summary_product/product_eggs_strategy_9.xml`.
+- the strategy 9 egg XML artificial-area occupation/transformation exchanges currently use the non-cage layer-house area proxy, with mean value `1.7322049015729678e-06` in `outputs/05_xml_exports_livestock_lci/summary_product/product_eggs_strategy_9.xml`.
+
+Current strategy 9 animal-input routing:
+
+- `cattle_live` -> `calf, at farm {BR} Economic, U`, with cattle stock/outflow age factor and 6.73% economic allocation applied in notebook 2
+- `swine_live` -> `piglet, at farm {BR} Economic, U`, with swine stock/sales age factor and 93.72% economic allocation applied in notebook 2
+- `meat_poultry` -> `one-day-chicken, at farm {BR} Economic, U`, with 100% economic allocation applied in notebook 2; uncertainty bounds use aggregate live-weight/reference-output ranges because the current product summary has no usable poultry sales/outflow basis
+- `goat_live` -> `kid goat, conventional, intensive forage area, at farm gate {FR} U`; uncertainty bounds use aggregate live-weight/reference-output ranges because no goat sales/outflow field is available in `oenac`
+- `ovine_live` -> `kid goat, conventional, intensive forage area, at farm gate {FR} U`, with ovine stock/outflow age factor applied from `gvnac` stock and `vgonac.total` sales/outflow
+- `milk` -> `dairy cow, at farm {BR} Economic, U`, with 3.76% economic allocation applied in notebook 2
+- `eggs` -> `laying hen <17 weeks, at farm {RER} Economic, U`, with 100% economic allocation applied in notebook 2
 
 This livestock branch is materially more advanced than the earlier exploratory repo state and should now be considered an implemented workflow, while still carrying stronger proxy limitations than the crop branch.
 
@@ -365,6 +522,7 @@ Users should document the following clearly when using repository outputs:
 5. The crop exchange roundtrip remains partly manual.
 6. The livestock DFE workflow is operational but still exploratory and literature-driven.
 7. Several crop SOC coefficients and many livestock proxy factors are still best-available placeholders rather than Ecuador-calibrated final values.
+8. ESPAC does not directly provide a single dairy-cow productive-life variable; the current milk-cow age proxy uses a weighted stock/outflow estimator and an explicit policy-constrained parameter choice (`producing_years_ec = 5.5`).
 
 Examples of major proxy-dependent areas include:
 
@@ -373,8 +531,11 @@ Examples of major proxy-dependent areas include:
 - pesticide active-ingredient allocation;
 - crop residue and SOC parameters;
 - livestock diet completion;
+- livestock compound-feed proportionality to routed animal-input exchanges;
 - livestock water and electricity use;
 - livestock live-weight and FPCM normalization;
+- routed livestock animal input proxies, including the current use of the kid-goat process for both goat and ovine live-animal product rows; no separate kid-goat economic allocation factor is currently applied because no explicit factor has been supplied;
+- cattle, swine, and ovine routed animal-input uncertainty now reflects ESPAC stock/outflow variation through `Animal_input_age_related_factor`; goat routed kid-goat and meat-poultry one-day-chicken uncertainty use aggregate live-weight/reference-output bounds when no usable sales/outflow basis is available. Extreme upper bounds can occur where reported annual outflow is very small relative to stock, so these bounds should be interpreted as empirical screening ranges rather than fitted confidence intervals;
 - direct field emission factors imported from non-Ecuador literature.
 
 ## 10. Diagnostics and supporting reports
@@ -393,11 +554,22 @@ The project is still notebook-driven rather than orchestrated by a single CLI pi
 
 - stable folder structure;
 - consistent notebook execution order;
+- manifest-backed immutable snapshots and run records in `outputs/pipeline_run_manifest.json`;
 - stable input filenames in `inputs/`;
 - correct use of the local `.venv` environment;
 - manual care during crop exchange review when notebook 4 is used.
 
 The current setup scripts improve reproducibility compared with earlier repo versions by standardizing environment creation and Jupyter kernel registration.
+
+### 11.1 Required run sequence for complete notebook 6 availability
+
+To make a configuration available as a complete, selectable run in notebook 6:
+
+1. run notebook 2 export for the target branch/summary/filter set;
+2. run notebook 3 for that same configuration (this produces stage `03-05` DFE snapshots used by notebook 6);
+3. optionally run notebook 5 to generate XML and stage `05_xml` lineage records.
+
+If several notebook 2 runs are executed, notebook 3 must be run for each configuration that should appear as a complete DFE run in notebook 6.
 
 ## 12. Recommended citation metadata
 
@@ -421,13 +593,55 @@ When citing outputs from this repository, record at minimum:
 - `notebooks/4_exchange_grid_roundtrip.ipynb`
 - `notebooks/5_crops_espac_lci_xml_generator.ipynb`
 - `notebooks/5_livestock_espac_lci_xml_generator.ipynb`
+- `notebooks/7_espac_lcia_poster_storyboard.ipynb`
 - `inputs/02-05_espac_lci_coefficients.yml`
 - `inputs/03-05_dfe_factors.yml`
 - `reports/05_ecuador_pesticide_method_note.md`
 - `reports/05_legacy_input_requirements_report.csv`
 - `reports/05_xml_uncertainty_audit_report.csv`
 
-## 14. Documentation maintenance note
+## 14. LCIA storyboard and figure-generation layer (Notebook 7)
+
+`notebooks/7_espac_lcia_poster_storyboard.ipynb` is now the dedicated figure-building and traceability layer for the LCIA poster/report workflow. It consumes `outputs/ESPAC LCIA.xlsx` plus summary CSV inventories and generates cleaned comparative figures and indexed traceability tables.
+
+### 14.1 Current figure outputs
+
+Notebook 7 currently generates (or refreshes) figure families under:
+
+- `outputs/reports/figures_lcia_poster/`
+
+Main families currently include:
+
+- ESPAC fingerprint visualizations
+- regional/province comparison visualizations
+- cross-database comparisons for eggs and milk
+- individual tropical crop impact-vs-yield visualizations
+- uncertainty and supporting comparative plots
+
+### 14.2 Current technical behavior reflected in latest implementation
+
+1. Source labeling in comparisons now uses `Product n:` keys from the LCIA workbook structure, not metric-name heuristics.
+2. `Ecuador_needs` is explicitly interpreted as source `ESPAC` with geography `EC`.
+3. Comparison plot labels are rendered as source-plus-geography (for example `ESPAC (EC)`, `Agri-footprint (RER)`, `AGRIBALYSE (FR)`, `ecoinvent (GLO)`).
+4. Regional-differences labeling was cleaned to remove `crop, region` and `crop, province` wording from plot-facing text.
+5. Individual tropical crop extraction in Notebook 7 is aligned to the workbook row convention used in this project state:
+   - crop names from line 90
+   - impact values from line 91
+6. Negative-impact crop points are explicitly listed and filtered before concerned visualization stages that request non-negative impacts only.
+7. Yield axis behavior for concerned crop scatter views now supports log scaling with positive-value handling.
+8. Permanent-crop markers in the combined crop scatter are visually differentiated with black outlines.
+9. Bubble/marker sizing in concerned crop scatter views is proportional to crop-level `n`.
+10. Crop-level `n` matching for Notebook 7 is resolved from crop-level references (including datapoint-count tables) and no group-level fallback is used for crop-level labels where strict crop-level counts are required.
+
+### 14.3 Current generated report artifacts from Notebook 7
+
+Notebook 7 writes/refreshes supporting report tables in:
+
+- `outputs/reports/7_lcia_*.csv`
+
+These include cleaned workbook extracts, reference coverage/index tables, and enriched crop-level tables used for figure traceability and QA.
+
+## 15. Documentation maintenance note
 
 `ESPAC_project_documentation.md` should be updated whenever approved implementation changes affect:
 
@@ -444,3 +658,5 @@ At the current project state, the most important recent developments reflected i
 - committed livestock CSV and XML outputs;
 - the new PowerShell environment/bootstrap workflow;
 - the current crop XML naming scheme and committed crop output coverage.
+- the milk-cow productive-life update: ESPAC-based hint calculation plus operational 5.5-year normalization across notebook 2 and notebook 3.
+- the Notebook 7 LCIA storyboard layer, especially source-label mapping, crop-point extraction conventions, and figure rendering rules.

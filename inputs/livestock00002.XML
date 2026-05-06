@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ecoSpold xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.EcoInvent.org/EcoSpold01" xsi:schemaLocation="http://www.EcoInvent.org/EcoSpold01 http://www.EcoInvent.org/EcoSpold01..\..\EcoSpold01Dataset.xsd">
-  <dataset validCompanyCodes="CompanyCodes.xml" validRegionalCodes="RegionalCodes.xml" validCategories="Categories.xml" validUnits="Units.xml" number="2" timestamp="2026-04-15T16:44:48" generator="SimaPro 9.5.0.2">
+  <dataset validCompanyCodes="CompanyCodes.xml" validRegionalCodes="RegionalCodes.xml" validCategories="Categories.xml" validUnits="Units.xml" number="1" timestamp="2026-04-30T11:15:26" generator="SimaPro 9.5.0.2">
     <metaInformation>
       <processInformation>
         <referenceFunction datasetRelatesToProduct="true" name="livestock products model - meat" localName="livestock products model - meat" infrastructureProcess="false" amount="1" unit="kg" category="Agricultural" subCategory="ECUADOR" localCategory="Agricultural" localSubCategory="ECUADOR" infrastructureIncluded="false"/>
@@ -10,7 +10,7 @@
           <startDate>1900-01-01</startDate>
           <endDate>1900-01-01</endDate>
         </timePeriod>
-        <dataSetInformation type="1" impactAssessmentResult="false" timestamp="2026-04-15T16:44:48" version="0.00" internalVersion="0.0" energyValues="0" languageCode="en" localLanguageCode="de"/>
+        <dataSetInformation type="1" impactAssessmentResult="false" timestamp="2026-04-30T11:15:26" version="0.00" internalVersion="0.0" energyValues="0" languageCode="en" localLanguageCode="de"/>
       </processInformation>
       <modellingAndValidation>
         <representativeness/>
@@ -27,16 +27,16 @@
       <exchange number="1" name="livestock products model - meat" location="GLO" unit="kg" meanValue="1" generalComment="cattle_live, goat_live, meat_poultry, ovine_live, swine_live" infrastructureProcess="false">
         <outputGroup>0</outputGroup>
       </exchange>
-      <exchange number="2" name="cattle for slaughtering, live weight {BR}| beef cattle production on pasture | Cut-off, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
+      <exchange number="2" name="calf, at farm {BR} Economic, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="3" name="chicken for slaughtering, live weight {GLO}| chicken production | Cut-off, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
+      <exchange number="3" name="one-day-chicken, at farm {BR} Economic, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="4" name="swine for slaughtering, live weight {RoW}| swine production | Cut-off, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
+      <exchange number="4" name="piglet, at farm {BR} Economic, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="5" name="sheep for slaughtering, live weight {RoW}| sheep production, for meat | Cut-off, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
+      <exchange number="5" name="kid goat, conventional, intensive forage area, at farm gate {FR} U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
       <exchange number="6" name="tap water {PE}| market for tap water | Cut-off, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Water_l_per_1kg_product" infrastructureProcess="false">
@@ -57,13 +57,13 @@
       <exchange number="11" name="swine compound feed, at processing {BR} Economic, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Total_feed_kg_per_1kg_product" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="12" category="resource" subCategory="in ground" name="Occupation, grassland, for livestock grazing" unit="m2a" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
+      <exchange number="12" category="resource" subCategory="in ground" name="Occupation, grassland/pasture/meadow, EC" unit="m2a" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
         <inputGroup>4</inputGroup>
       </exchange>
-      <exchange number="13" category="resource" subCategory="in ground" name="Transformation, to grassland" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
+      <exchange number="13" category="resource" subCategory="in ground" name="Transformation, to grassland/pasture/meadow, EC" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
         <inputGroup>4</inputGroup>
       </exchange>
-      <exchange number="14" category="resource" subCategory="in ground" name="Transformation, from grassland" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
+      <exchange number="14" category="resource" subCategory="in ground" name="Transformation, from grassland/pasture/meadow, EC" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
         <inputGroup>4</inputGroup>
       </exchange>
       <exchange number="15" category="air" subCategory="low population density" name="Methane" unit="kg" meanValue="0" uncertaintyType="0" generalComment="kgCH4_livestock_total_per_1kg_product">

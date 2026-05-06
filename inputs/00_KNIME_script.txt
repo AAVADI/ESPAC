@@ -292,14 +292,30 @@ for exchange in root.findall('.//eco:exchange', ns):
             exchange.set('meanValue', str(Manure_kgha))
 
     # Seed
-    if "Seed, cereal" in general_comment and crop_type == "cereal":
-        exchange.set('meanValue', str(Seed_kgha))
-        continue
-    elif "Seed, vegetable" in general_comment and crop_type == "vegetable":
-        exchange.set('meanValue', str(Seed_kgha))
-        continue
-    elif "Seed, oilseed" in general_comment and crop_type == "oilseed":
-        exchange.set('meanValue', str(Seed_kgha))
+    # Prefer exchange-name-specific routing first (wheat/carrot/rape), then crop_type fallback.
+    seed_bucket = None
+    name_l = name.lower()
+    gc_l = general_comment.lower()
+    if "wheat seed" in name_l:
+        seed_bucket = "cereal"
+    elif "carrot seed" in name_l:
+        seed_bucket = "vegetable"
+    elif "rape seed" in name_l or "rapeseed" in name_l:
+        seed_bucket = "oilseed"
+    else:
+        if "seed, cereal" in gc_l:
+            seed_bucket = "cereal"
+        elif "seed, vegetable" in gc_l:
+            seed_bucket = "vegetable"
+        elif "seed, oilseed" in gc_l:
+            seed_bucket = "oilseed"
+
+    if seed_bucket is not None:
+        if crop_type in ["cereal", "vegetable", "oilseed"]:
+            target_seed_bucket = crop_type
+        else:
+            target_seed_bucket = "cereal"
+        exchange.set('meanValue', str(Seed_kgha if seed_bucket == target_seed_bucket else 0.0))
         continue
 
     # Direct emissions

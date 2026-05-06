@@ -1,0 +1,142 @@
+
+Article information
+Article title
+A reproducible workflow for transforming the Ecuadorian ESPAC agricultural survey into crop and livestock Life Cycle Inventory datasets
+Authors
+Angel Avadí
+Affiliations
+Institute of Agrifood Research and Technology (IRTA), Sustainability in Biosystems Research Program, Torre Marimon, Caldes de Montbui, 08140, Barcelona, Spain
+CIRAD, UPR Recyclage et Risque, F-34398, Montpellier, France
+Recyclage et Risque, Univ Montpellier, CIRAD, Montpellier, France
+ELSA, Environmental Lifecycle and Sustainability Assessment, Montpellier, France
+Corresponding author’s email address and Twitter handle
+angel.avadi@irta.cat, angel.avadi@cirad.fr 
+Keywords
+LCI; agriculture; direct field emissions; ecospold; uncertainty; Python
+Related research article
+The workflow was initially conceived for a manuscript under construction: Briones-Hidrovo et al. “Dietary self-sufficiency in Ecuador: implications on resource demand and environmental impact”. PlosONE
+Abstract
+National agricultural surveys contain valuable foreground information for life cycle assessment (LCA), but they are rarely released in a form that can be used directly for life cycle inventory (LCI) modelling. This paper presents a reproducible notebook-based workflow that transforms the Ecuadorian ESPAC survey data into crop and livestock LCI tables and ecospold/XML process files compatible with SimaPro. The workflow imports the official survey delivery into SQLite, harmonises source tables and variable dictionaries, and then branches into crop and livestock pipelines that construct intermediate inventories, apply explicit rule-based completion where ESPAC lacks direct inventory detail, estimate direct field emissions with documented Tier 1 and literature-derived factors, and export grouped inventories at multiple spatial and product levels.
+The method is designed for transparency, traceability, and incremental improvement rather than false completeness. Median aggregation is paired with empirical min-max uncertainty bounds, and proxy layers remain distinguishable from direct survey observations for pasture yields, fuel use, irrigation, fertiliser composition, pesticide active-ingredient allocation, livestock diets, and utility requirements. The resulting workflow offers a practical route for converting national agricultural survey microdata into reviewable foreground LCI datasets in data-constrained contexts. The method thus i) uses an official national agricultural survey as the main source of foreground production data; ii) separates crop and livestock workflows while preserving a shared ETL logic and documentation structure; and iii) keeps direct survey observations, inferred values, and literature-based proxy completions distinguishable in the exported inventories.
+109182130207000Graphical abstract
+Specifications table
+This table provides general information on the ESPAC-to-LCI method.
+Subject area
+Environmental Science
+More specific subject area
+Transformation of national agricultural survey data into foreground LCI datasets
+Name of your method
+ESPAC-to-LCI workflow for crop and livestock inventories
+Name and reference of original method
+No single original method was followed end-to-end; the workflow combines survey ETL, rule-based inventory completion, median aggregation, Tier 1 emissions modelling, and ecospold (XML) export
+Resource availability 
+Notebook-based workflow and method configuration are available in the public ESPAC project repository: https://github.com/AAVADI/ESPAC 
+Background
+Agricultural LCI development in low- and middle-income contexts is often constrained by the lack of geographically specific farm-level foreground data collected with consistent national coverage. Ecuador's “Encuesta de Superficie y Produccion Agropecuaria Continua” (ESPAC) survey [1] partially fills that gap, but its raw structure is not suitable for direct LCI use because variables are distributed across multiple thematic modules, several flows are reported only indirectly, and many inventory parameters needed for LCA are absent.
+Existing LCA studies often describe foreground-data assembly only briefly, even when survey-derived inventories depend on substantial cleaning, harmonization, proxy selection, and export logic. The methodological value of this contribution lies precisely in making those transformation steps explicit, reproducible, and inspectable. The workflow presented here addresses that need by converting ESPAC (2024 version, but in principle applicable to previous and future instances) into harmonised crop and livestock foreground inventories that can be reviewed as tables, summarised at several aggregation levels, enriched with direct field emissions, and exported as ecospold/XML datasets.
+The workflow is intended for transparent foreground modelling, sensitivity analysis, and iterative improvement rather than for claiming that every flow is directly observed in the survey. It is especially suited to contexts where a national agricultural survey exists, but the path from survey microdata to LCI-ready datasets is not yet formalised.
+Method details 
+The workflow contains one shared data-ingestion step followed by two parallel analytical branches (Fig. 1). The sequence is intended to make each transformation auditable and to keep direct survey observations separate from later completion and emissions-modelling layers:
+ESPAC raw files and variable dictionaries are imported into an SQLite database.
+Crop records are transformed into intermediate LCI tables, aggregated, completed where needed, and passed to crop direct field emission modelling.
+Livestock records are transformed into intermediate LCI tables, aggregated, completed where needed, and passed to livestock direct field emission modelling.
+Final crop and livestock tables are converted into ecospold/XML datasets.
+Intermediate exchanges can be exported to a spreadsheet workflow for background-process matching and manual review.
+0000
+Fig. 1: Scheme of the ESPAC-to-LCI workflow
+1. Source data ingestion and harmonisation
+The starting point was the official open-data delivery for ESPAC 2024 [1]. Notebook 1_ reads the nested archive structure, imports the raw tables into SQLite, standardises table names, and stores the available variable dictionaries together with the survey data. The resulting SQLite database acts as the single analytical source for all subsequent processing steps.
+This ETL step serves three purposes. First, it converts the original delivery into a persistent relational structure that is easier to query reproducibly than the source spreadsheets and delimited files. Second, it keeps the raw survey modules available without collapsing them prematurely into one normalised table. Third, it makes the workflow auditable, because later crop and livestock transformations can be traced back to stable table names and survey fields.
+2. Crop foreground inventory construction
+Crop inventories are built in notebook 2_crops from the permanent-crop, transitory-crop, and cultivated-pasture ESPAC modules. These records are mapped into an intermediate LCI table structured around variables needed for foreground agricultural modelling, including cultivated area, yield, sowing and harvest timing where available, irrigation, fuel use, mineral and organic fertilisers, pesticide use by class, and seed demand.
+Additional descriptors are inferred to support grouping and rule assignment. These include crop type, crop group, and cropping-system categories. The crop branch exports grouped inventories at province, region, crop-national, cropping-system, and crop-group-national levels.
+For grouped inventories, numeric variables are aggregated with the median and text variables with the non-null mode. This choice reduces the influence of skewed observations and extreme values while retaining interpretable representative values for each aggregation group. Crop yields are additionally screened through an FAO-informed outlier-capping step before aggregation.
+2.1 Cultivated pasture integration
+Cultivated pastures are handled inside the crop workflow rather than as a separate livestock-only component. Records from rel_inec_pcnac are exported with Category = cultivated_pasture and grouped under Crop_group = forages_pastures. These rows preserve ESPAC management observations such as area and input use where available.
+ESPAC rel_inec_pcnac does not report harvested pasture biomass or a direct production variable. For that reason, cultivated-pasture Yield_kgha values are filled from the YAML configuration block crop_yield_proxies.cultivated_pasture, stored in 02-05_espac_lci_coefficients.yml. These values are proxy dry-matter yields used for output normalisation and remain explicitly identifiable as such in the exported metadata. Cultivated-pasture rows are also excluded from the general crop yield-fallback logic so that unrelated crop-yield rules are not transferred to pasture systems.
+2.2 Crop inventory completion rules
+Because ESPAC is a survey and not an LCI database, several crop flows require rule-based completion:
+unit conversions convert survey units such as pounds, quintals, and tonnes into kilograms;
+fuel demand is partly estimated through literature-derived machinery-energy proxies calibrated to Ecuadorian conditions;
+irrigation demand is estimated from ESPAC irrigation-system information combined with crop-water requirement defaults and irrigation-efficiency assumptions following FAO crop-water guidance [2];
+seed use is assigned through default rates by inferred crop type when direct observations are absent;
+mineral fertiliser classes are translated into representative fertiliser analyses to estimate elemental nitrogen, phosphorus, and potassium inputs;
+organic fertilisers are simplified into solid manure, fermented or composted materials, and liquid manure-like inputs, with nutrient and trace-metal contents taken from curated median values in a dataset of (French) organic fertilisers characteristics [3].
+2.3 Pesticide active-ingredient allocation
+ESPAC reports pesticide use mainly by functional class rather than by active ingredient. The workflow therefore estimates crop-specific molecule shares by combining class-level ESPAC intensities with Ecuadorian and Andean literature, AGROCALIDAD regulatory context, and rule-based crop profiles encoded in the configuration files [4]. These allocations are literature-constrained estimates rather than directly measured molecule shares and should be interpreted as proxy foreground disaggregation.
+3. Livestock foreground inventory construction
+The livestock branch extracts and harmonises records from the livestock-related ESPAC modules. In the current implementation, cattle_live and milk are derived from rel_inec_glnac, swine_live from rel_inec_gpnac, ovine_live from rel_inec_gvnac, donkey_live, horse_live, mule_live, and goat_live from rel_inec_oenac, and eggs from rel_inec_apnac.
+Notebook 2_livestock converts these module-specific structures into a common livestock LCI table. Aggregated outputs are generated at province, region, and national levels, and an additional product-only national strategy (product) is used to produce system-independent national benchmarks for the same livestock product.
+As in the crop branch, grouped livestock inventories use the median for numeric variables and the non-null mode for text variables. This keeps aggregation rules consistent across the workflow.
+3.1 Feed-intake reconstruction and proxy diets
+Cattle and swine use direct ESPAC diet-share variables where available. These shares are converted into approximate absolute feed intensities in kg/head/day using configurable intake assumptions stored in 02-05_espac_lci_coefficients.yml.
+For species whose ESPAC modules do not provide usable ration splits, the workflow applies literature-based proxy diets. In the current implementation this affects eggs, ovine, goats, horses, donkeys, and mules. Direct ESPAC diet fields and proxy diet fields are kept separate in the exports so that users can distinguish observed survey structure from reconstructed rations.
+3.2 Cattle-pasture linkage across survey modules
+For cattle and milk rows, the workflow links the holding identifier (Identificador) across cattle, cultivated-pasture, and land-use modules. This enables the reported cattle pasture share to be partitioned into cultivated pasture, natural pasture, and unmatched residual pasture using holding-level land shares.
+Operationally, the cultivated-pasture feed share is calculated as the reported cattle pasture share multiplied by the fraction of linked area recorded in Pastos cultivados. The natural-pasture share is derived analogously from linked PASTO NATURAL area in the land-use module. Any remaining pasture share is retained explicitly as unmatched residual pasture. Because ESPAC does not provide pasture biomass yield for either cultivated or natural pasture, the absolute pasture-feed mass still depends on the diet-share and intake-assumption layer. The linkage therefore improves source attribution of pasture feed without fully converting pasture supply into an output-measured pasture-product LCI.
+The livestock branch also exports a compact national diagnostic table summarising the share of total cattle pasture feed attributed to linked cultivated pasture, linked natural pasture, and unmatched residual pasture.
+3.3 Infrastructure, water, and electricity completion
+ESPAC coverage of livestock infrastructure and utilities is limited. The only direct infrastructure field currently used consistently is the cattle and milk milking-system variable gl_sistema_ordenio. When ESPAC does not expose a direct field, the workflow populates Infrastructure_type, Infrastructure_source, Water_l_head_day, Electricity_kWh_head_day, and provenance notes from the livestock_infra_water_electricity_proxy_table block in 02-05_espac_lci_coefficients.yml.
+Proxy selection follows a priority order of Ecuador-specific sources first, then Latin American or FAO references, and finally broader fallback references when stronger evidence is not yet available.
+4. Functional-unit normalisation
+The crop branch remains expressed on the crop inventory basis used by the XML template. In practice, the crop outputs are still most defensibly interpreted as hectare-based foreground management inventories, even when yield proxies are present for reference-product exchange construction.
+The livestock branch carries explicit normalisation fields so that inventories can be interpreted on a common product basis. Live-animal products are normalised to 1 kg live weight equivalent. Milk is normalised to 1 kg fat- and protein-corrected milk (FPCM) using a density-based conversion from litres to kilograms and the IDF FPCM equation with Ecuador default milk composition values [5]. Eggs are normalised to 1 kg shell eggs using a literature-derived representative egg mass.
+These normalisation factors are exported through fields such as Reference_output_kg, Reference_output_kg_for_dfe, Functional_unit, Milk_output_kg_fpcm_day, and Egg_output_kg.
+5. Direct field emissions
+Direct field emissions (DFE) are calculated in separate crop and livestock notebooks 3_ after grouped LCI tables have been created in notebooks 2_.
+5.1 Crop direct field emissions and soil organic carbon
+The crop DFE workflow applies a rule-based emissions model to the filtered crop summaries using nutrient contents and coefficients from the project YAML files. The method propagates min-max uncertainty by re-running the relevant calculations with minimum and maximum grouped input scenarios. The retained models are generally Tier 1 models from IPCC and EMEP/EEA [6–8], together with other simple models as applied by leading LCI databases such as ecoinvent, AGRIBALYSE and Agri-footprint [9–11].
+The crop branch also includes explicit soil organic carbon (SOC) sequestration coefficients for permanent systems. Cultivated pastures grouped under forages_pastures receive a FAO-based South America grassland increment coefficient, while permanent tree and plantation crops receive crop-name-based SOC coefficients stored in the DFE configuration. These values are propagated through the crop DFE uncertainty tables and exported to XML as the elementary flow Carbon, organic, in soil or biomass stock, together with minimum and maximum bounds.
+Several perennial SOC coefficients remain provisional and should be disclosed as such in scientific use. Current interim cases include MARACUYA, TOMATE DE ARBOL, PALMITO, and OTROS PERMANENTES, which rely on FAO-first agroforestry proxy logic, PIÑA, which currently uses a conservative near-zero placeholder, and sugarcane, whose coefficient is management-conditional rather than universal.
+5.2 Livestock direct field emissions
+The livestock DFE workflow operates on the filtered livestock summaries, reads the matching uncertainty tables, and applies Tier 1 defaults from the livestock DFE configuration. The current implementation uses IPCC 2019 and EMEP/EEA 2023 Tier 1 factors for enteric methane, manure-management methane, ammonia, nitrogen oxides, direct and indirect nitrous oxide, and related manure-nitrogen flows [5,6].
+Livestock DFE outputs are divided by the stored livestock reference-output basis so that emissions remain expressed per kilogram of normalised reference product. The livestock DFE notebook also produces a synthetic summary table that reports total pasture feed per kilogram of product together with separated contributions from linked cultivated pasture, linked natural pasture, unmatched residual pasture, and proxy forage where applicable.
+Across both branches, the current DFE layer should be interpreted as a transparent proxy-based emissions model rather than a fully Ecuador-calibrated national emissions model. It is intentionally modular and remains improvable. One practical next step would be to treat the present workflow primarily as a raw foreground-LCI generator and then route those LCIs into more specialised agricultural LCA environments for direct-emissions handling, for example MEANS-InOut or HESTIA-compatible downstream harmonisation and assessment workflows [12].
+6. Uncertainty representation
+Uncertainty is represented empirically rather than through fitted probability distributions. For each aggregation group and each numeric inventory variable, the workflow exports the minimum and maximum values observed within the same group alongside the median value. These ranges are then propagated into downstream DFE tables and finally into XML exchanges as minValue and maxValue attributes.
+This uncertainty treatment is intentionally simple. It captures observed within-group spread and makes that spread portable into later workflow stages, but it should not be interpreted as a statistical confidence interval or a parametric uncertainty model.
+7. XML generation and background-process mapping
+Final DFE-augmented LCI tables are converted to ecospold/XML inventories in separate crop and livestock XML generator notebooks (5_). Each generator maps XML exchanges to LCI columns through the generalComment field in the template XML model and writes one XML file per aggregated inventory row. Exchange-level uncertainty bounds are transferred from the matching uncertainty CSVs when available.
+Both XML generators apply a set of compatibility corrections required for successful SimaPro import. These include namespace registration, schema-location handling, validation metadata insertion, exchange-location assignment, explicit input and output group tags, unit enforcement for selected exchanges, and protection of the reference-product exchange by removing uncertainty bounds from exchange 1.
+The livestock XML generator also supports multiple template routing. It scans the available livestock XML templates and selects the appropriate template for each product row by reading product tokens encoded in template generalComment fields.
+Background-process mapping for intermediate inputs is supported by a separate exchange-roundtrip workflow, 4_exchange_grid_roundtrip. XML exchanges are exported to a spreadsheet table, candidate matches are generated from a combined ecoinvent [13] and AGRIBALYSE [11] process catalogue, and final approval of background links remains manual.
+Method validation
+Validation in the present workflow is based on internal consistency, traceability, and importability rather than on a fully independent external benchmark dataset.
+The main quality-control mechanisms are:
+stable ETL into SQLite before any analytical transformation;
+explicit split between crop and livestock notebooks after the shared ingestion stage;
+use of configuration files for coefficients and proxy rules rather than hard-coded hidden constants;
+grouped uncertainty tables written alongside grouped median outputs;
+diagnostic outputs for special logic such as cattle-pasture linkage;
+XML audit outputs and SimaPro-focused compatibility corrections to ensure generated datasets remain importable.
+The main methodological contribution is the transparent conversion of survey data into LCI-ready datasets under incomplete information. The workflow is therefore validated primarily by reproducibility of transformations, consistency of grouped outputs, transparency of proxy assignments, and successful XML importability. The present DFE layer should be viewed as an operational first implementation rather than as the endpoint of methodological development. Future validation can extend this base by comparing selected inventory intensities with Ecuador-specific expert datasets, measured farm studies, or alternative regional LCI sources where available, and by benchmarking the current DFE results against specialised agricultural LCA tools or harmonised data pipelines.
+Limitations
+The method combines direct survey observations with explicit rule-based and literature-based completion layers. It should therefore be used as a transparent foreground-data construction workflow, not as evidence that all output variables are directly measured by ESPAC.
+The main crop limitations concern fuel demand, irrigation requirements, fertiliser composition, pesticide active-ingredient disaggregation, some DFE parameters, and the lack of direct harvested-output data for cultivated pastures. The main livestock limitations concern ration completion for several species, infrastructure and utility completion outside dairy systems, and reliance on generalised Tier 1 emissions factors. Live-animal outputs are currently represented on a live-weight-equivalent basis rather than slaughter-yield or processed-product basis.
+These limitations do not prevent use of the workflow for exploratory LCA, foreground dataset creation, hotspot screening, or sensitivity analysis. They do require clear disclosure whenever the resulting inventories are used in scientific manuscripts, comparative studies, or public decision-support contexts. In particular, users should report which flows are survey-derived, which are inferred from deterministic completion rules, and which depend on external proxy coefficients. Users should also disclose that the current direct field emissions treatment is a project-level implementation that could later be replaced or complemented by more specialized handling after raw LCIs are generated.
+Ethics statements
+This study used public survey data, literature sources, and derived inventory-processing rules. It did not involve human subjects, animal experiments, or social-media data collection.
+CRediT author statement
+Angel Avadí: Solely responsible for all aspects of the study, including conceptualisation, design, data collection, analysis, and preparation of the manuscript.
+Acknowledgments
+The author acknowledges Ujué Fresán and Andrei Briones, IRTA, for interesting discussions yielding ideas incorporated into this work.
+Declaration of interests
+☒ The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+☐ The authors declare the following financial interests/personal relationships which may be considered as potential competing interests: 
+Supplementary material and/or additional information [OPTIONAL]
+Aggregated ESPAC-based LCIs representing the maximum level of aggregation: national representative crop and livestock products.
+References
+[1]INEC, Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC). Boletín Técnico, Instituto Nacional de Estadística y Censos, Ecuador, 2025. https://www.ecuadorencifras.gob.ec/documentos/web-inec/Estadisticas_agropecuarias/espac/2024/Boletin_tecnico_ESPAC_2024.pdf (accessed April 20, 2026).
+[2]L.S. Pereira, R.G. Allen, P. Paredes, R. López-Urrea, D. Raes, M. Smith, A. Kilic, M. Salman, Crop evapotranspiration – Guidelines for computing crop water requirements. Second edition, revised 2025, FAO, FAO Irrigation and Drainage Paper , No.56 Rev.1, 2025. https://doi.org/10.4060/cd6621en.
+[3]A. Avadí, J.-M. Paillat, Dataset of organic fertilisers’ characteristics - French data, (2020). https://doi.org/10.18167/DVN1/OYD9WF.
+[4]MAG, AGROCALIDAD: Dirección de Registro de Insumos Agrícolas, (n.d.). https://www.agrocalidad.gob.ec/direccion-de-registro-de-insumos-agricolas/ (accessed April 20, 2026).
+[5]IDF, The IDF global Carbon Footprint standard for the dairy sector, Bulletin of the IDF No. 520/2022. International Dairy Federation (ed.), Brussels, 2022.
+[6]N. Hutchings, J. Webb, B. Amon, 3.D Crop production and agricultural soils, EMEP/EEA air pollutant emission inventory guidebook 2023, 2023. https://www.eea.europa.eu/en/analysis/publications/emep-eea-guidebook-2023 (accessed September 19, 2025).
+[7]B. Amon, N. Hutchings, U. Dämmgen, S. Sommer, J. Webb, 3.B Manure Management, EMEP/EEA air pollutant emission inventory guidebook 2023, 2023.
+[8]O. Gavrilova, A. Leip, H. Dong, J. Douglas MacDonald, C. Alfredo Gomez Bravo, B. Amon, R. Barahona Rosales, A. del Prado, M. Aparecida de Lima, W. Oyhantçabal, T. John van der Weerden, Y. Widiawati, A. Bannink, K. Beauchemin, H. Clark, Chapter 10: Emissions from Livestock and Manure Management, 2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories, 2019.
+[9]T. Nemecek, A. Roesch, M. Bystricky, P. Jeanneret, J. Lansche, M. Stüssi, G. Gaillard, Swiss Agricultural Life Cycle Assessment: A method to assess the emissions and environmental impacts of agricultural systems and products, International Journal of Life Cycle Assessment 29 (2024) 433–455. https://doi.org/10.1007/s11367-023-02255-w.
+[10]H. Blonk, W. De Kraker, M. Van Paassen, D. Smits, J. Corigliano, Agri-footprint 7 Methodology Report. Part 1: Methodology and basic principles, Mérieux NutriSciences | Blonk, 2025. www.blonksustainability.nl.
+[11]P. Koch, A.T. Salou, AGRIBALYSE®: Methodology, Agricultural stage – Version 3.1. – Initial version v1.0 ; 2014, ADEME. Angers. France. 312 p., 2022.
+[12]Y. Biard, P.J.G. Henriksson, J. Poore, G. Rostain, C. Malnoë, A. Avadí, Batch generation of agricultural LCIs: comparison of strategies, in: Book of abstracts of the 14th International Conference on Life Cycle Assessment of Food (LCA Food 2024). IRTA, Generalitat de Catalunya, Universitat de Barcelona, pp. 356-358, 2024.
+[13]G. Wernet, C. Bauer, B. Steubing, J. Reinhard, E. Moreno-Ruiz, B. Weidema, The ecoinvent database version 3 (part I): overview and methodology, International Journal of Life Cycle Assessment 21 (2016) 1218–1230. https://doi.org/10.1007/s11367-016-1087-8.
+ 

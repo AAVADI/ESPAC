@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ecoSpold xmlns="http://www.EcoInvent.org/EcoSpold01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.EcoInvent.org/EcoSpold01 http://www.EcoInvent.org/EcoSpold01..\..\EcoSpold01Dataset.xsd https://github.com/brightway-lca/pyecospold/tree/main/pyecospold/schemas/v1">
+  <dataset validCompanyCodes="CompanyCodes.xml" validRegionalCodes="RegionalCodes.xml" validCategories="Categories.xml" validUnits="Units.xml" number="1" timestamp="2026-04-30T11:15:26" generator="SimaPro 9.5.0.2">
+    <metaInformation>
+      <processInformation>
+        <referenceFunction datasetRelatesToProduct="true" name="product: meat_poultry | summary: strategy_9" localName="product: meat_poultry | summary: strategy_9" infrastructureProcess="false" amount="1" unit="kg" category="Agricultural" subCategory="ECUADOR" localCategory="Agricultural" localSubCategory="ECUADOR" infrastructureIncluded="false" />
+        <geography location="EC" text="Unspecified" />
+        <technology text="Unspecified" />
+        <timePeriod dataValidForEntirePeriod="" text="Unspecified">
+          <startDate>1900-01-01</startDate>
+          <endDate>1900-01-01</endDate>
+        </timePeriod>
+        <dataSetInformation type="1" impactAssessmentResult="false" timestamp="2026-04-30T11:15:26" version="0.00" internalVersion="0.0" energyValues="0" languageCode="en" localLanguageCode="de" />
+      </processInformation>
+      <modellingAndValidation>
+        <representativeness />
+        <validation><reviewStatus>draft</reviewStatus><reviewer>ESPAC Project</reviewer><reviewDate>2026-05-06</reviewDate><proofReadingValidator><name>ESPAC Project</name><email>n/a</email><companyCode>ESPAC</companyCode><proofReadingDate>2026-05-06</proofReadingDate></proofReadingValidator></validation><source number="1" sourceType="0" firstAuthor="SimaPro" year="2026" title="Dummy" placeOfPublications="Unspecified" />
+      </modellingAndValidation>
+      <administrativeInformation>
+        <dataEntryBy person="2" qualityNetwork="1" />
+        <dataGeneratorAndPublication person="3" dataPublishedIn="2" referenceToPublishedSource="1" accessRestrictedTo="0" copyright="false" />
+        <person number="2" name="SimaPro" address="Unknown" />
+        <person number="3" name="SimaPro" address="Unknown" />
+      </administrativeInformation>
+    </metaInformation>
+    <flowData>
+      <exchange number="1" name="product: meat_poultry | summary: strategy_9" location="EC" unit="kg" meanValue="1" generalComment="cattle_live, goat_live, meat_poultry, ovine_live, swine_live" infrastructureProcess="false">
+        <outputGroup>0</outputGroup>
+      </exchange>
+      <exchange number="2" name="calf, at farm {BR} Economic, U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false" minValue="0.0" maxValue="0.0">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="3" name="one-day-chicken, at farm {BR} Economic, U" location="RER" unit="kg" meanValue="1.3333333333333333" uncertaintyType="3" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false" minValue="0.1530456075910621" maxValue="11.616">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="4" name="piglet, at farm {BR} Economic, U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false" minValue="0.0" maxValue="0.0">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="5" name="kid goat, conventional, intensive forage area, at farm gate {FR} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Animals_total_live_weight_kg_per_1kg_product" infrastructureProcess="false" minValue="0.0" maxValue="0.0">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="6" name="tap water {PE}| market for tap water | Cut-off, U" location="RER" unit="kg" meanValue="4.990740740740742e-06" uncertaintyType="3" generalComment="Water_l_per_1kg_product" infrastructureProcess="false" minValue="1.0521885521885523e-06" maxValue="9.166666666666668e-06">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="7" name="electricity, medium voltage {EC}| market for electricity, medium voltage | Cut-off, U" location="RER" unit="kWh" meanValue="9.074074074074073e-08" uncertaintyType="3" generalComment="Electricity_kWh_per_1kg_product" infrastructureProcess="false" minValue="1.9130700948882768e-08" maxValue="1.666666666666667e-07">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="8" name="forages_pastures | summary: strategy_8" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Pasture_feed_kg_per_1kg_product + Unmatched_pasture_feed_kg_per_1kg_product" infrastructureProcess="false" minValue="0.0" maxValue="0.0">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="9" name="beef cattle compound feed, at processing/IE Economic" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Supplement_feed_kg_per_1kg_product" infrastructureProcess="false" minValue="0.0" maxValue="0.0">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="10" name="broiler compound feed, at processing {BR} Economic, U" location="RER" unit="kg" meanValue="1.2340740740740742e-06" uncertaintyType="3" generalComment="Total_feed_kg_per_1kg_product" infrastructureProcess="false" minValue="2.601775329048057e-07" maxValue="2.266666666666667e-06">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="11" name="swine compound feed, at processing {BR} Economic, U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Total_feed_kg_per_1kg_product" infrastructureProcess="false" minValue="0.0" maxValue="0.0">
+        <inputGroup>5</inputGroup>
+      </exchange>
+      <exchange number="12" category="resource" subCategory="in ground" name="Occupation, artificial areas, EC" unit="m2a" meanValue="6e-06" uncertaintyType="3" generalComment="Area_ha_per_1kg_product" location="RER" minValue="5.999999999999999e-06" maxValue="6e-06">
+        <inputGroup>4</inputGroup>
+      </exchange>
+      <exchange number="13" category="resource" subCategory="in ground" name="Transformation, to artificial areas, EC" unit="m2" meanValue="6e-06" uncertaintyType="3" generalComment="Area_ha_per_1kg_product" location="RER" minValue="5.999999999999999e-06" maxValue="6e-06">
+        <inputGroup>4</inputGroup>
+      </exchange>
+      <exchange number="14" category="resource" subCategory="in ground" name="Transformation, from unspecified, EC" unit="m2" meanValue="6e-06" uncertaintyType="3" generalComment="Area_ha_per_1kg_product" location="RER" minValue="5.999999999999999e-06" maxValue="6e-06">
+        <inputGroup>4</inputGroup>
+      </exchange>
+      <exchange number="15" category="air" subCategory="low population density" name="Methane" unit="kg" meanValue="0.00584" uncertaintyType="3" generalComment="kgCH4_livestock_total_per_1kg_product" location="RER" minValue="0.00584" maxValue="0.00584">
+        <outputGroup>4</outputGroup>
+      </exchange>
+      <exchange number="16" category="air" subCategory="low population density" name="Ammonia" unit="kg" meanValue="0.1999999999999999" uncertaintyType="3" generalComment="kgNH3_manure_mgmt_total_per_1kg_product + kgNH3_manure_housing_storage_yard_per_1kg_product + kgNH3_grazing_per_1kg_product" location="RER" minValue="0.1999999999999999" maxValue="0.1999999999999999">
+        <outputGroup>4</outputGroup>
+      </exchange>
+      <exchange number="17" category="air" subCategory="low population density" name="Nitrogen dioxide" unit="kg" meanValue="0.018" uncertaintyType="3" generalComment="kgNOx_manure_mgmt_as_NO2_per_1kg_product" location="RER" minValue="0.018" maxValue="0.018">
+        <outputGroup>4</outputGroup>
+      </exchange>
+      <exchange number="18" category="air" subCategory="low population density" name="Dinitrogen monoxide" unit="kg" meanValue="0.001232" uncertaintyType="3" generalComment="kgN2O_manure_mgmt_total_per_1kg_product" location="RER" minValue="0.0012319999999999" maxValue="0.001232">
+        <outputGroup>4</outputGroup>
+      </exchange>
+    </flowData>
+  </dataset>
+</ecoSpold>

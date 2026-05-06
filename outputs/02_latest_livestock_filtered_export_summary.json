@@ -1,7 +1,8 @@
 {
-  "summary_level": "product",
-  "summary_token": "product",
-  "filtered_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product.csv",
-  "filtered_uncertainty_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product_uncertainty.csv",
-  "updated_at_utc": "2026-04-15T17:57:58.518237+00:00"
+  "summary_level": "region",
+  "summary_token": "region",
+  "filtered_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region.csv",
+  "filtered_uncertainty_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region_uncertainty.csv",
+  "updated_at_utc": "2026-05-06T10:37:22.629992+00:00",
+  "run_id": "02_livestock_20260506T103722Z"
 }

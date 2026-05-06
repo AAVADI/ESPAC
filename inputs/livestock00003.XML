@@ -39,16 +39,16 @@
       <exchange number="5" name="forages_pastures" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Pasture_feed_kg_per_1kg_product + Unmatched_pasture_feed_kg_per_1kg_product" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="6" name="dairy cow compound feed, at processing {BE} Economic, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Supplement_feed_kg_per_1kg_product" infrastructureProcess="false">
+      <exchange number="6" name="dairy cow compound feed, at processing {BR} Economic, U" location="GLO" unit="kg" meanValue="0" uncertaintyType="0" generalComment="Supplement_feed_kg_per_1kg_product" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="7" category="resource" subCategory="in ground" name="Occupation, grassland, for livestock grazing" unit="m2a" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
+      <exchange number="7" category="resource" subCategory="in ground" name="Occupation, grassland/pasture/meadow, EC" unit="m2a" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
         <inputGroup>4</inputGroup>
       </exchange>
-      <exchange number="8" category="resource" subCategory="in ground" name="Transformation, to grassland" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
+      <exchange number="8" category="resource" subCategory="in ground" name="Transformation, to grassland/pasture/meadow, EC" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
         <inputGroup>4</inputGroup>
       </exchange>
-      <exchange number="9" category="resource" subCategory="in ground" name="Transformation, from grassland" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
+      <exchange number="9" category="resource" subCategory="in ground" name="Transformation, from grassland/pasture/meadow, EC" unit="m2" meanValue="0" uncertaintyType="0" generalComment="Area_ha_per_1kg_product">
         <inputGroup>4</inputGroup>
       </exchange>
       <exchange number="10" category="air" subCategory="low population density" name="Methane" unit="kg" meanValue="0" uncertaintyType="0" generalComment="kgCH4_livestock_total_per_1kg_product">
