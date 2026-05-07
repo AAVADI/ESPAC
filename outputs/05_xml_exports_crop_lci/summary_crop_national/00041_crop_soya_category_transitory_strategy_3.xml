@@ -14,7 +14,7 @@
       </processInformation>
       <modellingAndValidation>
         <representativeness />
-        <validation><reviewStatus>Final</reviewStatus><reviewer>Angel Avadí</reviewer><reviewDate>2026-05-06</reviewDate><proofReadingValidator><name>Angel Avadí</name><email>angel.avadi@irta.cat</email><companyCode>1234</companyCode><proofReadingDate>2026-05-06</proofReadingDate></proofReadingValidator></validation><source number="1" sourceType="0" firstAuthor="SimaPro" year="2025" title="Dummy" placeOfPublications="Unspecified" />
+        <validation><reviewStatus>Final</reviewStatus><reviewer>Angel Avadí</reviewer><reviewDate>2026-05-07</reviewDate><proofReadingValidator><name>Angel Avadí</name><email>angel.avadi@irta.cat</email><companyCode>1234</companyCode><proofReadingDate>2026-05-07</proofReadingDate></proofReadingValidator></validation><source number="1" sourceType="0" firstAuthor="SimaPro" year="2025" title="Dummy" placeOfPublications="Unspecified" />
       </modellingAndValidation>
       <administrativeInformation>
         <dataEntryBy person="2" qualityNetwork="1" />
@@ -39,25 +39,25 @@
       <exchange number="5" name="ammonium sulfate {RER}| market for ammonium sulfate | Cut-off, U" location="RER" unit="kg" meanValue="100.0" uncertaintyType="3" generalComment="AS_kgha" minValue="0.4" maxValue="170.06802721088437" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="6" name="manure, from cattle, stocked in concrete surface or pit (amendment) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Cattle, solid" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="6" name="manure, from cattle, stocked in concrete surface or pit (amendment) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Cattle, solid" minValue="0.0" maxValue="9e-13" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="7" name="slurry, from cattle, stocked in silo (fertilizer) {RER} U" location="RER" unit="kg" meanValue="1.44" uncertaintyType="3" generalComment="Cattle, liquid" minValue="0.0" maxValue="6.4" infrastructureProcess="false">
+      <exchange number="7" name="slurry, from cattle, stocked in silo (fertilizer) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Cattle, liquid" minValue="0.0" maxValue="6.4" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="8" name="slurry, from swine, stocked in silo (fertilizer) {RER} U" location="RER" unit="kg" meanValue="15.84" uncertaintyType="3" generalComment="Swine, liquid" minValue="0.0" maxValue="70.4" infrastructureProcess="false">
+      <exchange number="8" name="slurry, from swine, stocked in silo (fertilizer) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Swine, liquid" minValue="0.0" maxValue="70.4" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="9" name="manure, from poultry, stocked in concrete surface or pit (fertilizer) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Poultry, droppings" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="9" name="manure, from poultry, stocked in concrete surface or pit (fertilizer) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Poultry, droppings" minValue="0.0" maxValue="1e-13" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="10" name="average compost, from green waste, biowaste, sludge, manure, slurry (amendment) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Compost" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="10" name="average compost, from green waste, biowaste, sludge, manure, slurry (amendment) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Compost" minValue="0.0" maxValue="5e-13" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="11" name="compost, of solid fraction of digestate from manure and green waste (amendment) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Compost_digestate" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="11" name="compost, of solid fraction of digestate from manure and green waste (amendment) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Compost_digestate" minValue="0.0" maxValue="5e-13" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="12" name="average agricultural digestate (fertilizer) {RER} U" location="RER" unit="kg" meanValue="0.72" uncertaintyType="3" generalComment="Digestate" minValue="0.0" maxValue="3.2" infrastructureProcess="false">
+      <exchange number="12" name="average agricultural digestate (fertilizer) {RER} U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Digestate" minValue="0.0" maxValue="3.2" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
       <exchange number="13" name="insecticide, at plant/RER Economic" location="RER" unit="kg" meanValue="1.0" uncertaintyType="3" generalComment="Insecticide_kgha" minValue="0.25" maxValue="8.503401360544217" infrastructureProcess="false">
@@ -69,34 +69,34 @@
       <exchange number="15" name="fungicide, at plant/RER Economic" location="RER" unit="kg" meanValue="1.0" uncertaintyType="3" generalComment="Fungicide_kgha" minValue="0.4286632849896406" maxValue="4.0" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="16" name="wheat seed, for sowing {GLO}| market for wheat seed, for sowing | Cut-off, U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Seed, cereal" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="16" name="wheat seed, for sowing {GLO}| market for wheat seed, for sowing | Cut-off, U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Seed, cereal" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="17" name="carrot seed, for sowing {GLO}| market for carrot seed, for sowing | Cut-off, U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Seed, vegetable" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="17" name="carrot seed, for sowing {GLO}| market for carrot seed, for sowing | Cut-off, U" location="RER" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Seed, vegetable" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="18" name="rape seed, for sowing {RoW}| market for rape seed, for sowing | Cut-off, U" location="RER" unit="kg" meanValue="37.79229248023985" uncertaintyType="3" generalComment="Seed, oilseed" minValue="37.79229248023985" maxValue="37.79229248023985" infrastructureProcess="false">
+      <exchange number="18" name="rape seed, for sowing {RoW}| market for rape seed, for sowing | Cut-off, U" location="RER" unit="kg" meanValue="37.79229248023985" uncertaintyType="3" generalComment="Seed, oilseed" minValue="37.41436955543745" maxValue="38.17021540504225" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="19" name="sowing {GLO}| market for sowing | Cut-off, U" location="RER" unit="ha" meanValue="0.0" uncertaintyType="3" generalComment="Area_ha" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="19" name="sowing {GLO}| market for sowing | Cut-off, U" location="RER" unit="ha" meanValue="0.0" uncertaintyType="3" generalComment="Area_ha" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="20" name="pesticide, unspecified {GLO}| market for pesticide, unspecified | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="Biocide_NE_kgha" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="20" name="pesticide, unspecified {GLO}| market for pesticide, unspecified | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="Biocide_NE_kgha" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="21" name="calcium ammonium nitrate {RER}| market for calcium ammonium nitrate | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="CAN_kgha" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="21" name="calcium ammonium nitrate {RER}| market for calcium ammonium nitrate | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="CAN_kgha" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="22" name="monoammonium phosphate {RER}| market for monoammonium phosphate | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="MAP_kgha" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="22" name="monoammonium phosphate {RER}| market for monoammonium phosphate | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="MAP_kgha" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="23" name="transport, tractor and trailer, agricultural {CH}| market for transport, tractor and trailer, agricultural | Cut-off, S - Copied from Ecoinvent U" location="RER" unit="tkm" meanValue="0" uncertaintyType="3" generalComment="Tractor" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="23" name="transport, tractor and trailer, agricultural {CH}| market for transport, tractor and trailer, agricultural | Cut-off, S - Copied from Ecoinvent U" location="RER" unit="tkm" meanValue="0" uncertaintyType="3" generalComment="Tractor" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="24" name="liquid urea-ammonium nitrate solution (NPK 30-0-0), at plant/RER Economic" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="UAN_kgha" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="24" name="liquid urea-ammonium nitrate solution (NPK 30-0-0), at plant/RER Economic" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="UAN_kgha" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
-      <exchange number="25" name="urea {RER}| market for urea | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="Urea_kgha" minValue="0.0" maxValue="0.0" infrastructureProcess="false">
+      <exchange number="25" name="urea {RER}| market for urea | Cut-off, U" location="RER" unit="kg" meanValue="0" uncertaintyType="3" generalComment="Urea_kgha" minValue="0.0" maxValue="1e-12" infrastructureProcess="false">
         <inputGroup>5</inputGroup>
       </exchange>
       <exchange number="26" category="resource" subCategory="land" name="Occupation, annual crop, EC" unit="m2a" meanValue="10000.0" uncertaintyType="3" generalComment="Model_annual_crops, yield per 1 ha, actual area (ha): 2.90, yield range: 422.08 - 2500.00 | n = 80" minValue="10000.0" maxValue="10000.0" location="RER">
@@ -117,28 +117,28 @@
       <exchange number="31" category="resource" subCategory="unspecified" name="Water, well, EC" unit="m3" meanValue="0.0" uncertaintyType="3" generalComment="Irrig_m3" minValue="0.0" maxValue="0.0" location="RER">
         <inputGroup>4</inputGroup>
       </exchange>
-      <exchange number="32" category="resource" subCategory="in ground" name="Carbon, organic, in soil or biomass stock" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="SOC_mean_rate_kgChayr" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="32" category="resource" subCategory="in ground" name="Carbon, organic, in soil or biomass stock" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="SOC_mean_rate_kgChayr" minValue="0.0" maxValue="1e-12" location="RER">
         <inputGroup>4</inputGroup>
       </exchange>
-      <exchange number="33" category="air" subCategory="unspecified" name="Carbon dioxide" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="CO2" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="33" category="air" subCategory="unspecified" name="Carbon dioxide" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="CO2" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="34" category="air" subCategory="unspecified" name="Ammonia" unit="kg" meanValue="0.9562656361176468" uncertaintyType="3" generalComment="NH3" minValue="0.0042060574229691" maxValue="2.817497551746033" location="RER">
+      <exchange number="34" category="air" subCategory="unspecified" name="Ammonia" unit="kg" meanValue="0.9516726470588234" uncertaintyType="3" generalComment="NH3" minValue="0.0042060574229691" maxValue="2.817497551746033" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="35" category="air" subCategory="unspecified" name="Dinitrogen monoxide" unit="kg" meanValue="0.431123452" uncertaintyType="3" generalComment="N2O" minValue="0.0019026360544217" maxValue="1.2680714646712024" location="RER">
+      <exchange number="35" category="air" subCategory="unspecified" name="Dinitrogen monoxide" unit="kg" meanValue="0.4304949999999999" uncertaintyType="3" generalComment="N2O" minValue="0.0019026360544217" maxValue="1.2680714646712024" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="36" category="air" subCategory="unspecified" name="Nitrogen oxides" unit="kg" meanValue="2.729728682781023" uncertaintyType="3" generalComment="NOx" minValue="0.0120497408202411" maxValue="8.028017888294826" location="RER">
+      <exchange number="36" category="air" subCategory="unspecified" name="Nitrogen oxides" unit="kg" meanValue="2.7264032773657294" uncertaintyType="3" generalComment="NOx" minValue="0.0120497408202411" maxValue="8.028017888294826" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
       <exchange number="37" category="air" subCategory="unspecified" name="Azoxystrobin" unit="kg" meanValue="0.028344671201814057" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.28344671201814065" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="38" category="air" subCategory="unspecified" name="Chlorothalonil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="38" category="air" subCategory="unspecified" name="Chlorothalonil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="39" category="air" subCategory="unspecified" name="Glufosinate ammonium" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="39" category="air" subCategory="unspecified" name="Glufosinate ammonium" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
       <exchange number="40" category="air" subCategory="unspecified" name="Glyphosate" unit="kg" meanValue="0.032454648526077094" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.32454648526077096" location="RER">
@@ -150,136 +150,136 @@
       <exchange number="42" category="air" subCategory="unspecified" name="2,4-D" unit="kg" meanValue="0.028344671201814057" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.28344671201814065" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="43" category="air" subCategory="unspecified" name="Abamectin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="43" category="air" subCategory="unspecified" name="Abamectin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="44" category="air" subCategory="unspecified" name="Atrazine" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="44" category="air" subCategory="unspecified" name="Atrazine" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="45" category="air" subCategory="unspecified" name="Butachlor" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="45" category="air" subCategory="unspecified" name="Butachlor" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="46" category="air" subCategory="unspecified" name="Chlorpyrifos" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="46" category="air" subCategory="unspecified" name="Chlorpyrifos" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
       <exchange number="47" category="air" subCategory="unspecified" name="Difenoconazole" unit="kg" meanValue="0.028344671201814057" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.28344671201814065" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="48" category="air" subCategory="unspecified" name="Diuron" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="48" category="air" subCategory="unspecified" name="Diuron" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="49" category="air" subCategory="unspecified" name="Fipronil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="49" category="air" subCategory="unspecified" name="Fipronil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="50" category="air" subCategory="unspecified" name="Imidacloprid" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="50" category="air" subCategory="unspecified" name="Imidacloprid" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="51" category="air" subCategory="unspecified" name="Mancozeb" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="51" category="air" subCategory="unspecified" name="Mancozeb" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="52" category="air" subCategory="unspecified" name="Metalaxyl-M" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="52" category="air" subCategory="unspecified" name="Metalaxyl-M" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="53" category="air" subCategory="unspecified" name="Propanil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="53" category="air" subCategory="unspecified" name="Propanil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="54" category="air" subCategory="unspecified" name="Thiamethoxam" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="54" category="air" subCategory="unspecified" name="Thiamethoxam" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimAir" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="55" category="air" subCategory="unspecified" name="Methane" unit="kg" meanValue="0" uncertaintyType="3" generalComment="CH4" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="55" category="air" subCategory="unspecified" name="Methane" unit="kg" meanValue="0" uncertaintyType="3" generalComment="CH4" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="56" category="water" subCategory="unspecified" name="Nitrate" unit="kg" meanValue="14.930251" uncertaintyType="3" generalComment="NO3" minValue="0.0659013605442176" maxValue="43.91084344671203" location="RER">
+      <exchange number="56" category="water" subCategory="unspecified" name="Nitrate" unit="kg" meanValue="14.911" uncertaintyType="3" generalComment="NO3" minValue="0.0659013605442176" maxValue="43.91084344671203" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="57" category="water" subCategory="unspecified" name="Phosphorus" unit="kg" meanValue="1.7172396543108592" uncertaintyType="3" generalComment="P" minValue="1.7093423979074136" maxValue="1.7350400862399995" location="RER">
+      <exchange number="57" category="water" subCategory="unspecified" name="Phosphorus" unit="kg" meanValue="1.717206456271859" uncertaintyType="3" generalComment="P" minValue="1.7093423979074136" maxValue="1.7350400862399995" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="58" category="water" subCategory="unspecified" name="Azoxystrobin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="58" category="water" subCategory="unspecified" name="Azoxystrobin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="59" category="water" subCategory="unspecified" name="Chlorothalonil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="59" category="water" subCategory="unspecified" name="Chlorothalonil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="60" category="water" subCategory="unspecified" name="Glufosinate ammonium" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="60" category="water" subCategory="unspecified" name="Glufosinate ammonium" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="61" category="water" subCategory="unspecified" name="Glyphosate" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="61" category="water" subCategory="unspecified" name="Glyphosate" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="62" category="water" subCategory="unspecified" name="Lambda-cyhalothrin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="62" category="water" subCategory="unspecified" name="Lambda-cyhalothrin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="63" category="water" subCategory="unspecified" name="2,4-D" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="63" category="water" subCategory="unspecified" name="2,4-D" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="64" category="water" subCategory="unspecified" name="Abamectin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="64" category="water" subCategory="unspecified" name="Abamectin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="65" category="water" subCategory="unspecified" name="Atrazine" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="65" category="water" subCategory="unspecified" name="Atrazine" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="66" category="water" subCategory="unspecified" name="Butachlor" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="66" category="water" subCategory="unspecified" name="Butachlor" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="67" category="water" subCategory="unspecified" name="Chlorpyrifos" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="67" category="water" subCategory="unspecified" name="Chlorpyrifos" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="68" category="water" subCategory="unspecified" name="Difenoconazole" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="68" category="water" subCategory="unspecified" name="Difenoconazole" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="69" category="water" subCategory="unspecified" name="Diuron" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="69" category="water" subCategory="unspecified" name="Diuron" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="70" category="water" subCategory="unspecified" name="Fipronil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="70" category="water" subCategory="unspecified" name="Fipronil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="71" category="water" subCategory="unspecified" name="Imidacloprid" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="71" category="water" subCategory="unspecified" name="Imidacloprid" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="72" category="water" subCategory="unspecified" name="Mancozeb" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="72" category="water" subCategory="unspecified" name="Mancozeb" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="73" category="water" subCategory="unspecified" name="Metalaxyl-M" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="73" category="water" subCategory="unspecified" name="Metalaxyl-M" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="74" category="water" subCategory="unspecified" name="Propanil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="74" category="water" subCategory="unspecified" name="Propanil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="75" category="water" subCategory="unspecified" name="Thiamethoxam" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="75" category="water" subCategory="unspecified" name="Thiamethoxam" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="c_PrimWater" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="76" category="water" subCategory="unspecified" name="Phosphate" unit="kg" meanValue="0" uncertaintyType="3" generalComment="PO4" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="76" category="water" subCategory="unspecified" name="Phosphate" unit="kg" meanValue="0" uncertaintyType="3" generalComment="PO4" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="77" category="soil" subCategory="unspecified" name="Cadmium (II)" unit="kg" meanValue="9e-06" uncertaintyType="3" generalComment="Cd" minValue="0.0" maxValue="4e-05" location="RER">
+      <exchange number="77" category="soil" subCategory="unspecified" name="Cadmium (II)" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Cd" minValue="0.0" maxValue="4.000000000000047e-05" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="78" category="soil" subCategory="unspecified" name="Copper, ion" unit="kg" meanValue="0.0029969999999999" uncertaintyType="3" generalComment="Cu" minValue="0.0" maxValue="0.01332" location="RER">
+      <exchange number="78" category="soil" subCategory="unspecified" name="Copper, ion" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Cu" minValue="0.0" maxValue="0.0133200000000001" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="79" category="soil" subCategory="unspecified" name="Zinc" unit="kg" meanValue="0.0172259999999999" uncertaintyType="3" generalComment="Zn" minValue="0.0" maxValue="0.07656" location="RER">
+      <exchange number="79" category="soil" subCategory="unspecified" name="Zinc" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Zn" minValue="0.0" maxValue="0.0765600000000003" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="80" category="soil" subCategory="unspecified" name="Lead" unit="kg" meanValue="3.2399999999999995e-05" uncertaintyType="3" generalComment="Pb" minValue="0.0" maxValue="0.000144" location="RER">
+      <exchange number="80" category="soil" subCategory="unspecified" name="Lead" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Pb" minValue="0.0" maxValue="0.000144" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="81" category="soil" subCategory="unspecified" name="Nickel (II)" unit="kg" meanValue="0.0001619999999999" uncertaintyType="3" generalComment="Ni" minValue="0.0" maxValue="0.0007199999999999" location="RER">
+      <exchange number="81" category="soil" subCategory="unspecified" name="Nickel (II)" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Ni" minValue="0.0" maxValue="0.00072" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="82" category="soil" subCategory="unspecified" name="Chromium (III)" unit="kg" meanValue="0.0002357999999999" uncertaintyType="3" generalComment="Cr" minValue="0.0" maxValue="0.0010479999999999" location="RER">
+      <exchange number="82" category="soil" subCategory="unspecified" name="Chromium (III)" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Cr" minValue="0.0" maxValue="0.001048" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="83" category="soil" subCategory="unspecified" name="Mercury (II)" unit="kg" meanValue="2.34e-07" uncertaintyType="3" generalComment="Hg" minValue="0.0" maxValue="1.04e-06" location="RER">
+      <exchange number="83" category="soil" subCategory="unspecified" name="Mercury (II)" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="Hg" minValue="0.0" maxValue="1.0400000000001097e-06" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
       <exchange number="84" category="soil" subCategory="unspecified" name="Azoxystrobin" unit="kg" meanValue="0.1292517006802721" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1.2925170068027214" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="85" category="soil" subCategory="unspecified" name="Chlorothalonil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="85" category="soil" subCategory="unspecified" name="Chlorothalonil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="86" category="soil" subCategory="unspecified" name="Glufosinate ammonium" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="86" category="soil" subCategory="unspecified" name="Glufosinate ammonium" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
       <exchange number="87" category="soil" subCategory="unspecified" name="Glyphosate" unit="kg" meanValue="0.14799319727891155" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1.4799319727891156" location="RER">
@@ -291,40 +291,40 @@
       <exchange number="89" category="soil" subCategory="unspecified" name="2,4-D" unit="kg" meanValue="0.1292517006802721" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1.2925170068027214" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="90" category="soil" subCategory="unspecified" name="Abamectin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="90" category="soil" subCategory="unspecified" name="Abamectin" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="91" category="soil" subCategory="unspecified" name="Atrazine" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="91" category="soil" subCategory="unspecified" name="Atrazine" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="92" category="soil" subCategory="unspecified" name="Butachlor" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="92" category="soil" subCategory="unspecified" name="Butachlor" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="93" category="soil" subCategory="unspecified" name="Chlorpyrifos" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="93" category="soil" subCategory="unspecified" name="Chlorpyrifos" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
       <exchange number="94" category="soil" subCategory="unspecified" name="Difenoconazole" unit="kg" meanValue="0.1292517006802721" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1.2925170068027214" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="95" category="soil" subCategory="unspecified" name="Diuron" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="95" category="soil" subCategory="unspecified" name="Diuron" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="96" category="soil" subCategory="unspecified" name="Fipronil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="96" category="soil" subCategory="unspecified" name="Fipronil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="97" category="soil" subCategory="unspecified" name="Imidacloprid" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="97" category="soil" subCategory="unspecified" name="Imidacloprid" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="98" category="soil" subCategory="unspecified" name="Mancozeb" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="98" category="soil" subCategory="unspecified" name="Mancozeb" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="99" category="soil" subCategory="unspecified" name="Metalaxyl-M" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="99" category="soil" subCategory="unspecified" name="Metalaxyl-M" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="100" category="soil" subCategory="unspecified" name="Propanil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="100" category="soil" subCategory="unspecified" name="Propanil" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
-      <exchange number="101" category="soil" subCategory="unspecified" name="Thiamethoxam" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="0.0" location="RER">
+      <exchange number="101" category="soil" subCategory="unspecified" name="Thiamethoxam" unit="kg" meanValue="0.0" uncertaintyType="3" generalComment="soil_factor" minValue="0.0" maxValue="1e-12" location="RER">
         <outputGroup>4</outputGroup>
       </exchange>
     </flowData>

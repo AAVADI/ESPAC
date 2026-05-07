@@ -1,11 +1,11 @@
 {
-  "summary_level": "cropping_system",
-  "summary_token": "cropping_system",
-  "filtered_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_crop_lci_table_filtered__summary_cropping_system.csv",
-  "filtered_uncertainty_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_crop_lci_table_filtered__summary_cropping_system_uncertainty.csv",
-  "selected_crop": "CACAO (ALMENDRA SECA)",
+  "summary_level": "crop_national",
+  "summary_token": "crop_national",
+  "filtered_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_crop_lci_table_filtered__summary_crop_national.csv",
+  "filtered_uncertainty_csv": "c:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_crop_lci_table_filtered__summary_crop_national_uncertainty.csv",
+  "selected_crop": "OTROS PERMANENTES",
   "selected_subcrop": "All",
   "otros_crop_filter": "All",
-  "updated_at_utc": "2026-05-06T08:42:09.860564+00:00",
-  "run_id": "02_crops_20260506T084209Z"
+  "updated_at_utc": "2026-05-07T11:13:33.742117+00:00",
+  "run_id": "02_crops_20260507T111326Z"
 }

@@ -14,7 +14,7 @@
       </processInformation>
       <modellingAndValidation>
         <representativeness />
-        <validation><reviewStatus>Final</reviewStatus><reviewer>Angel Avadí</reviewer><reviewDate>2026-05-06</reviewDate><proofReadingValidator><name>Angel Avadí</name><email>angel.avadi@irta.cat</email><companyCode>1234</companyCode><proofReadingDate>2026-05-06</proofReadingDate></proofReadingValidator></validation><source number="1" sourceType="0" firstAuthor="SimaPro" year="2025" title="Dummy" placeOfPublications="Unspecified" />
+        <validation><reviewStatus>Final</reviewStatus><reviewer>Angel Avadí</reviewer><reviewDate>2026-05-07</reviewDate><proofReadingValidator><name>Angel Avadí</name><email>angel.avadi@irta.cat</email><companyCode>1234</companyCode><proofReadingDate>2026-05-07</proofReadingDate></proofReadingValidator></validation><source number="1" sourceType="0" firstAuthor="SimaPro" year="2025" title="Dummy" placeOfPublications="Unspecified" />
       </modellingAndValidation>
       <administrativeInformation>
         <dataEntryBy person="2" qualityNetwork="1" />

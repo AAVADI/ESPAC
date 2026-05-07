@@ -523,6 +523,7 @@ Users should document the following clearly when using repository outputs:
 6. The livestock DFE workflow is operational but still exploratory and literature-driven.
 7. Several crop SOC coefficients and many livestock proxy factors are still best-available placeholders rather than Ecuador-calibrated final values.
 8. ESPAC does not directly provide a single dairy-cow productive-life variable; the current milk-cow age proxy uses a weighted stock/outflow estimator and an explicit policy-constrained parameter choice (`producing_years_ec = 5.5`).
+9. Crop pipeline now applies an Ecuador-centered plausibility cap for fermented organic fertilizer before aggregation and uncertainty generation: `Organic_fermentado_kgha` is clipped at `20,000 kg/ha` at row level in notebook 2, and downstream `Total_fert_org_kgha`, grouped min/max uncertainty bounds, and XML exchanges inherit the capped value.
 
 Examples of major proxy-dependent areas include:
 
@@ -536,6 +537,7 @@ Examples of major proxy-dependent areas include:
 - livestock live-weight and FPCM normalization;
 - routed livestock animal input proxies, including the current use of the kid-goat process for both goat and ovine live-animal product rows; no separate kid-goat economic allocation factor is currently applied because no explicit factor has been supplied;
 - cattle, swine, and ovine routed animal-input uncertainty now reflects ESPAC stock/outflow variation through `Animal_input_age_related_factor`; goat routed kid-goat and meat-poultry one-day-chicken uncertainty use aggregate live-weight/reference-output bounds when no usable sales/outflow basis is available. Extreme upper bounds can occur where reported annual outflow is very small relative to stock, so these bounds should be interpreted as empirical screening ranges rather than fitted confidence intervals;
+- rare crop rows can still contain unit-consistent but agronomically implausible organic entries; the `Organic_fermentado_kgha` cap is a conservative safeguard and should be reviewed if Ecuador-specific crop guidance is tightened by crop type or agroecological zone;
 - direct field emission factors imported from non-Ecuador literature.
 
 ## 10. Diagnostics and supporting reports

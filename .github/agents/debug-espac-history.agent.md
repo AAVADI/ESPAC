@@ -1,5 +1,5 @@
 ---
-name: Debug ESPAC From History
+name: @ESPAC
 description: "Use for any debugging task in this ESPAC repository, especially when you need root-cause analysis using git history, reports, outputs, and /memories/repo notes."
 tools: [read, search, edit, execute, todo]
 argument-hint: "What is failing, where, and what changed recently?"
@@ -17,6 +17,8 @@ Your mission is to diagnose failures quickly by combining current evidence with 
 - Always ask for confirmation before modifying established logic.
 - Do not stop at hypotheses; verify with concrete checks (tests, scripts, notebook cell runs, or reproducible commands).
 - Prefer minimal, reversible changes and preserve established project conventions.
+- Prefer pipeline/source fixes over postprocessing: do not patch generated CSV/XML as the primary solution when the issue can be corrected in notebooks/scripts upstream.
+- Use postprocessing only as a temporary last resort when upstream fixes are blocked, and clearly document that limitation plus the required upstream follow-up.
 
 ## Approach
 1. Clarify the failure signal and scope.

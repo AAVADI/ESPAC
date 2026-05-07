@@ -3,7 +3,7 @@ ESPAC,espac_fingerprint_matrix_by_domain,crops,7,7,100.0
 ESPAC,espac_fingerprint_matrix_by_domain,livestock,10,10,100.0
 comparisons,comparisons_eggs_all_sources,livestock,3,3,100.0
 comparisons,comparisons_milk_all_sources,livestock,3,3,100.0
-individual tropical crops,individual_tropical_crops_grouped_lollipop,crops,119,113,94.9579831932773
+individual tropical crops,individual_tropical_crops_grouped_lollipop,crops,124,115,92.74193548387096
 regional differences,regional_dumbbell_provinces,crops,27,27,100.0
 regional differences,regional_dumbbell_regions,crops,27,27,100.0
 uncertainty,uncertainty_interval_forest,other,30,30,100.0
