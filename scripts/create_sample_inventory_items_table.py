@@ -9,7 +9,7 @@ from crop_groups import infer_crop_group_row
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CROP_DFE_PATH = PROJECT_ROOT / "outputs" / "CSVs" / "03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national.csv"
-LIVESTOCK_DFE_PATH = PROJECT_ROOT / "outputs" / "CSVs" / "03-05_espac_livestock_lci_table_filtered_dfe__summary_product.csv"
+LIVESTOCK_DFE_PATH = PROJECT_ROOT / "outputs" / "CSVs" / "03-05_espac_livestock_lci_table_filtered_dfe__summary_national.csv"
 OUTPUT_DIR = PROJECT_ROOT / "outputs" / "reports"
 OUTPUT_CSV = OUTPUT_DIR / "sample_inventory_items_table.csv"
 OUTPUT_MD = OUTPUT_DIR / "sample_inventory_items_table.md"

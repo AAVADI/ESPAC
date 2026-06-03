@@ -106,8 +106,7 @@ def validate_for_notebook6(domain: str, summary_token: str, main_df: pd.DataFram
         ('crops', 'crop_national'): ['Crop', 'Category'],
         ('crops', 'crop_group_national'): ['Crop_group', 'Category'],
         ('livestock', 'province'): ['Region', 'Province', 'Product', 'System'],
-        ('livestock', 'region'): ['Region', 'Product'],
-        ('livestock', 'product'): ['Product'],
+        ('livestock', 'region'): ['Region', 'Product', 'System'],
         ('livestock', 'national'): ['Product', 'System'],
     }
     keys = [k for k in key_map.get((domain, summary_token), []) if k in main_df.columns]

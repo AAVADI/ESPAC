@@ -1,0 +1,4 @@
+Create an interactive Jupyter notebook that processes 2_DD_DATOS_ABIERTOS_ESPAC_2024.zip, which is a national agricultural survey, into a relational SQlite database. Create a secondary notebook to interact (i.e. explore, make queries) with the SQlite database.
+
+
+Extract operational data from the database, per crop or livestock species, that can be used to generate life cycle inventories aggregated at different levels (regional medians, national medians) while preserving the data spread as uncertainty data suitable for Monte Carlo propagation. Operational data refers to all the material and energy inputs  (e.g fuels, electricity, irrigation/water, fertilizers, agrochemicals, animal feed) and outputs (yield, coproducts). All crop data should be normalised per ha, that is to say, all flows expressed per ha-equivalent.

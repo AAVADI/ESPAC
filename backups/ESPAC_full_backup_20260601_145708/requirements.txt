@@ -1,0 +1,10 @@
+pandas
+numpy
+PyYAML
+ipython
+ipykernel
+ipywidgets
+jupyterlab
+notebook
+openpyxl
+nbformat

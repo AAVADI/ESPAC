@@ -1,5 +1,5 @@
 source_summary_file,source_inventory_level,rows,count_non_null
-outputs\CSVs\03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national.csv,crop_national,46,46
+outputs\CSVs\03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national.csv,crop_national,55,55
 outputs\CSVs\03-05_espac_crop_lci_table_filtered_dfe__summary_crop_group_national.csv,crop_group_national,7,7
 outputs\CSVs\03-05_espac_crop_lci_table_filtered_dfe__summary_region.csv,region,3,3
 outputs\CSVs\03-05_espac_livestock_lci_table_filtered_dfe__summary_product.csv,livestock_product,10,0

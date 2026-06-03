@@ -20,7 +20,12 @@ The repository is intended both as:
 
 ## 2. Current pipeline layout
 
-The workflow is notebook-driven and currently split into crop and livestock branches after a shared ETL step.
+The project now supports two complementary execution modes:
+
+- a notebook workflow, which remains the methodological and implementation backbone; and
+- an interactive marimo app in `apps/espac_lci_pipeline_marimo.py`, which acts as the operational frontend for routine execution, previewing, and export.
+
+In both modes, the project is split into crop and livestock branches after a shared ETL step.
 
 ### Shared ETL
 
@@ -44,12 +49,15 @@ Notes:
 - Notebook 1 is only needed when rebuilding the SQLite database from raw ESPAC inputs.
 - Notebook 4 is only needed for the crop XML exchange-matching workflow.
 - The livestock branch does not currently use notebook 4.
+- The marimo app orchestrates routine stage execution, previewing, cache building, and XML export from these notebook- and script-backed stages.
+- The numbered notebooks remain the primary methodological record and the most direct way to inspect intermediate logic cell by cell.
 
 ## 3. Repository structure
 
 - `inputs/`: raw data, templates, YAML coefficients, and background references.
 - `notebooks/`: the numbered pipeline notebooks.
 - `scripts/`: helper scripts used mainly by the exchange roundtrip workflow and environment setup.
+- `apps/`: interactive marimo app entrypoints for operational pipeline use.
 - `outputs/`: generated SQLite, CSV, spreadsheet, and XML outputs.
 - `reports/`: diagnostics, audit tables, and method notes.
 
@@ -60,6 +68,8 @@ The repository now includes lightweight setup scripts for reproducible local exe
 - `requirements.txt`
 - `scripts/bootstrap_venv.ps1`
 - `run-jupyter.ps1`
+- `scripts/run_marimo_clean.ps1`
+- `scripts/run_marimo_clean.sh`
 
 Recommended setup on Windows PowerShell:
 
@@ -87,9 +97,20 @@ Typical execution order:
 ### Livestock outputs
 
 1. `1_espac_2024_etl_to_sqlite.ipynb` if SQLite must be rebuilt
-2. `2_livestock_espac_2024_sqlite_explorer.ipynb`
-3. `3_livestock_espac_direct_field_emissions.ipynb`
-4. `5_livestock_espac_lci_xml_generator.ipynb`
+2. `2_livestock_espac_2024_sqlite_explorer.ipynb` (integrated v2 stage `02`)
+3. `3_livestock_espac_direct_field_emissions.ipynb` (integrated v2 stage `03-05`)
+4. `5_livestock_espac_lci_xml_generator.ipynb` (integrated v2 stage `05_xml`)
+
+The canonical livestock implementation is now orchestrated by:
+
+- `scripts/livestock_pipeline_v2_integrated.py`
+
+This script is the source of truth for livestock stage integration (`02`, `03-05`, `05_xml`), metadata refresh (`outputs/02_latest_livestock_filtered_export_summary.json`), and manifest lineage updates.
+
+Recommended usage pattern:
+
+- use the notebooks when inspecting methodology, validating transformations, or developing new logic;
+- use the marimo app for routine execution, quick previewing, cache building, and export operations.
 
 ## 5. Main inputs
 
@@ -173,17 +194,27 @@ Tracked livestock outputs currently include summary tables for:
 - `province`
 - `region`
 - `national`
-- `product`
+
+`product` is no longer an active livestock strategy. The previous product-level path has been superseded by the integrated V2 national workflow.
 
 Livestock summary tables now include explicit product-routed animal input columns, such as `Animal_input_calf_live_weight_kg_per_1kg_product`, `Animal_input_piglet_live_weight_kg_per_1kg_product`, and `Animal_input_kid_goat_live_weight_kg_per_1kg_product`. These columns are generated during the CSV stage so downstream DFE and XML steps do not have to infer the concerned animal from the shared `Animals_total_live_weight_kg_per_1kg_product` value. Where the routed animal input is an economically allocated technosphere process, notebook 2 applies the process allocation factor directly to the median, minimum, and maximum values before export. For cattle, swine, and ovine meat rows, notebook 2 also applies an `Animal_input_age_related_factor` before aggregation so uncertainty bounds are based on ESPAC stock/outflow variation rather than a flat carcass-yield constant; goat kid-goat and meat-poultry one-day-chicken bounds use aggregate live-weight/reference-output ranges when no usable sales/outflow field is available. CSV-stage non-pasture compound-feed components (`Supplement_feed_kg_per_1kg_product`, `Common_feed_kg_per_1kg_product`, `Waste_feed_kg_per_1kg_product`, `Unallocated_feed_kg_per_1kg_product`, and `Proxy_compound_feed_kg_per_1kg_product`) are scaled by the ratio between the routed animal input and the generic animal live-weight basis before feed totals are recomputed, so compound feed follows the concerned input animal rather than the unallocated herd basis.
 
 Tracked livestock DFE outputs currently include:
 
+- `outputs/CSVs/03-05_espac_livestock_lci_table_filtered_dfe__summary_province.csv`
 - `outputs/CSVs/03-05_espac_livestock_lci_table_filtered_dfe__summary_region.csv`
 - `outputs/CSVs/03-05_espac_livestock_lci_table_filtered_dfe__summary_national.csv`
-- `outputs/CSVs/03-05_espac_livestock_lci_table_filtered_dfe__summary_product.csv`
 
 Corresponding uncertainty tables are stored beside them with the `_uncertainty.csv` suffix.
+
+### Reference caches
+
+The repository now supports two optional expensive-build reference caches used by the marimo app:
+
+- `outputs/CSVs/reference_cache_crops_all_combinations.csv`
+- `outputs/CSVs/reference_cache_livestock_all_combinations.csv`
+
+These caches accelerate previewing across supported configuration combinations. They are derived artifacts, not source-of-truth pipeline outputs.
 
 Additional synthetic or locked diagnostic exports may exist locally, but they are not part of the committed core workflow unless explicitly versioned.
 
@@ -191,29 +222,27 @@ Additional synthetic or locked diagnostic exports may exist locally, but they ar
 
 Tracked crop XML outputs currently exist in:
 
+- `outputs/05_xml_exports_crop_lci/summary_cropping_system/`
 - `outputs/05_xml_exports_crop_lci/summary_crop_group_national/`
-- `outputs/05_xml_exports_crop_lci/summary_province/` (currently empty)
+- `outputs/05_xml_exports_crop_lci/summary_crop_national/`
+- `outputs/05_xml_exports_crop_lci/summary_province/`
+- `outputs/05_xml_exports_crop_lci/summary_region/`
 
 Tracked livestock XML outputs currently exist in:
 
-- `outputs/05_xml_exports_livestock_lci/summary_product/`
+- `outputs/05_xml_exports_livestock_lci/summary_province/`
+- `outputs/05_xml_exports_livestock_lci/summary_region/`
+- `outputs/05_xml_exports_livestock_lci/summary_national/`
 
-### Numbered summary strategies used in XML filenames
+### Current XML naming convention
 
-XML filenames now use compact numbered strategy tags in the form `strategy_X`, where `X` is the project-wide strategy identifier below.
+Livestock XML filenames no longer use `strategy_X` tags. The active naming scheme is semantic and encodes the product plus aggregation meaning directly.
 
-- `strategy_1`: `province` — applies to `both` crops and livestock
-- `strategy_2`: `region` — applies to `both` crops and livestock
-- `strategy_3`: `crop_national` — applies to `crops`
-- `strategy_4`: `cropping_system` — applies to `crops`
-- `strategy_5`: `irrig_m3_class` — applies to `crops`
-- `strategy_6`: `farm_size_class` — applies to `crops`
-- `strategy_7`: `crop_group` — applies to `crops`
-- `strategy_8`: `crop_group_national` — applies to `crops`
-- `strategy_9`: `product` — applies to `livestock`
-- `strategy_10`: `national` — applies to `livestock`
+Examples:
 
-These identifiers are shared across crop and livestock XML generation so the filename convention stays stable across branches.
+- `product_cattle_live_aggregation_national.xml`
+- `product_milk_aggregation_national.xml`
+- `product_swine_live_aggregation_region.xml`
 
 ## 7. Workflow summary
 
@@ -245,6 +274,9 @@ Current crop summary levels reflected in the repo include:
 - `region`
 - `crop_national`
 - `cropping_system`
+- `irrig_m3_class`
+- `farm_size_class`
+- `crop_group`
 - `crop_group_national`
 
 Cultivated pasture is treated as part of the crop-side foreground system and exported with its own grouping behavior.
@@ -282,13 +314,13 @@ All other crop-group assignments should come from the curated list in `scripts/c
 
 Products currently represented in the repo include:
 
-- cattle live
 - milk
 - swine live
 - ovine live
-- goat live
 - eggs
-- poultry meat grouped as `meat_poultry_product` at XML level
+- poultry meat
+- cattle meat
+- other_livestock_live
 
 The livestock pipeline also writes a cattle pasture linkage diagnostic:
 
@@ -446,21 +478,23 @@ The current crop XML naming scheme uses labeled record parts plus a numbered str
 - reads livestock DFE or filtered livestock LCI outputs;
 - applies the livestock XML templates;
 - uses the routed `Animal_input_*_live_weight_kg_per_1kg_product` columns when populating animal technosphere exchanges;
-- writes livestock XML files to `outputs/05_xml_exports_livestock_lci/summary_product/`;
+- writes livestock XML files to `outputs/05_xml_exports_livestock_lci/summary_province/`;
+- writes livestock XML files to `outputs/05_xml_exports_livestock_lci/summary_region/` when the region strategy is selected;
+- writes livestock XML files to `outputs/05_xml_exports_livestock_lci/summary_national/` when the national strategy is selected;
 - appends stage `05_xml` lineage records to `outputs/pipeline_run_manifest.json`.
 
-Current livestock XML outputs include files named with the same numbered strategy convention. Examples include:
+Current livestock XML outputs now use semantic filenames. Examples include:
 
-- `product_cattle_live_strategy_9.xml`
-- `product_donkey_live_strategy_9.xml`
-- `product_eggs_strategy_9.xml`
-- `product_goat_live_strategy_9.xml`
-- `product_horse_live_strategy_9.xml`
-- `product_meat_poultry_strategy_9.xml`
-- `product_milk_strategy_9.xml`
-- `product_mule_live_strategy_9.xml`
-- `product_ovine_live_strategy_9.xml`
-- `product_swine_live_strategy_9.xml`
+- `product_cattle_live_aggregation_national.xml`
+- `product_donkey_live_aggregation_national.xml`
+- `product_eggs_aggregation_national.xml`
+- `product_goat_live_aggregation_national.xml`
+- `product_horse_live_aggregation_national.xml`
+- `product_meat_poultry_aggregation_national.xml`
+- `product_milk_aggregation_national.xml`
+- `product_mule_live_aggregation_national.xml`
+- `product_ovine_live_aggregation_national.xml`
+- `product_swine_live_aggregation_national.xml`
 
 ## 8. Current methodological features reflected in the repo
 
@@ -472,7 +506,7 @@ The crop workflow currently includes:
 - grouping at several geographic and product levels;
 - YAML-driven yield and coefficient logic;
 - crop DFE augmentation;
-- crop XML export currently committed for crop-group-national summaries (with the `summary_province` export folder also present, currently empty).
+- crop XML export currently committed for `summary_cropping_system`, `summary_crop_group_national`, `summary_crop_national`, `summary_province`, and `summary_region` summaries.
 
 Permanent-system SOC handling is now integrated into the crop DFE and crop XML chain through the current DFE configuration file. Some coefficients are still proxies and should be treated as provisional rather than Ecuador-specific final parameters.
 
@@ -485,21 +519,27 @@ The livestock workflow currently includes:
 - CSV-stage routing of concerned animal inputs for livestock XML exchanges;
 - cattle pasture linkage logic;
 - exploratory livestock DFE augmentation;
-- livestock XML export at `summary_product` level.
+- livestock XML export at `summary_province`, `summary_region`, and `summary_national` levels.
+
+Current livestock national behavior:
+
+- there is only one active national livestock strategy, based on the integrated V2 workflow;
+- livestock national aggregation keeps system types separate by default;
+- the optional combination of livestock system types into one national result is user-controlled in the marimo app and CLI (`--combine-systems`), not automatic.
 
 Recent milk-method change reflected in outputs:
 
 - milk cow live-weight amortization now uses `producing_years_ec = 5.5` years;
-- the strategy 9 milk XML dairy-cow exchange (`dairy cow, at farm {BR} Economic, U`) currently reflects this update and the 3.76% dairy-cow economic allocation factor with mean value `0.5565159927553089` kg per 1 kg FPCM in `outputs/05_xml_exports_livestock_lci/summary_product/product_milk_strategy_9.xml`.
+- the current national milk XML dairy-cow exchange (`dairy cow, at farm {BR} Economic, U`) reflects this update and the 3.76% dairy-cow economic allocation factor in `outputs/05_xml_exports_livestock_lci/summary_national/product_milk_aggregation_national.xml`.
 
 Recent egg-method change reflected in outputs:
 
 - laying-hen live weight and hen feed now use `producing_years_ec = 1.5` years;
 - reported ESPAC egg counts are treated as weekly counts and annualized with `output_periods_per_year = 52` before shell-egg kg conversion;
-- the strategy 9 egg XML laying-hen exchange (`laying hen <17 weeks, at farm {RER} Economic, U`) currently reflects this update with mean value `0.0611318932629714` kg per 1 kg shell eggs in `outputs/05_xml_exports_livestock_lci/summary_product/product_eggs_strategy_9.xml`.
-- the strategy 9 egg XML artificial-area occupation/transformation exchanges currently use the non-cage layer-house area proxy, with mean value `1.7322049015729678e-06` in `outputs/05_xml_exports_livestock_lci/summary_product/product_eggs_strategy_9.xml`.
+- the current national egg XML laying-hen exchange (`laying hen <17 weeks, at farm {RER} Economic, U`) reflects this update in `outputs/05_xml_exports_livestock_lci/summary_national/product_eggs_aggregation_national.xml`.
+- the current national egg XML artificial-area occupation/transformation exchanges use the non-cage layer-house area proxy in `outputs/05_xml_exports_livestock_lci/summary_national/product_eggs_aggregation_national.xml`.
 
-Current strategy 9 animal-input routing:
+Current livestock animal-input routing:
 
 - `cattle_live` -> `calf, at farm {BR} Economic, U`, with cattle stock/outflow age factor and 6.73% economic allocation applied in notebook 2
 - `swine_live` -> `piglet, at farm {BR} Economic, U`, with swine stock/sales age factor and 93.72% economic allocation applied in notebook 2
@@ -552,16 +592,17 @@ The crop XML readiness report remains relevant because some legacy template expe
 
 ## 11. Reproducibility notes
 
-The project is still notebook-driven rather than orchestrated by a single CLI pipeline. Reproducibility currently depends on:
+The project is notebook-backed and app-assisted rather than orchestrated by a single monolithic CLI pipeline. Reproducibility currently depends on:
 
 - stable folder structure;
 - consistent notebook execution order;
+- consistent marimo app selections when the app is used as the operational interface;
 - manifest-backed immutable snapshots and run records in `outputs/pipeline_run_manifest.json`;
 - stable input filenames in `inputs/`;
 - correct use of the local `.venv` environment;
 - manual care during crop exchange review when notebook 4 is used.
 
-The current setup scripts improve reproducibility compared with earlier repo versions by standardizing environment creation and Jupyter kernel registration.
+The current setup scripts improve reproducibility compared with earlier repo versions by standardizing environment creation, Jupyter kernel registration, and marimo launch behavior.
 
 ### 11.1 Required run sequence for complete notebook 6 availability
 
@@ -579,7 +620,7 @@ When citing outputs from this repository, record at minimum:
 
 - ESPAC survey year: `2024`
 - branch used: `crop` or `livestock`
-- summary level used: for example `region`, `crop_national`, `crop_group_national`, `cropping_system`, `province`, `national`, or `product`
+- summary level used: for example `region`, `crop_national`, `crop_group_national`, `cropping_system`, `province`, or `national`
 - repository commit hash
 - date of generated outputs
 - XML template version used
@@ -657,8 +698,12 @@ These include cleaned workbook extracts, reference coverage/index tables, and en
 At the current project state, the most important recent developments reflected in this document are:
 
 - the split crop/livestock notebook architecture;
-- committed livestock CSV and XML outputs;
+- the marimo app as the operational frontend;
+- continued retention of the Jupyter notebooks as the methodological and development backbone;
+- committed livestock CSV and XML outputs with semantic filenames;
 - the new PowerShell environment/bootstrap workflow;
-- the current crop XML naming scheme and committed crop output coverage.
+- the current crop XML naming scheme and committed crop output coverage;
+- the removal of the old livestock `product` strategy in favor of a single integrated V2 national path;
+- the optional crop and livestock reference-cache layer for preview acceleration.
 - the milk-cow productive-life update: ESPAC-based hint calculation plus operational 5.5-year normalization across notebook 2 and notebook 3.
 - the Notebook 7 LCIA storyboard layer, especially source-label mapping, crop-point extraction conventions, and figure rendering rules.

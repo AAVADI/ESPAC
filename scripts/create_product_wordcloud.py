@@ -10,7 +10,7 @@ from wordcloud import WordCloud
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CROP_SUMMARY_PATH = PROJECT_ROOT / "outputs" / "CSVs" / "02_espac_crop_lci_table_filtered__summary_crop_national.csv"
-LIVESTOCK_SUMMARY_PATH = PROJECT_ROOT / "outputs" / "CSVs" / "02_espac_livestock_lci_table_filtered__summary_product.csv"
+LIVESTOCK_SUMMARY_PATH = PROJECT_ROOT / "outputs" / "CSVs" / "02_espac_livestock_lci_table_filtered__summary_national.csv"
 ESPAC_SQLITE_PATH = PROJECT_ROOT / "outputs" / "01_espac_2024.sqlite"
 OUTPUT_DIR = PROJECT_ROOT / "outputs" / "reports"
 OUTPUT_COMBINED_PNG = OUTPUT_DIR / "espac_product_datapoints_wordcloud.png"

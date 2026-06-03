@@ -1,0 +1,257 @@
+# SOC Sequestration Parameters for Tropical Perennial Tree Crops (Ecuador)
+# 
+# This YAML file extends the existing 03-05_dfe_factors.yml with crop-specific SOC rates.
+# Intended for integration into the main DFE factors configuration after review/validation.
+#
+# Sources:
+# - CIAT Agroforestry Program (coffee, cacao, mixed systems in Andean regions)
+# - ICRAF World Agroforestry Centre (shade systems, carbon dynamics in tropical regions)
+# - Peer-reviewed literature (Soto-Pinto, Armengot, Cerri et al. - agroforestry carbon in tropical Americas)
+# - IPCC 2006 & 2019 Guidelines (AFOLU land-use change and management C accounting)
+# - Ecuador agronomic context inferred from similar humid tropical and highland Andean zones
+
+soc_sequestration_tree_crops:
+  coffee:
+    full_sun_monoculture:
+      mean_kgChayr: 525
+      min_kgChayr: 250
+      max_kgChayr: 900
+      unit: kg C/ha/yr
+      description: High-density monoculture, minimal residue & shade retention, faster decomposition
+      applicability_notes: >
+        Less common in Ecuador (most is shade-grown), but found in western slopes and commercial zones.
+        Varies with soil texture, rainfall, and N-fertilization intensity.
+
+    shade_grown_agroforestry:
+      mean_kgChayr: 1400
+      min_kgChayr: 600
+      max_kgChayr: 2200
+      unit: kg C/ha/yr
+      description: Shade-grown with native/fruit trees (Inga, Chalum, Nogal, native species)
+      applicability_notes: >
+        Ecuador dominant system for specialty/organic coffee. Includes contributions from shade tree
+        litter (50-60% of total organic matter input). Benefits from cooler soil, reduced erosion,
+        and enhanced microbial activity.
+      management_adjustments:
+        shade_tree_pruning_residue_incorporation:
+          effect_kgChayr: 200-400
+          note: "Active pruning + on-site incorporation of shade tree trimmings"
+        mulching_coffee_pulp_and_leaves:
+          effect_kgChayr: 300-600
+          note: "Deliberate mulch programs using coffee pulp (wet process byproduct) + fallen leaves"
+        n_p_fertilization_moderate:
+          effect_kgChayr: 150-300
+          note: "Moderate N-P-K application (vs. unfertilized baseline)"
+      elevation_adjustments:
+        highland_gt1200m_cool_subtropical:
+          multiplier: 1.15
+          adjusted_mean: 1610
+          note: "15% increase due to slower decomposition in cooler soils. Ecuador mountain coffee zones."
+        mid_elevation_500_1200m_tropical:
+          multiplier: 1.0
+          adjusted_mean: 1400
+          note: "Baseline. Typical Ecuador coffee transitional zone."
+        lowland_lt500m_humid_tropical:
+          multiplier: 0.87
+          adjusted_mean: 1218
+          note: >
+            13% decrease due to faster decomposition in warm/high-precipitation climate.
+            Ecuador coastal/lowland coffee (rare but exists in some zones).
+
+  cacao:
+    shade_grown_traditional:
+      mean_kgChayr: 1100
+      min_kgChayr: 400
+      max_kgChayr: 1800
+      unit: kg C/ha/yr
+      description: Traditional shade-grown cacao (most Ecuador systems). Ecuador's dominant cultivation method.
+      applicability_notes: >
+        Manabí, Esmeraldas, Los Ríos provinces (main cacao zones). Many farms retain native/planted
+        shade by default. Includes contributions from shade tree litter (40-60% of total input).
+        Soil is often high-clay (especially Manabí), which favors C stabilization.
+      management_adjustments:
+        organic_certification_practices:
+          effect_kgChayr: 200-400
+          note: "Certified organic systems: composite mulching, minimal synthetic input, shade retention"
+        agroforestry_intercrop_component:
+          effect_kgChayr: 200-500
+          note: "Added to baseline if plantains, bananas, or timber trees intercropped"
+        conventional_chemical_heavy_low_shade:
+          effect_kgChayr: -250  # subtract from baseline
+          note: "Reduced shade management, higher herbicide use (less organic matter)"
+      elevation_adjustments:
+        lowland_humid_lt600m:
+          multiplier: 0.98
+          adjusted_mean: 1078
+          note: "Minimal adjustment (-2%). High rainfall & warm temps offset each other in C balance."
+        mid_elevation_transitions_600_1200m:
+          multiplier: 1.05
+          adjusted_mean: 1155
+          note: "5% increase. Slightly cooler, better moisture retention without excessive decomposition."
+
+  banana_plantain:
+    commercial_monoculture_lowland:
+      mean_kgChayr: 400
+      min_kgChayr: 100
+      max_kgChayr: 800
+      unit: kg C/ha/yr
+      description: Commercial, high-input banana monoculture (typical Ecuador coastal production)
+      applicability_notes: >
+        Manabí, Los Ríos, El Oro provinces. Frequent soil disturbance (replanting cycles, chemical
+        weed control). Pseudostem residues often exported/disposed rather than incorporated.
+        Warm, wet lowland climate (>25°C, >2500 mm rain) drives faster decomposition.
+      management_adjustments:
+        pseudostem_mulching_on_farm:
+          effect_kgChayr: 300-500
+          note: "On-farm shredding/mulching of pseudostems (vs. export)"
+        cover_crop_legumes_permanent:
+          effect_kgChayr: 200-400
+          note: "Interrow cover crops (Desmodium, Stylosanthes, N-fixing legumes)"
+        reduced_tillage_no_replant_cultivation:
+          effect_kgChayr: 100-200
+          note: "Shift from annual ground prep to strip-till or no-till replant methods"
+        compost_organic_amendment_inputs:
+          effect_kgChayr: 150-350
+          note: "Compost/manure applications (on-farm or purchased)"
+      regional_variation:
+        manabi_province_primary_zone:
+          mean_kgChayr: 400
+          note: "Central banana production. Soils: Vertisols, high clay content."
+        los_rios_province:
+          mean_kgChayr: 450
+          note: "Higher rainfall, slightly higher potential (but also higher decomposition risk)"
+        el_oro_province_southern:
+          mean_kgChayr: 300
+          note: "More seasonal rainfall, lower baseline potential"
+
+    plantain_highland_subsistence:
+      mean_kgChayr: 700
+      min_kgChayr: 400
+      max_kgChayr: 1000
+      unit: kg C/ha/yr
+      description: Highland plantain, typically small-hold/subsistence, traditional agroforestry
+      applicability_notes: >
+        Elevation 1000-1500 m, Andean provinces. Lower external input, often intercropped with
+        tree crops (cacao, coffee, banana, timber). Cooler temps favor C retention.
+          Litter accumulation from dense shade + reduced decomposition = higher net sequestration.
+
+  citrus_naranja_limon_mandarina:
+    conventional_monoculture:
+      mean_kgChayr: 500
+      min_kgChayr: 150
+      max_kgChayr: 900
+      unit: kg C/ha/yr
+      description: Conventional citrus orchards (Naranja, Limón, Mandarina)
+      applicability_notes: >
+        Scattered across Ecuador, mainly coastal/western slopes. Litter input moderate (leaves, twigs, fruit).
+        Often under-managed for organic matter (frequent herbicide strips under trees, minimal mulch).
+        Soil disturbance varies: chemical control (lower) vs. mechanical cultivation (higher).
+      management_adjustments:
+        mulching_native_cover_crop_establishment:
+          effect_kgChayr: 200-400
+          note: "Ground cover legumes or mulch retention under canopy"
+        reduced_tillage_shifted_weed_control:
+          effect_kgChayr: 100-250
+          note: "Herbicide-based vs. mechanical cultivation (less soil disturbance)"
+
+  avocado_aguacate:
+    orchards_highland_managed:
+      mean_kgChayr: 850
+      min_kgChayr: 600
+      max_kgChayr: 1100
+      unit: kg C/ha/yr
+      description: Highland avocado orchards, elevation 1500-2500 m
+      applicability_notes: >
+        Less extensive than coffee/cacao but growing in Ecuador. Large leaves + high litter input.
+        Cooler highland temperatures significantly favor C stability vs. lowland systems.
+        Often managed with organic certification emphasis.
+
+  mango_mango:
+    conventional_orchards:
+      mean_kgChayr: 600
+      min_kgChayr: 300
+      max_kgChayr: 900
+      unit: kg C/ha/yr
+      description: Mango orchards, mainly lowland & mid-elevation
+      applicability_notes: >
+        Moderate litter productivity. Lower management intensity compared to coffee/cacao.
+
+  papaya_papaya:
+    semi_perennial_production:
+      mean_kgChayr: 350
+      min_kgChayr: 150
+      max_kgChayr: 600
+      unit: kg C/ha/yr
+      description: Papaya plots (semi-perennial, shorter production cycle)
+      applicability_notes: >
+        Shorter-lived trees, higher turnover rate. Lower average residue carbon accumulation.
+
+temporal_dynamics_and_caveats:
+  description: >
+    SOC sequestration rates shown above represent mean annual rates during the ACCUMULATION phase
+    (typically 10-30 years post-establishment or post-conversion). Rates typically decline toward
+    zero or a low equilibrium (0-200 kg C/ha/yr maintenance level) after soil carbon saturation.
+  
+  plateau_timeframe: 10-30 years
+  
+  climate_variability: >
+    Published rates are sensitive to climate cycles (ENSO, regional wet/dry patterns). Año Niño (wet)
+    and Año Niña (dry) years can shift rates by ±20-30%. All rates shown are long-term averages
+    rather than year-to-year snapshots.
+  
+  soil_texture_and_baseline: >
+    Soil clay content is critical: clay-rich soils (Vertisols, Ultisols common in Ecuador) retain
+    C better than sandy soils. Prior land-use (pasture vs. forest conversion) affects baselines.
+    ESPAC data often lack soil characterization; assume medium-clay soils as default.
+  
+  management_note: >
+    Rates assume CONTINUED management practices. Abandonment or shift to chemical-heavy monoculture
+    can reduce rates by 50%+. Conversely, upgrading to agroforestry or organic systems can increase
+    rates by 100-200% vs. baseline monoculture.
+  
+  ecuador_applicability: >
+    Most rates derived from peer-reviewed studies in similar agro-ecological zones (Colombia, Brazil,
+    Central America). Direct Ecuador field validation data are limited in open-access literature.
+    Transposition introduces uncertainty of ±20-40%. Recommend local calibration if available.
+
+integration_with_notebook_3:
+  description: >
+    These parameters are designed to extend existing notebook 3 logic (crops_espac_direct_field_emissions.ipynb).
+    Current system computes SOC only for pastures. To integrate tree crop SOC:
+    
+    1. Extend crop-type inference to identify permanent tree crops (fruit, nut categories)
+    2. Create crop_to_soc_config lookup:
+       - Map ESPAC crop names (Spanish) to categories above
+       - Example: "CAFE" → coffee, "CACAO" → cacao, "BANANO" → banana, etc.
+    3. Add crop*management detection:
+       - If shade_tree indicators exist in ESPAC, apply agroforestry rates
+       - Otherwise, apply monoculture defaults
+    4. Implement elevation/region adjustment lookup (by ESPAC province or altitude field)
+    5. Propagate uncertainty: use min/max values in notebook 3 min/max formula path
+    6. Document in exchange metadata (generalComment field as implemented for pastures)
+
+crop_name_mapping_espac_spanish:
+  coffee:
+    - CAFE
+    - CAFÉ
+  cacao:
+    - CACAO
+  banana:
+    - BANANO
+  plantain:
+    - PLATANO
+  citrus:
+    - NARANJA
+    - LIMON
+    - LIMÓN
+    - MANDARINA
+    - NARANJA_DULCE
+  avocado:
+    - AGUACATE
+  mango:
+    - MANGO
+  papaya:
+    - PAPAYA
+    - LECHOSA
+
+# End of SOC sequestration tree crop parameters

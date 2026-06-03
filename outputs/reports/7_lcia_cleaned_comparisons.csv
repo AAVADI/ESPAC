@@ -1,8 +1,8 @@
 calculation_results_product_1,comparar_evaluacion_del_impacto_1_kg_product_eggs_summary_strategy_9_del_proyecto_ecuador_needs,product_eggs_summary_strategy_9,consumption_egg_at_farm_rer_economic_u,egg_national_average_at_farm_gate_fr_u,calculation_results_product_1_2,comparar_evaluacion_del_impacto_1_kg_product_milk_summary_strategy_9_del_proyecto_ecuador_needs,product_milk_summary_strategy_9,cow_milk_glo_market_for_cow_milk_cut_off_u,milk_raw_at_farm_br_economic_u,calculation_results_product_1_3,comparar_evaluacion_del_impacto_1_kg_livestock_meat_consumption_mix_del_proyecto_ecuador_needs,livestock_meat_consumption_mix,red_meat_live_weight_glo_market_for_red_meat_live_weight_cut_off_u
 Results: ,Evaluación del impacto,,,,Results: ,Evaluación del impacto,,,,Results: ,Evaluación del impacto,,
 Product 1: ,1 kg product: eggs | summary: strategy_9 (del proyecto Ecuador_needs),,,,Product 1: ,1 kg product: milk | summary: strategy_9 (del proyecto Ecuador_needs),,,,Product 1: ,1 kg livestock meat consumption mix (del proyecto Ecuador_needs),,
-Product 2: ,1 kg Consumption egg. at farm {RER} Economic. U (del proyecto Agri-footprint - economic - unit),,,,Product 2: ,1 kg Cow milk {GLO}| market for cow milk | Cut-off. U (del proyecto Ecoinvent 3 - allocation. cut-off by classification - unit),,,,Product 2: ,1 kg Red meat. live weight {GLO}| market for red meat. live weight | Cut-off. U (del proyecto Ecoinvent 3 - allocation. cut-off by classification - unit),,
-Product 3: ,1 kg Egg. national average. at farm gate {FR} U (del proyecto AGRIBALYSE - Unit),,,,Product 3: ,1 kg Milk raw. at farm {BR} Economic. U (del proyecto Agri-footprint - economic - unit),,,,Método: ,IMPACT World+ Expert 2.2.1 (incl. CO2 uptake) V2.02 / IMPACT World+ (Stepwise 2006 values),,
+Product 2: ,"1 kg Consumption egg, at farm {RER} Economic, U (del proyecto Agri-footprint - economic - unit)",,,,Product 2: ,"1 kg Cow milk {GLO}| market for cow milk | Cut-off, U (del proyecto Ecoinvent 3 - allocation, cut-off by classification - unit)",,,,Product 2: ,"1 kg Red meat, live weight {GLO}| market for red meat, live weight | Cut-off, U (del proyecto Ecoinvent 3 - allocation, cut-off by classification - unit)",,
+Product 3: ,"1 kg Egg, national average, at farm gate {FR} U (del proyecto AGRIBALYSE - Unit)",,,,Product 3: ,"1 kg Milk raw, at farm {BR} Economic, U (del proyecto Agri-footprint - economic - unit)",,,,Método: ,IMPACT World+ Expert 2.2.1 (incl. CO2 uptake) V2.02 / IMPACT World+ (Stepwise 2006 values),,
 Método: ,IMPACT World+ Expert 2.2.1 (incl. CO2 uptake) V2.02 / IMPACT World+ (Stepwise 2006 values),,,,Método: ,IMPACT World+ Expert 2.2.1 (incl. CO2 uptake) V2.02 / IMPACT World+ (Stepwise 2006 values),,,,Indicador: ,Puntuación única,,
 Indicador: ,Puntuación única,,,,Indicador: ,Puntuación única,,,,Skip categories: ,Nunca,,
 Skip categories: ,Nunca,,,,Skip categories: ,Nunca,,,,Default units: ,No,,
@@ -12,8 +12,8 @@ Excluir emisiones a largo plazo: ,No,,,,Excluir emisiones a largo plazo: ,No,,,,
 Per impact category: ,No,,,,Per impact category: ,No,,,,Sorted on item: ,Daño de categoría,,
 Sorted on item: ,Daño de categoría,,,,Sorted on item: ,Daño de categoría,,,,Sort order: ,Ascendente,,
 Sort order: ,Ascendente,,,,Sort order: ,Ascendente,,,,,,,
-,,,,,,,,,,Daño de categoría,Unidad,livestock meat consumption mix,Red meat. live weight {GLO}| market for red meat. live weight | Cut-off. U
-Daño de categoría,Unidad,product: eggs | summary: strategy_9,Consumption egg. at farm {RER} Economic. U,Egg. national average. at farm gate {FR} U,Daño de categoría,Unidad,product: milk | summary: strategy_9,Cow milk {GLO}| market for cow milk | Cut-off. U,Milk raw. at farm {BR} Economic. U,Total,Pt,37.106981,60.489479
-Total,Pt,1.5958424,4.3910914,0.38972753,Total,Pt,4.8447999,3.2250461,2.3699931,Human health,Pt,21.34233,30.310211
-Human health,Pt,1.070038,2.437947,0.056249018,Human health,Pt,2.5785162,0.14392658,1.1943668,Ecosystem quality,Pt,15.764651,30.179268
-Ecosystem quality,Pt,0.52580443,1.9531443,0.33347851,Ecosystem quality,Pt,2.2662838,3.0811196,1.1756264,,,,
+,,,,,,,,,,Daño de categoría,Unidad,livestock meat consumption mix,"Red meat, live weight {GLO}| market for red meat, live weight | Cut-off, U"
+Daño de categoría,Unidad,product: eggs | summary: strategy_9,"Consumption egg, at farm {RER} Economic, U","Egg, national average, at farm gate {FR} U",Daño de categoría,Unidad,product: milk | summary: strategy_9,"Cow milk {GLO}| market for cow milk | Cut-off, U","Milk raw, at farm {BR} Economic, U",Total,Pt,26.819091,60.489479
+Total,Pt,0.1835943,4.3910914,0.38972753,Total,Pt,2.819263,3.2250461,2.3699931,Human health,Pt,13.106153,30.310211
+Human health,Pt,-0.048742676,2.437947,0.056249018,Human health,Pt,1.4873098,0.14392658,1.1943668,Ecosystem quality,Pt,13.712938,30.179268
+Ecosystem quality,Pt,0.23233697,1.9531443,0.33347851,Ecosystem quality,Pt,1.3319532,3.0811196,1.1756264,,,,

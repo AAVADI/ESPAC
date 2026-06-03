@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at_utc": "2026-05-07T11:17:05.644746+00:00",
+  "updated_at_utc": "2026-06-03T15:53:18.372973+00:00",
   "records": [
     {
       "run_id": "02_crops_20260506T083441Z",
@@ -1372,6 +1372,776 @@
       "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_crop_lci\\summary_crop_national",
       "xml_files_written": 43,
       "otros_expansion_source": "db"
+    },
+    {
+      "run_id": "02_crops_20260508T081904Z",
+      "created_at_utc": "2026-05-08T08:19:17.311492+00:00",
+      "domain": "crops",
+      "summary_token": "crop_national",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_crop_lci_table_filtered__summary_crop_national__run_02_crops_20260508T081904Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_crop_lci_table_filtered__summary_crop_national_uncertainty__run_02_crops_20260508T081904Z.csv",
+      "row_count": 55,
+      "schema_fingerprint": "09a1982d460f453d",
+      "main_file_sha256": "d0366fe42c65443386d5b990a0cefc5a3580788553911873c140ce0da12fd36d",
+      "unc_file_sha256": "884b2aa13c48628276c808b9a8f69f5a9a170af9dd9afafa55db10108bb10380",
+      "filters_signature": "c4885c4a9637b7d7",
+      "is_complete_for_notebook6": true,
+      "validation_errors": [],
+      "upstream_run_id": null,
+      "otros_expansion_source": "db"
+    },
+    {
+      "run_id": "03_05_crops_20260508T082111Z",
+      "created_at_utc": "2026-05-08T08:21:31.260322+00:00",
+      "domain": "crops",
+      "summary_token": "crop_national",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national__run_03_05_crops_20260508T082111Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national_uncertainty__run_03_05_crops_20260508T082111Z.csv",
+      "row_count": 55,
+      "schema_fingerprint": "202f87ff789a0baa",
+      "main_file_sha256": "f626ee6ff9e52f3760185f58f15de36668b040099bb09ee048dc93bb874d7594",
+      "unc_file_sha256": "cb3c3419173888298163dc8f8b8b77bc752cab2b5a42aaf4339f81ac3d6fdabe",
+      "filters_signature": "a9f9eacb3c996fad",
+      "is_complete_for_notebook6": true,
+      "validation_errors": [],
+      "upstream_run_id": "02_crops_20260508T081904Z",
+      "otros_expansion_source": "db",
+      "subcrop_count_by_label": {
+        "OTROS PERMANENTES": 45,
+        "OTROS TRANSITORIOS": 73
+      }
+    },
+    {
+      "run_id": "05_xml_crops_20260508T082144Z",
+      "created_at_utc": "2026-05-08T08:21:44.678535+00:00",
+      "domain": "crops",
+      "summary_token": "crop_national",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national__run_05_xml_crops_20260508T082144Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_crop_lci_table_filtered_dfe__summary_crop_national_uncertainty__run_05_xml_crops_20260508T082144Z.csv",
+      "row_count": 55,
+      "schema_fingerprint": "e16ecdd3f73da024",
+      "main_file_sha256": "f626ee6ff9e52f3760185f58f15de36668b040099bb09ee048dc93bb874d7594",
+      "unc_file_sha256": "cb3c3419173888298163dc8f8b8b77bc752cab2b5a42aaf4339f81ac3d6fdabe",
+      "filters_signature": "a9f9eacb3c996fad",
+      "is_complete_for_notebook6": true,
+      "validation_errors": [],
+      "upstream_run_id": "02_crops_20260508T081904Z",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_crop_lci\\summary_crop_national",
+      "xml_files_written": 55,
+      "otros_expansion_source": "db"
+    },
+    {
+      "run_id": "02_livestock_20260601T131247Z",
+      "created_at_utc": "2026-06-01T13:12:47.308566+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product__run_02_livestock_20260601T131247Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product_uncertainty__run_02_livestock_20260601T131247Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "7e18aedb04c30f3c7d2dfc5469d3d4d798e9bc9e32d17a4e450bb9797c2f6270",
+      "unc_file_sha256": "b743692f3c1a82567b282750c8a57c3419b783c41e09b865ad0a2ff45a2c43f6",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "02_livestock_20260601T131247Z",
+      "created_at_utc": "2026-06-01T13:12:47.498328+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region__run_02_livestock_20260601T131247Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region_uncertainty__run_02_livestock_20260601T131247Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "2a1ae6d49581bc23417410df1629e3ac8cb6a849ffa8b2aaced6886d17bdd3d2",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "03_05_livestock_20260601T131247Z",
+      "created_at_utc": "2026-06-01T13:12:47.519498+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_03_05_livestock_20260601T131247Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_03_05_livestock_20260601T131247Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T131247Z"
+    },
+    {
+      "run_id": "03_05_livestock_20260601T131247Z",
+      "created_at_utc": "2026-06-01T13:12:47.539066+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_03_05_livestock_20260601T131247Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_03_05_livestock_20260601T131247Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T131247Z"
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T131250Z",
+      "created_at_utc": "2026-06-01T13:12:50.718185+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_05_xml_livestock_20260601T131250Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_05_xml_livestock_20260601T131250Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "03_05_livestock_20260601T131247Z",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_product",
+      "xml_files_written": 10
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T131250Z",
+      "created_at_utc": "2026-06-01T13:12:50.744983+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_05_xml_livestock_20260601T131250Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_05_xml_livestock_20260601T131250Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "03_05_livestock_20260601T131247Z",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_region",
+      "xml_files_written": 19
+    },
+    {
+      "run_id": "02_livestock_20260601T132313Z",
+      "created_at_utc": "2026-06-01T13:23:13.989875+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product__run_02_livestock_20260601T132313Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product_uncertainty__run_02_livestock_20260601T132313Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "7e18aedb04c30f3c7d2dfc5469d3d4d798e9bc9e32d17a4e450bb9797c2f6270",
+      "unc_file_sha256": "b743692f3c1a82567b282750c8a57c3419b783c41e09b865ad0a2ff45a2c43f6",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "02_livestock_20260601T132314Z",
+      "created_at_utc": "2026-06-01T13:23:14.168213+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region__run_02_livestock_20260601T132314Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region_uncertainty__run_02_livestock_20260601T132314Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "2a1ae6d49581bc23417410df1629e3ac8cb6a849ffa8b2aaced6886d17bdd3d2",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "03_05_livestock_20260601T132314Z",
+      "created_at_utc": "2026-06-01T13:23:14.192918+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_03_05_livestock_20260601T132314Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_03_05_livestock_20260601T132314Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T132314Z"
+    },
+    {
+      "run_id": "03_05_livestock_20260601T132314Z",
+      "created_at_utc": "2026-06-01T13:23:14.216809+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_03_05_livestock_20260601T132314Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_03_05_livestock_20260601T132314Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T132314Z"
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T132317Z",
+      "created_at_utc": "2026-06-01T13:23:17.376704+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_05_xml_livestock_20260601T132317Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_05_xml_livestock_20260601T132317Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "03_05_livestock_20260601T132314Z",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_product",
+      "xml_files_written": 5
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T132317Z",
+      "created_at_utc": "2026-06-01T13:23:17.393903+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_05_xml_livestock_20260601T132317Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_05_xml_livestock_20260601T132317Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "03_05_livestock_20260601T132314Z",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_region",
+      "xml_files_written": 18
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T132357Z",
+      "created_at_utc": "2026-06-01T13:23:57.778764+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_05_xml_livestock_20260601T132357Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_05_xml_livestock_20260601T132357Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_product",
+      "xml_files_written": 5
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T132357Z",
+      "created_at_utc": "2026-06-01T13:23:57.799501+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_05_xml_livestock_20260601T132357Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_05_xml_livestock_20260601T132357Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_region",
+      "xml_files_written": 18
+    },
+    {
+      "run_id": "03_05_livestock_20260601T132424Z",
+      "created_at_utc": "2026-06-01T13:24:24.667778+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_03_05_livestock_20260601T132424Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_03_05_livestock_20260601T132424Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T132314Z"
+    },
+    {
+      "run_id": "03_05_livestock_20260601T132424Z",
+      "created_at_utc": "2026-06-01T13:24:24.681003+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_03_05_livestock_20260601T132424Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_03_05_livestock_20260601T132424Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T132314Z"
+    },
+    {
+      "run_id": "02_livestock_20260601T133444Z",
+      "created_at_utc": "2026-06-01T13:34:44.259573+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product__run_02_livestock_20260601T133444Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product_uncertainty__run_02_livestock_20260601T133444Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "7e18aedb04c30f3c7d2dfc5469d3d4d798e9bc9e32d17a4e450bb9797c2f6270",
+      "unc_file_sha256": "b743692f3c1a82567b282750c8a57c3419b783c41e09b865ad0a2ff45a2c43f6",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "02_livestock_20260601T133444Z",
+      "created_at_utc": "2026-06-01T13:34:44.445004+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region__run_02_livestock_20260601T133444Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_region_uncertainty__run_02_livestock_20260601T133444Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "2a1ae6d49581bc23417410df1629e3ac8cb6a849ffa8b2aaced6886d17bdd3d2",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T133953Z",
+      "created_at_utc": "2026-06-01T13:39:53.295163+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_05_xml_livestock_20260601T133953Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_05_xml_livestock_20260601T133953Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_product",
+      "xml_files_written": 10
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T133953Z",
+      "created_at_utc": "2026-06-01T13:39:53.316535+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_05_xml_livestock_20260601T133953Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_05_xml_livestock_20260601T133953Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_region",
+      "xml_files_written": 38
+    },
+    {
+      "run_id": "03_05_livestock_20260601T144443Z",
+      "created_at_utc": "2026-06-01T14:44:43.366949+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_03_05_livestock_20260601T144443Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_03_05_livestock_20260601T144443Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T133444Z"
+    },
+    {
+      "run_id": "02_livestock_20260601T145335Z",
+      "created_at_utc": "2026-06-01T14:53:35.104359+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product__run_02_livestock_20260601T145335Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_product_uncertainty__run_02_livestock_20260601T145335Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "7e18aedb04c30f3c7d2dfc5469d3d4d798e9bc9e32d17a4e450bb9797c2f6270",
+      "unc_file_sha256": "b743692f3c1a82567b282750c8a57c3419b783c41e09b865ad0a2ff45a2c43f6",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "02_livestock_20260601T150327Z",
+      "created_at_utc": "2026-06-01T15:03:27.838320+00:00",
+      "domain": "livestock",
+      "summary_token": "province",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_province__run_02_livestock_20260601T150327Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_province_uncertainty__run_02_livestock_20260601T150327Z.csv",
+      "row_count": 150,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "6b9d1e5b94aa352d3f97a207b127204935a88b86c438081b9bd3724561d414c0",
+      "unc_file_sha256": "b4819e736d7118c0752a6d0f90f77681ce57460d9295b8b7a92a327470568cdd",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "03_05_livestock_20260601T150335Z",
+      "created_at_utc": "2026-06-01T15:03:35.872205+00:00",
+      "domain": "livestock",
+      "summary_token": "province",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_province__run_03_05_livestock_20260601T150335Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_province_uncertainty__run_03_05_livestock_20260601T150335Z.csv",
+      "row_count": 150,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "2b86f6ca49454263ee1425b08a0fd6d30d8533afd7c8b0a9c003c412fcefed95",
+      "unc_file_sha256": "b4819e736d7118c0752a6d0f90f77681ce57460d9295b8b7a92a327470568cdd",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260601T150327Z"
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T150338Z",
+      "created_at_utc": "2026-06-01T15:03:38.539154+00:00",
+      "domain": "livestock",
+      "summary_token": "province",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_province__run_05_xml_livestock_20260601T150338Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_province_uncertainty__run_05_xml_livestock_20260601T150338Z.csv",
+      "row_count": 150,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "2b86f6ca49454263ee1425b08a0fd6d30d8533afd7c8b0a9c003c412fcefed95",
+      "unc_file_sha256": "b4819e736d7118c0752a6d0f90f77681ce57460d9295b8b7a92a327470568cdd",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_province",
+      "xml_files_written": 222
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T150354Z",
+      "created_at_utc": "2026-06-01T15:03:54.045915+00:00",
+      "domain": "livestock",
+      "summary_token": "region",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region__run_05_xml_livestock_20260601T150354Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_region_uncertainty__run_05_xml_livestock_20260601T150354Z.csv",
+      "row_count": 26,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "46fb994cb4c579eb1e976a74292f2ed1ed1b70377d5d834d228405c8a8150a5b",
+      "unc_file_sha256": "511e7b83d44ace5eda18ca68256bf16e5f1d0af5b3160bc6ae49fa3840246fba",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_region",
+      "xml_files_written": 38
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T150354Z",
+      "created_at_utc": "2026-06-01T15:03:54.550756+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national__run_05_xml_livestock_20260601T150354Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty__run_05_xml_livestock_20260601T150354Z.csv",
+      "row_count": 18,
+      "schema_fingerprint": "b257e9f9644e9494",
+      "main_file_sha256": "8b0b74afc69cd443c2ba56d368af933059f65a3d664eba977751dd8479c76938",
+      "unc_file_sha256": "3eeae8c632fed78b2d82a2a1f5ac70f5bd7d41cf4a24708522a1fba5291538bf",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": true,
+      "validation_errors": [],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_national",
+      "xml_files_written": 10
+    },
+    {
+      "run_id": "05_xml_livestock_20260601T150354Z",
+      "created_at_utc": "2026-06-01T15:03:54.717802+00:00",
+      "domain": "livestock",
+      "summary_token": "product",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product__run_05_xml_livestock_20260601T150354Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_product_uncertainty__run_05_xml_livestock_20260601T150354Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8604d898cad06803",
+      "main_file_sha256": "0b293cd9f6f76fb47bb571852c8a43dd184d82a4d086178650c577e319f50363",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_product",
+      "xml_files_written": 10
+    },
+    {
+      "run_id": "03_05_livestock_20260603T101814Z",
+      "created_at_utc": "2026-06-03T10:18:14.052297+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national__run_03_05_livestock_20260603T101814Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty__run_03_05_livestock_20260603T101814Z.csv",
+      "row_count": 18,
+      "schema_fingerprint": "b5a14f64e5caee57",
+      "main_file_sha256": "18e103c0515bb0b0ad56a55ac6c54892fbe36cb987736282118fd79afeb50f6c",
+      "unc_file_sha256": "5bed31545ddeaa4591e5825d8bcf8453c61b4055d3d26597aa6537892bbf0778",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": true,
+      "validation_errors": [],
+      "upstream_run_id": "02_livestock_20260601T150327Z"
+    },
+    {
+      "run_id": "02_livestock_20260603T151338Z",
+      "created_at_utc": "2026-06-03T15:13:38.722752+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_national__run_02_livestock_20260603T151338Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_national_uncertainty__run_02_livestock_20260603T151338Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8e66558ef23c16f6",
+      "main_file_sha256": "907ff9454602fee230bfccbc9f9775e05a008f3fc8f2d143cc465070559868c9",
+      "unc_file_sha256": "b743692f3c1a82567b282750c8a57c3419b783c41e09b865ad0a2ff45a2c43f6",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "03_05_livestock_20260603T151530Z",
+      "created_at_utc": "2026-06-03T15:15:30.984982+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national__run_03_05_livestock_20260603T151530Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty__run_03_05_livestock_20260603T151530Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8e66558ef23c16f6",
+      "main_file_sha256": "3465576d22d06bce5f8ef7b4bd6e82d1c6ae2b1af4874b1cfcd3ce6dfe47b9b9",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260603T151338Z"
+    },
+    {
+      "run_id": "05_xml_livestock_20260603T151547Z",
+      "created_at_utc": "2026-06-03T15:15:47.350654+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national__run_05_xml_livestock_20260603T151547Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty__run_05_xml_livestock_20260603T151547Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8e66558ef23c16f6",
+      "main_file_sha256": "3465576d22d06bce5f8ef7b4bd6e82d1c6ae2b1af4874b1cfcd3ce6dfe47b9b9",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_national",
+      "xml_files_written": 10
+    },
+    {
+      "run_id": "05_xml_livestock_20260603T152125Z",
+      "created_at_utc": "2026-06-03T15:21:25.916550+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national__run_05_xml_livestock_20260603T152125Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty__run_05_xml_livestock_20260603T152125Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8e66558ef23c16f6",
+      "main_file_sha256": "3465576d22d06bce5f8ef7b4bd6e82d1c6ae2b1af4874b1cfcd3ce6dfe47b9b9",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_national",
+      "xml_files_written": 18
+    },
+    {
+      "run_id": "02_livestock_20260603T155028Z",
+      "created_at_utc": "2026-06-03T15:50:28.429335+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "02",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_national__run_02_livestock_20260603T155028Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_national_uncertainty__run_02_livestock_20260603T155028Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8e66558ef23c16f6",
+      "main_file_sha256": "907ff9454602fee230bfccbc9f9775e05a008f3fc8f2d143cc465070559868c9",
+      "unc_file_sha256": "b743692f3c1a82567b282750c8a57c3419b783c41e09b865ad0a2ff45a2c43f6",
+      "filters_signature": "e57cdba43f2aa694",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": null
+    },
+    {
+      "run_id": "03_05_livestock_20260603T155301Z",
+      "created_at_utc": "2026-06-03T15:53:01.828177+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "03-05",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national__run_03_05_livestock_20260603T155301Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty__run_03_05_livestock_20260603T155301Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8e66558ef23c16f6",
+      "main_file_sha256": "3465576d22d06bce5f8ef7b4bd6e82d1c6ae2b1af4874b1cfcd3ce6dfe47b9b9",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "b9c3080a9360643e",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "02_livestock_20260603T155028Z"
+    },
+    {
+      "run_id": "05_xml_livestock_20260603T155318Z",
+      "created_at_utc": "2026-06-03T15:53:18.364773+00:00",
+      "domain": "livestock",
+      "summary_token": "national",
+      "pipeline_stage": "05_xml",
+      "source_main_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national__run_05_xml_livestock_20260603T155318Z.csv",
+      "source_unc_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty__run_05_xml_livestock_20260603T155318Z.csv",
+      "row_count": 7,
+      "schema_fingerprint": "8e66558ef23c16f6",
+      "main_file_sha256": "3465576d22d06bce5f8ef7b4bd6e82d1c6ae2b1af4874b1cfcd3ce6dfe47b9b9",
+      "unc_file_sha256": "eb23196ad39b7c709d3cd119c05bbbfe7286330d7daff757a589ce1d13821149",
+      "filters_signature": "1e7cbd555effcd54",
+      "is_complete_for_notebook6": false,
+      "validation_errors": [
+        "uncertainty_columns_missing"
+      ],
+      "upstream_run_id": "",
+      "xml_output_dir": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\05_xml_exports_livestock_lci\\summary_national",
+      "xml_files_written": 10
     }
   ]
 }

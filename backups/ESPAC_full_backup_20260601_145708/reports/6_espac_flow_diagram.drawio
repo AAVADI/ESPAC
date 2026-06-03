@@ -1,0 +1,172 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram id="espac-flow" name="ESPAC Flow">
+    <mxGraphModel dx="1901" dy="1121" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;" value="ESPAC Project Workflow" vertex="1">
+          <mxGeometry height="30" width="360" x="30" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#666666;" value="Notebook-driven pipeline from ESPAC raw data to ecospold/XML crop LCIs" vertex="1">
+          <mxGeometry height="20" width="520" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="raw" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7e8;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Raw ESPAC inputs&lt;br&gt;inputs/01_2_DD_DATOS_ ABIERTOS_ESPAC_2024.zip" vertex="1">
+          <mxGeometry height="80" width="230" x="30" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="refs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7e8;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Reference and parameter inputs&lt;br&gt;LCI template, coefficients, DFE factors,&amp;nbsp;XML model, process catalog" vertex="1">
+          <mxGeometry height="100" width="230" x="30" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ecff;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Notebook 1&lt;br&gt;ETL to SQLite" vertex="1">
+          <mxGeometry height="80" width="190" x="320" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d6;strokeColor=#444444;fontSize=14;" value="SQLite working DB&lt;br&gt;outputs/01_espac_2024.sqlite" vertex="1">
+          <mxGeometry height="80" width="210" x="560" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;align=left;strokeColor=none;" value="Annotation: imports raw BD and DD survey files, preserves survey structure, and creates the working analytical source used downstream." vertex="1">
+          <mxGeometry height="70" width="360" x="840" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ecff;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Notebook 2&lt;br&gt;LCI extraction and aggregation" vertex="1">
+          <mxGeometry height="80" width="190" x="320" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d6;strokeColor=#444444;fontSize=14;" value="Grouped LCI CSVs and&lt;br&gt;uncertainty CSVs&lt;br&gt;province, region, crop, system, group" vertex="1">
+          <mxGeometry height="100" width="210" x="560" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;align=left;strokeColor=none;" value="Annotation: converts survey variables into LCI columns, adds proxy fields, caps yield outliers, and aggregates numerics by median and text descriptors by mode." vertex="1">
+          <mxGeometry height="75" width="350" x="840" y="222.5" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ecff;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Notebook 3&lt;br&gt;Direct field emissions" vertex="1">
+          <mxGeometry height="80" width="190" x="320" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d6;strokeColor=#444444;fontSize=14;" value="DFE-augmented CSVs and&lt;br&gt;uncertainty outputs&lt;br&gt;outputs/CSVs/03-05_..." vertex="1">
+          <mxGeometry height="100" width="210" x="560" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;align=left;strokeColor=none;" value="Annotation: applies rule-based DFE factors for N, P, CO2, pesticide partitioning, and related emissions, then recomputes min and max scenarios." vertex="1">
+          <mxGeometry height="62.5" width="340" x="840" y="378.75" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ecff;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Notebook 4&lt;br&gt;Exchange roundtrip and matching" vertex="1">
+          <mxGeometry height="80" width="190" x="320" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ecff;strokeColor=#444444;fontSize=14;" value="Helper script&lt;br&gt;nb04_xml_exchange_table_tool.py" vertex="1">
+          <mxGeometry height="55" width="240" x="580" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ecff;strokeColor=#444444;fontSize=14;" value="Helper script&lt;br&gt;nb04_process_name_matcher.py" vertex="1">
+          <mxGeometry height="55" width="240" x="580" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="o4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d6;strokeColor=#444444;fontSize=14;" value="Exchange spreadsheets&lt;br&gt;04_exchanges_table.xlsx&lt;br&gt;04_exchanges_table_ with_process_matches.xlsx" vertex="1">
+          <mxGeometry height="125" width="210" x="886" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde7e7;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Manual review&lt;br&gt;and approval loop" vertex="1">
+          <mxGeometry height="90" width="170" x="1146" y="542" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;strokeColor=none;align=left;" value="Annotation: exports XML exchanges into a table, suggests background-process matches from ecoinvent and Agribalyse, and re-imports approved edits into the template model." vertex="1">
+          <mxGeometry height="60" width="385" x="805" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ecff;strokeColor=#444444;fontStyle=1;fontSize=14;" value="Notebook 5&lt;br&gt;XML generator" vertex="1">
+          <mxGeometry height="80" width="190" x="320" y="783" as="geometry" />
+        </mxCell>
+        <mxCell id="o5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d6;strokeColor=#444444;fontSize=14;" value="Final ecospold XML exports&lt;br&gt;outputs/05_xml_exports_ crop_lci/..." vertex="1">
+          <mxGeometry height="80" width="210" x="560" y="783" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d6;strokeColor=#444444;fontSize=14;" value="Diagnostics and audits&lt;br&gt;legacy-input report&lt;br&gt;uncertainty audit report" vertex="1">
+          <mxGeometry height="80" width="220" x="820" y="783" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;strokeColor=none;align=left;" value="Annotation: maps template exchanges to LCI columns through generalComment, writes one XML per inventory row, and carries uncertainty into exchanges." vertex="1">
+          <mxGeometry height="76" width="270" x="1070" y="787" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="raw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="n1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="o1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="o1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="n2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="665" y="200" />
+              <mxPoint x="415" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="refs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="n2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="o2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="o2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="n3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="665" y="345" />
+              <mxPoint x="415" y="345" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="refs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;fontSize=14;" target="n3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="202" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="o3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="refs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=14;" target="n4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="o4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="o4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="o4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="m1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="o3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="n5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="665" y="490" />
+              <mxPoint x="240" y="490" />
+              <mxPoint x="240" y="740" />
+              <mxPoint x="415" y="740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="refs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=14;" target="n5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="88" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="o5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="o5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=14;" target="r1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mgRbnnYPpd3LSgg93i8u-1" edge="1" parent="1" source="m1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;fontSize=14;" target="n5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1231" y="750" />
+              <mxPoint x="462" y="750" />
+            </Array>
+            <mxPoint x="1090" y="760" as="sourcePoint" />
+            <mxPoint x="840" y="1134" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
