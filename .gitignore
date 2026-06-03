@@ -4,7 +4,8 @@ node_modules
 ideas
 backups/
 __pycache__/
-outputs/cache___pycache__/
+outputs/*
+!outputs/.gitkeep
 scripts/__pycache__/
 reports/.$*
 ToDo.txt

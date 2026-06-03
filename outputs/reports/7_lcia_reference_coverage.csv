@@ -1,9 +1,0 @@
-sheet_name,figure_id,domain,rows,n_non_null,coverage_pct
-ESPAC,espac_fingerprint_matrix_by_domain,crops,7,7,100.0
-ESPAC,espac_fingerprint_matrix_by_domain,livestock,10,10,100.0
-comparisons,comparisons_eggs_all_sources,livestock,3,3,100.0
-comparisons,comparisons_milk_all_sources,livestock,3,3,100.0
-individual tropical crops,individual_tropical_crops_grouped_lollipop,crops,124,118,95.16129032258065
-regional differences,regional_dumbbell_provinces,crops,27,27,100.0
-regional differences,regional_dumbbell_regions,crops,27,27,100.0
-uncertainty,uncertainty_interval_forest,other,30,30,100.0

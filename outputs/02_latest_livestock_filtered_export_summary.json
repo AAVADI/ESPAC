@@ -1,9 +1,0 @@
-{
-  "summary_level": "national",
-  "summary_token": "national",
-  "filtered_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_national.csv",
-  "filtered_uncertainty_csv": "C:\\Users\\AAVADI\\OneDrive - IRTA\\Documents\\_Proyectos\\ESPAC\\outputs\\CSVs\\02_espac_livestock_lci_table_filtered__summary_national_uncertainty.csv",
-  "updated_at_utc": "2026-06-03T15:50:28.437923+00:00",
-  "run_id": "02_livestock_20260603T155028Z",
-  "combine_systems": true
-}
