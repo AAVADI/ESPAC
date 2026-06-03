@@ -1,9 +1,0 @@
-rule,ready,missing_required,prefix_checks,missing_recommended,alias_status,notes
-Pesticide molecule emissions (c_PrimAir / soil_factor / c_PrimWater),False,"c_PrimAir, soil_factor, c_PrimWater","Molecule_name_*=no, Dose_kgha_*=no",,,Needs indexed molecule names and doses plus row-specific partition coefficients.
-Transport mapping (Truck / Tractor),False,,"Transport_type_*=no, Transport_tkm_*=no",,,Needs indexed transport type and tkm columns.
-Extra emissions / trace placeholders in template,False,"CH4, PO4, SOC_mean_rate_kgChayr, Straw_kgha",,,Ch -> missing,These are used only if precomputed values exist in the table.
-Packaging split by type,True,,,"Packaging_type1_kgha, Packaging_type2_kgha",,Mass columns are needed to populate PP/PE/PET/LDPE/Kraft/Cardboard exchanges.
-Fuel conversion (Fuel -> MJ),True,,,,,Legacy rule converts liters to MJ using a fixed factor when unit is L.
-Organic inputs aliases,True,,,"Compost_kgha, Digestate_kgha",,Compost/digestate use alias matching; manure placeholders depend on type.
-Seeds by crop type,True,,,Custom_classification_3,,"Crop type is inferred from Custom_classification_3, falling back to Category."
-Yield/Area placeholder replacement,True,,,,,Uses Yield_kgha for meanValue and inserts Area_ha into generalComment text.
