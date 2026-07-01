@@ -7,9 +7,14 @@ $ErrorActionPreference = "Stop"
 $project = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $python = Join-Path $project ".venv\Scripts\python.exe"
 $app = Join-Path $project "apps\espac_lci_pipeline_marimo.py"
+$ensureInputs = Join-Path $project "scripts\ensure_marimo_inputs.ps1"
 
 if (-not (Test-Path $python)) { throw "Missing venv python: $python" }
 if (-not (Test-Path $app)) { throw "Missing app file: $app" }
+if (-not (Test-Path $ensureInputs)) { throw "Missing input bootstrap script: $ensureInputs" }
+
+$env:PYTHONPATH = "$project;$project\scripts" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
+& $ensureInputs
 
 # Kill stale marimo runs for this app first.
 Get-CimInstance Win32_Process |
@@ -20,8 +25,8 @@ Get-CimInstance Win32_Process |
   } |
   ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 
-Write-Host "Starting marimo app on http://localhost:$Port/ ..."
-$proc = Start-Process -FilePath $python -ArgumentList @("-m","marimo","run",$app) -WorkingDirectory $project -PassThru
+Write-Host "Starting marimo app on http://127.0.0.1:$Port/ ..."
+$proc = Start-Process -FilePath $python -ArgumentList @("-m","marimo","run","--host","127.0.0.1","--port",$Port,"--show-tracebacks",$app) -WorkingDirectory $project -PassThru -WindowStyle Hidden
 
 try {
   $hadClient = $false
@@ -51,4 +56,3 @@ finally {
     } |
     ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 }
-

@@ -44,7 +44,23 @@ def is_confounded_placeholder(value: str) -> bool:
     return value.startswith("(all ") or value.startswith("(unknown)") or value.startswith("(all systems")
 
 
-def build_process_name(row: pd.Series, summary_token: str) -> str:
+def display_system_label(value: str) -> str:
+    system = clean_text(value)
+    if system.lower() == "(unknown)":
+        return "unknown system type"
+    if system.startswith("(") and system.endswith(")"):
+        return system[1:-1].strip()
+    return system
+
+
+def aggregation_descriptor(summary_token: str, combine_systems: bool = False) -> str:
+    if summary_token == "national":
+        system_descriptor = "combined system types" if combine_systems else "disaggregated system types"
+        return f"national, {system_descriptor}"
+    return summary_token
+
+
+def build_process_name(row: pd.Series, summary_token: str, combine_systems: bool = False) -> str:
     parts: list[str] = []
     product = clean_text(row.get("product", row.get("Product", "")))
     system = clean_text(row.get("System", row.get("system", "")))
@@ -52,29 +68,44 @@ def build_process_name(row: pd.Series, summary_token: str) -> str:
     province = clean_text(row.get("province", row.get("Province", row.get("ual_prov", ""))))
     if product:
         parts.append(f"product: {product}")
-    if summary_token in {"national", "region", "province"} and system and not is_confounded_placeholder(system):
-        parts.append(f"system: {system}")
+    include_system = (
+        summary_token in {"national", "region", "province"}
+        and system
+        and (
+            not is_confounded_placeholder(system)
+            or (summary_token == "national" and not combine_systems)
+        )
+    )
+    if include_system:
+        parts.append(f"system: {display_system_label(system)}")
     if summary_token in {"region", "province"} and region and not is_confounded_placeholder(region):
         parts.append(f"region: {region}")
     if summary_token == "province" and province and not is_confounded_placeholder(province):
         parts.append(f"province: {province}")
-    parts.append(f"aggregation: {summary_token}")
+    parts.append(f"aggregation: {aggregation_descriptor(summary_token, combine_systems)}")
     return " | ".join(parts)[:255]
 
 
-def build_filename(row: pd.Series, summary_token: str) -> str:
+def build_filename(row: pd.Series, summary_token: str, combine_systems: bool = False) -> str:
     product = safe_slug(clean_text(row.get("product", row.get("Product", "livestock"))))
     system = clean_text(row.get("System", row.get("system", "")))
     region = clean_text(row.get("region", row.get("Region", "")))
     province = clean_text(row.get("province", row.get("Province", row.get("ual_prov", ""))))
     parts = [f"product_{product}"]
-    if summary_token in {"national", "region", "province"} and system and not is_confounded_placeholder(system):
-        parts.append(f"system_{safe_slug(system)}")
+    include_system = (
+        summary_token in {"national", "region", "province"}
+        and system
+        and (
+            not is_confounded_placeholder(system)
+            or (summary_token == "national" and not combine_systems)
+        )
+    )
+    if include_system:
+        parts.append(f"system_{safe_slug(display_system_label(system))}")
     if summary_token in {"region", "province"} and region and not is_confounded_placeholder(region):
         parts.append(f"region_{safe_slug(region)}")
     if summary_token == "province" and province and not is_confounded_placeholder(province):
         parts.append(f"province_{safe_slug(province)}")
-    parts.append(f"aggregation_{safe_slug(summary_token)}")
     return "_".join(parts) + ".xml"
 
 
@@ -802,6 +833,7 @@ def render_xml(
     residual_animal_overrides: Optional[Dict[str, Dict[str, float]]] = None,
     replacement_animal_overrides: Optional[Dict[str, Dict[str, float]]] = None,
     summary_token: str = "national",
+    combine_systems: bool = False,
 ) -> ET.ElementTree:
     tree = ET.parse(template_path)
     root = tree.getroot()
@@ -809,7 +841,7 @@ def render_xml(
     ref = root.find(".//eco:referenceFunction", NS)
     process_name = str(row.get("process_name", "") or "").strip()
     if not process_name:
-        process_name = build_process_name(row, summary_token)
+        process_name = build_process_name(row, summary_token, combine_systems)
     if ref is not None:
         prod = str(row.get("product", "livestock"))
         prov = str(row.get("ual_prov", "EC")) or "EC"
@@ -911,7 +943,7 @@ def render_xml(
                 linked = row.copy()
                 linked["product"] = "meat_poultry"
                 linked["System"] = "(all holdings)"
-                ex2.set("name", build_process_name(linked, summary_token))
+                ex2.set("name", build_process_name(linked, summary_token, combine_systems))
                 ex2.set("uncertaintyType", "3")
                 ex2.set("minValue", f"{float(eggs_stats['min']):.12g}")
                 ex2.set("maxValue", f"{float(eggs_stats['max']):.12g}")
@@ -947,7 +979,7 @@ def render_xml(
         if ex2 is not None:
             linked = row.copy()
             linked["product"] = "cattle_live"
-            ex2.set("name", build_process_name(linked, summary_token))
+            ex2.set("name", build_process_name(linked, summary_token, combine_systems))
         set_exchange("3", ["water_l_per_kg_product"])
         set_exchange("4", ["electricity_kwh_per_kg_product"])
         set_exchange("5", ["pasture_feed_kg_per_kg_product", "unmatched_pasture_feed_kg_per_kg_product"])
@@ -1116,7 +1148,7 @@ def main() -> None:
     elif args.limit and args.limit > 0:
         lci = lci.head(args.limit).copy()
 
-    lci["process_name"] = lci.apply(lambda r: build_process_name(r, args.summary_token), axis=1)
+    lci["process_name"] = lci.apply(lambda r: build_process_name(r, args.summary_token, args.combine_systems), axis=1)
 
     written = []
     for i, r in lci.iterrows():
@@ -1129,8 +1161,9 @@ def main() -> None:
             residual_animal_overrides=residual_overrides if args.aggregate == "national_product" else None,
             replacement_animal_overrides=replacement_overrides if args.aggregate == "national_product" else None,
             summary_token=args.summary_token,
+            combine_systems=args.combine_systems,
         )
-        name = build_filename(r, args.summary_token)
+        name = build_filename(r, args.summary_token, args.combine_systems)
         out_path = outdir / name
         tree.write(out_path, encoding="UTF-8", xml_declaration=True)
         written.append(out_path)

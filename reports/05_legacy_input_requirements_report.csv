@@ -1,9 +1,9 @@
 rule,ready,missing_required,prefix_checks,missing_recommended,alias_status,notes
 Pesticide molecule emissions (c_PrimAir / soil_factor / c_PrimWater),True,,,,,Primary path uses crop shares from inputs/02-05_espac_lci_coefficients.yml and partitions from inputs/03-05_dfe_factors.yml; indexed molecule columns are optional fallback.
-Transport mapping (Truck / Tractor),False,,"Transport_type_*=no, Transport_tkm_*=no",,,Needs indexed transport type and tkm columns.
-Extra emissions / trace placeholders in template,False,"CH4, PO4, Straw_kgha",,,Ch -> missing,These are used only if precomputed values exist in the table.
-Packaging split by type,True,,,"Packaging_type1_kgha, Packaging_type2_kgha",,Mass columns are needed to populate PP/PE/PET/LDPE/Kraft/Cardboard exchanges.
+Transport mapping (Truck / Tractor),True,,"Transport_type_*=yes, Transport_tkm_*=yes",,,Needs indexed transport type and tkm columns.
+Extra emissions / trace placeholders in template,False,"CH4, PO4",,,Ch -> missing,These are used only if precomputed values exist in the table.
+Packaging split by type,True,,,,,Mass columns are needed to populate PP/PE/PET/LDPE/Kraft/Cardboard exchanges.
 Fuel conversion (Fuel -> MJ),True,,,,,Legacy rule converts liters to MJ using a fixed factor when unit is L.
-Organic inputs aliases,False,"Manure_kgha, Manure_type",,"Compost_kgha, Compost_kg_ha, Digestate_kgha, Digestate_kg_ha",,Compost/digestate use alias matching; manure placeholders depend on type.
+Organic inputs aliases,True,,,"Compost_kgha, Digestate_kgha",,Compost/digestate use alias matching; manure placeholders depend on type.
 Seeds by crop type,True,,,Custom_classification_3,,"Crop type is inferred from Custom_classification_3, falling back to Category."
 Yield/Area placeholder replacement,True,,,,,Uses Yield_kgha for meanValue and inserts Area_ha into generalComment text.

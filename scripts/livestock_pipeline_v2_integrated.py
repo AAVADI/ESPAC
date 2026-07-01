@@ -4,6 +4,7 @@ import argparse
 import json
 import sqlite3
 import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -166,7 +167,7 @@ def _apply_system_labels(v2_prod: pd.DataFrame, db: Path) -> pd.DataFrame:
 
 def run_v2_model(db: Path, outdir: Path) -> None:
     cmd = [
-        "python",
+        sys.executable,
         str(PROJECT_DIR / "scripts" / "livestock_model_v2.py"),
         "--db",
         str(db),
@@ -174,6 +175,22 @@ def run_v2_model(db: Path, outdir: Path) -> None:
         str(outdir),
     ]
     subprocess.run(cmd, check=True)
+
+
+def v2_outputs_are_current(db: Path) -> bool:
+    required = [
+        CSV_DIR / "07_product_lci_v2.csv",
+        CSV_DIR / "07_product_lci_v2_uncertainty.csv",
+        CSV_DIR / "07_animal_class_stock.csv",
+        CSV_DIR / "07_class_feed_intake.csv",
+        CSV_DIR / "07_class_direct_emissions.csv",
+    ]
+    if any(not path.exists() for path in required):
+        return False
+    if not db.exists():
+        return True
+    db_mtime = db.stat().st_mtime
+    return all(path.stat().st_mtime >= db_mtime for path in required)
 
 
 def load_v2_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -386,7 +403,7 @@ def run_stage05_xml(summary_token: str, combine_systems: bool = False) -> int:
     out_root = PROJECT_DIR / "outputs" / "05_xml_exports_livestock_lci"
     out_region = out_root / "summary_region"
     out_province = out_root / "summary_province"
-    out_national = out_root / "summary_national"
+    out_national = livestock_xml_output_dir(summary_token, combine_systems)
     out_region.mkdir(parents=True, exist_ok=True)
     out_province.mkdir(parents=True, exist_ok=True)
     out_national.mkdir(parents=True, exist_ok=True)
@@ -458,7 +475,15 @@ def run_stage05_xml(summary_token: str, combine_systems: bool = False) -> int:
     raise ValueError("summary_token must be one of: province, region, national")
 
 
-def append_stage05_manifest(summary_token: str, upstream_run_id: str) -> str:
+def livestock_xml_output_dir(summary_token: str, combine_systems: bool = False) -> Path:
+    out_root = PROJECT_DIR / "outputs" / "05_xml_exports_livestock_lci"
+    if summary_token == "national":
+        suffix = "combined" if combine_systems else "not_combined"
+        return out_root / f"summary_national_{suffix}"
+    return out_root / f"summary_{summary_token}"
+
+
+def append_stage05_manifest(summary_token: str, upstream_run_id: str, combine_systems: bool = False) -> str:
     main_csv = CSV_DIR / f"03-05_espac_livestock_lci_table_filtered_dfe__summary_{summary_token}.csv"
     unc_csv = CSV_DIR / f"03-05_espac_livestock_lci_table_filtered_dfe__summary_{summary_token}_uncertainty.csv"
     df_main = pd.read_csv(main_csv)
@@ -466,7 +491,7 @@ def append_stage05_manifest(summary_token: str, upstream_run_id: str) -> str:
     run_id = new_run_id("05_xml_livestock")
     snap_main = make_snapshot_copy(main_csv, run_id)
     snap_unc = make_snapshot_copy(unc_csv, run_id)
-    xml_dir = PROJECT_DIR / "outputs" / "05_xml_exports_livestock_lci" / f"summary_{summary_token}"
+    xml_dir = livestock_xml_output_dir(summary_token, combine_systems)
     xml_files = len(list(xml_dir.glob("*.xml"))) if xml_dir.exists() else 0
     rec = build_manifest_record(
         run_id=run_id,
@@ -477,7 +502,7 @@ def append_stage05_manifest(summary_token: str, upstream_run_id: str) -> str:
         source_unc_csv=snap_unc,
         main_df=df_main.rename(columns={"Product": "Product"}),
         unc_df=df_unc,
-        filters_meta={"source": "v2_integrated", "stage": "05_xml"},
+        filters_meta={"source": "v2_integrated", "stage": "05_xml", "combine_systems": bool(combine_systems)},
         upstream_run_id=upstream_run_id,
         extra={
             "xml_output_dir": str(xml_dir.resolve()),
@@ -488,8 +513,9 @@ def append_stage05_manifest(summary_token: str, upstream_run_id: str) -> str:
     return run_id
 
 
-def run_stage02(db: Path, summary_token: str, combine_systems: bool = False) -> str:
-    run_v2_model(db, CSV_DIR)
+def run_stage02(db: Path, summary_token: str, combine_systems: bool = False, rebuild_v2: bool = False) -> str:
+    if rebuild_v2 or not v2_outputs_are_current(db):
+        run_v2_model(db, CSV_DIR)
 
     v2_prod, v2_unc = load_v2_tables()
     v2_prod = _apply_system_labels(v2_prod, db)
@@ -520,7 +546,7 @@ def run_stage03(summary_token: str, upstream_run_id: str = "") -> str:
 
 def run_stage05(summary_token: str, upstream_run_id: str = "", combine_systems: bool = False) -> str:
     run_stage05_xml(summary_token, combine_systems=combine_systems)
-    return append_stage05_manifest(summary_token, upstream_run_id)
+    return append_stage05_manifest(summary_token, upstream_run_id, combine_systems=combine_systems)
 
 
 def main() -> None:
@@ -530,9 +556,10 @@ def main() -> None:
     parser.add_argument("--summary-token", choices=["province", "region", "national"], required=True)
     parser.add_argument("--upstream-run-id", default="")
     parser.add_argument("--combine-systems", action="store_true", help="For national livestock summaries, collapse all system types into one combined row per product.")
+    parser.add_argument("--rebuild-v2", action="store_true", help="Force regeneration of V2 livestock base tables before stage 02.")
     args = parser.parse_args()
     if args.stage == "02":
-        run_stage02(Path(args.db), args.summary_token, combine_systems=args.combine_systems)
+        run_stage02(Path(args.db), args.summary_token, combine_systems=args.combine_systems, rebuild_v2=args.rebuild_v2)
     elif args.stage == "03":
         run_stage03(args.summary_token, args.upstream_run_id)
     else:

@@ -84,6 +84,52 @@ That script calls `scripts/bootstrap_venv.ps1`, which:
 
 If you need Mermaid CLI support for diagram work, install the Node dependency separately with `npm install`. That is not part of the core crop/livestock pipeline.
 
+### Recommended operational frontend
+
+For full LCI/DFE/XML computations, the recommended operational frontend is the marimo app:
+
+- `apps/espac_lci_pipeline_marimo.py`
+
+Reason: the marimo path is better aligned with this repository's heavy stage computations and avoids extra frontend overhead during long-running pipeline actions.
+
+Marimo launch commands:
+
+- Windows PowerShell: `./scripts/run_marimo_clean.ps1`
+- Bash (Git Bash/WSL): `./scripts/run_marimo_clean.sh`
+
+### Streamlit app (local and cloud)
+
+The repository now includes a Streamlit frontend at:
+
+- `apps/espac_lci_pipeline_streamlit.py`
+
+Local run command:
+
+- `streamlit run apps/espac_lci_pipeline_streamlit.py`
+
+The Streamlit app mirrors the marimo operational flow:
+
+1. select pipeline (`crops` or `livestock`) and aggregation strategy;
+2. confirm the current selection;
+3. run `Create LCIs`;
+4. optionally run `Compute DFE` and `Generate XML`;
+5. inspect preview tables and heatmap.
+
+### Streamlit Community Cloud deployment
+
+To deploy on `https://share.streamlit.io/`:
+
+1. Push the repository to GitHub.
+2. In Streamlit Community Cloud, create a new app from that repository.
+3. Set **Main file path** to `apps/espac_lci_pipeline_streamlit.py`.
+4. Ensure the platform installs dependencies from `requirements.txt`.
+
+Operational note for cloud deployment:
+
+- Pipeline actions (`Create LCIs`, `Compute DFE`, `Generate XML`) require runtime data and generated artifacts under `outputs/` (for example `outputs/01_espac_2024.sqlite` and stage CSVs).
+- If those artifacts are not present in the cloud runtime, the app can still be used as a lightweight preview shell, but execution stages will not produce full results until the required inputs/outputs are available.
+- The Streamlit app should therefore be treated primarily as an optional preview/cloud-facing interface, while marimo remains the recommended interface for full local computations.
+
 Typical execution order:
 
 ### Crop outputs

@@ -15,19 +15,12 @@ if (-not (Test-Path $ensureInputs)) { throw "Missing input bootstrap script: $en
 $env:PYTHONPATH = "$project;$project\scripts" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
 & $ensureInputs
 
-# Kill all marimo python processes to avoid stale servers and wrong index pages.
+# Kill stale marimo processes before launching a fresh app instance.
 Get-CimInstance Win32_Process |
-  Where-Object { $_.Name -eq "python.exe" -and $_.CommandLine -match "marimo" } |
+  Where-Object { $_.Name -eq "python.exe" -and $_.CommandLine -match "marimo" -and $_.CommandLine -match "espac_lci_pipeline_marimo.py" } |
   ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 
-Write-Host "Launching app on http://127.0.0.1:$Port/"
+Write-Host "Launching marimo app on http://127.0.0.1:$Port/"
 Write-Host "Press Ctrl+C to stop."
 
-try {
-  & $python -m marimo run --host 127.0.0.1 --port $Port --show-tracebacks $app
-}
-finally {
-  Get-CimInstance Win32_Process |
-    Where-Object { $_.Name -eq "python.exe" -and $_.CommandLine -match "marimo" } |
-    ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
-}
+& $python -m marimo run --host 127.0.0.1 --port $Port --show-tracebacks $app

@@ -6,7 +6,7 @@ app = marimo.App(width="full")
 @app.cell
 def _():
     import json
-    import shutil
+    import os
     import subprocess
     import sys
     import traceback
@@ -72,11 +72,16 @@ def _():
 
     def run_cmd(cmd: list[str]) -> tuple[int, str]:
         try:
+            env = dict(os.environ)
+            existing = env.get("PYTHONPATH", "")
+            project_paths = [str(PROJECT_DIR), str(PROJECT_DIR / "scripts")]
+            env["PYTHONPATH"] = ";".join(project_paths + ([existing] if existing else []))
             p = subprocess.run(
                 cmd,
                 cwd=str(PROJECT_DIR),
                 capture_output=True,
                 text=True,
+                env=env,
             )
             out = (p.stdout or "") + ("\n" + p.stderr if p.stderr else "")
             return p.returncode, out.strip()
@@ -90,12 +95,17 @@ def _():
         subtitle: str = "Working...",
     ) -> tuple[int, str]:
         try:
+            env = dict(os.environ)
+            existing = env.get("PYTHONPATH", "")
+            project_paths = [str(PROJECT_DIR), str(PROJECT_DIR / "scripts")]
+            env["PYTHONPATH"] = ";".join(project_paths + ([existing] if existing else []))
             p = subprocess.Popen(
                 cmd,
                 cwd=str(PROJECT_DIR),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
+                env=env,
             )
             started = time.time()
             tick = 0
@@ -560,9 +570,12 @@ def _():
             CSV_DIR / f"03-05_espac_livestock_lci_table_filtered_dfe__summary_{summary_token}_uncertainty.csv",
         )
 
-    def xml_target(domain: str, summary_token: str):
+    def xml_target(domain: str, summary_token: str, combine_systems: bool = False):
         if domain == "crops":
             return PROJECT_DIR / "outputs" / "05_xml_exports_crop_lci" / f"summary_{summary_token}"
+        if summary_token == "national":
+            suffix = "combined" if combine_systems else "not_combined"
+            return PROJECT_DIR / "outputs" / "05_xml_exports_livestock_lci" / f"summary_national_{suffix}"
         return PROJECT_DIR / "outputs" / "05_xml_exports_livestock_lci" / f"summary_{summary_token}"
 
     def set_crop_meta(summary_token: str, selected_crop: str = "All", selected_subcrop: str = "All") -> None:
@@ -726,7 +739,17 @@ def _():
         main_df, unc_df, _source_kind = load_crop_stage02_source_frames(summary_token, crop_focus, otros_subcrop)
         out_main_df = main_df.copy()
 
-        key_cols = [c for c in ("Region", "Province", "Crop", "Category", "Crop_group", "Cropping_system", "Irrig_m3_class", "Farm_size_class") if c in out_main_df.columns]
+        possible_key_cols = (
+            "Region",
+            "Province",
+            "Crop",
+            "Category",
+            "Crop_group",
+            "Cropping_system",
+            "Irrig_m3_class",
+            "Farm_size_class",
+        )
+        key_cols = [c for c in possible_key_cols if c in out_main_df.columns and c in unc_df.columns]
         if not unc_df.empty:
             if key_cols:
                 out_unc_df = unc_df.merge(out_main_df[key_cols].drop_duplicates(), on=key_cols, how="inner")
@@ -862,45 +885,17 @@ def _():
             )
         return mo.ui.plotly(fig)
 
-    def _slug(text: str) -> str:
-        x = unicodedata.normalize("NFKD", str(text))
-        x = "".join(ch for ch in x if not unicodedata.combining(ch))
-        x = x.lower().strip()
-        out = []
-        prev_u = False
-        for ch in x:
-            if ch.isalnum():
-                out.append(ch)
-                prev_u = False
-            else:
-                if not prev_u:
-                    out.append("_")
-                    prev_u = True
-        return "".join(out).strip("_") or "item"
-
-    def crop_selection_suffix(crop_focus: str, otros_subcrop: str) -> str:
-        f = _slug(crop_focus or "all")
-        s = _slug(otros_subcrop or "all")
-        return f"focus_{f}__sub_{s}"
-
     def crop_xml_target(summary_token: str, crop_focus: str, otros_subcrop: str) -> Path:
-        base = PROJECT_DIR / "outputs" / "05_xml_exports_crop_lci"
-        return base / f"summary_{summary_token}__{crop_selection_suffix(crop_focus, otros_subcrop)}"
+        return PROJECT_DIR / "outputs" / "05_xml_exports_crop_lci" / f"summary_{summary_token}"
 
     def postprocess_crop_xml_outputs(summary_token: str, crop_focus: str, otros_subcrop: str) -> tuple[Path, int]:
-        src = PROJECT_DIR / "outputs" / "05_xml_exports_crop_lci" / f"summary_{summary_token}"
         dst = crop_xml_target(summary_token, crop_focus, otros_subcrop)
-        dst.mkdir(parents=True, exist_ok=True)
-        if not src.exists():
+        if not dst.exists():
             return dst, 0
-        xmls = sorted(src.glob("*.xml"))
+        xmls = sorted(dst.glob("*.xml"))
         ns = "{http://www.EcoInvent.org/EcoSpold01}"
         count = 0
-        prefix = crop_selection_suffix(crop_focus, otros_subcrop)
-        for i, p in enumerate(xmls, 1):
-            new_name = f"{i:05d}__{prefix}__{p.name}"
-            outp = dst / new_name
-            shutil.copy2(p, outp)
+        for outp in xmls:
             try:
                 tree = __import__("xml.etree.ElementTree", fromlist=["ElementTree"]).ElementTree(file=str(outp))
                 root = tree.getroot()
@@ -987,15 +982,29 @@ def _():
 
         # Livestock estimates by strategy semantics in current integrated v2 implementation.
         if summary == "national":
-            if combine_systems:
-                return 10
-            path = CSV_DIR / "02_espac_livestock_lci_table_filtered__summary_national.csv"
-            if path.exists():
-                try:
-                    df = pd.read_csv(path, usecols=["Product", "System"], low_memory=False)
-                    return int(len(df.drop_duplicates()))
-                except Exception:
+            try:
+                from scripts.livestock_xml_generator_v2 import (
+                    LEGACY_STRATEGY_PRODUCTS,
+                    aggregate_national_product,
+                    expand_legacy_products_from_other,
+                )
+
+                src = CSV_DIR / "07_product_lci_v2.csv"
+                if not src.exists():
                     return None
+                df = pd.read_csv(src, low_memory=False)
+                if "Product" in df.columns and "product" not in df.columns:
+                    df = df.rename(columns={"Product": "product"})
+                df = aggregate_national_product(df, combine_systems=combine_systems)
+                df = expand_legacy_products_from_other(
+                    df,
+                    aggregate_mode="national_product",
+                    stock_path=CSV_DIR / "07_animal_class_stock.csv",
+                )
+                df = df[df["product"].astype(str).isin(LEGACY_STRATEGY_PRODUCTS)].copy()
+                return int(len(df))
+            except Exception:
+                return None
             return None
         if summary in {"region", "province"}:
             src = CSV_DIR / "07_product_lci_v2.csv"
@@ -1358,7 +1367,7 @@ def _(domain, livestock_combine_systems, mo, strategy):
 
 
 @app.cell
-def _(crop_focus, crop_xml_target, domain, mo, otros_subcrop, strategy, xml_target):
+def _(crop_focus, crop_xml_target, domain, livestock_combine_systems, mo, otros_subcrop, strategy, xml_target):
     run_02 = mo.ui.run_button(label="Create LCIs", kind="neutral")
     run_03 = mo.ui.run_button(label="Compute DFE", kind="warn")
     refresh = mo.ui.run_button(label="Refresh Preview", kind="neutral")
@@ -1379,7 +1388,7 @@ def _(crop_focus, crop_xml_target, domain, mo, otros_subcrop, strategy, xml_targ
             mo.md(
                 f"**XML target folder:** `{crop_xml_target(strategy.value, crop_focus.value, otros_subcrop.value)}`"
                 if domain.value == "crops"
-                else f"**XML target folder:** `{xml_target(domain.value, strategy.value)}`"
+                else f"**XML target folder:** `{xml_target(domain.value, strategy.value, livestock_combine_systems.value)}`"
             ),
         ]
     )
@@ -1481,7 +1490,7 @@ def _(PROJECT_DIR, render_error, run_cmd_stream, set_crop_meta, write_crop_stage
                     kind="success",
                 )
         except Exception as exc:
-            _feedback = render_error(exc)
+            _feedback = render_error("Create LCIs", exc)
     _feedback
     return
 
@@ -1573,7 +1582,7 @@ def _(PROJECT_DIR, get_crop_meta, get_livestock_meta, postprocess_crop_xml_outpu
                 ]
                 _rc, _out = run_cmd(_cmd)
                 _dest, _n = postprocess_crop_xml_outputs(strategy.value, crop_focus.value, otros_subcrop.value)
-                _log = (_out if _out else f"XML generation finished with code {_rc}") + f"\nselection export folder: {_dest}\nxml_count: {_n}"
+                _log = (_out if _out else f"XML generation finished with code {_rc}") + f"\nxml output folder: {_dest}\nxml_count: {_n}"
         else:
             _meta = get_livestock_meta()
             if strategy.value == "national" and bool(_meta.get("combine_systems", False)) != bool(livestock_combine_systems.value):

@@ -1,5 +1,7 @@
 pandas
 numpy
+plotly
+streamlit
 PyYAML
 ipython
 ipykernel

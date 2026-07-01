@@ -125,7 +125,38 @@ def get_broiler_residence_days(coefficients: dict) -> float:
 
 
 def _to_num(s: pd.Series) -> pd.Series:
-    return pd.to_numeric(s, errors="coerce").fillna(0.0)
+    # Normalize locale-specific numeric text (for example, decimal comma)
+    # before coercing to float.
+    txt = s.astype(str).str.strip().str.replace("\u00a0", "", regex=False).str.replace(" ", "", regex=False)
+    has_comma = txt.str.contains(",", regex=False, na=False)
+    has_dot = txt.str.contains(".", regex=False, na=False)
+
+    both = has_comma & has_dot
+    if both.any():
+        last_comma = txt.str.rfind(",")
+        last_dot = txt.str.rfind(".")
+        comma_decimal = both & (last_comma > last_dot)
+        dot_decimal = both & ~comma_decimal
+        txt.loc[comma_decimal] = (
+            txt.loc[comma_decimal].str.replace(".", "", regex=False).str.replace(",", ".", regex=False)
+        )
+        txt.loc[dot_decimal] = txt.loc[dot_decimal].str.replace(",", "", regex=False)
+
+    only_comma = has_comma & ~has_dot
+    txt.loc[only_comma] = txt.loc[only_comma].str.replace(",", ".", regex=False)
+
+    txt = txt.replace({"": None, "None": None, "none": None, "nan": None, "NaN": None})
+    return pd.to_numeric(txt, errors="coerce").fillna(0.0)
+
+
+def _to_float(value: object, default: float = 0.0) -> float:
+    val = float(_to_num(pd.Series([value])).iloc[0])
+    return val if pd.notna(val) else default
+
+
+def _expansion_factor(row: pd.Series, default: float = 1.0) -> float:
+    exp = _to_float(row.get("fact_exp_fin", default), default=default)
+    return exp if exp > 0 else default
 
 
 
@@ -176,7 +207,7 @@ def build_animal_class_stock(con: sqlite3.Connection, coefficients: dict) -> pd.
                     avg_live_weight_kg=CLASS_WEIGHT_DEFAULTS[cls],
                     days_present=DAYS_PER_YEAR,
                     source_table="rel_inec_glnac",
-                    fact_exp_fin=float(row.get("fact_exp_fin", 1.0) or 1.0),
+                    fact_exp_fin=_expansion_factor(row),
                 )
             )
 
@@ -189,7 +220,7 @@ def build_animal_class_stock(con: sqlite3.Connection, coefficients: dict) -> pd.
             v = float(wc.iloc[i])
             if v <= 0:
                 continue
-            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "swine", "swine_meat", cls, v, CLASS_WEIGHT_DEFAULTS[cls], DAYS_PER_YEAR, "rel_inec_gpnac", float(row.get("fact_exp_fin", 1.0) or 1.0)))
+            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "swine", "swine_meat", cls, v, CLASS_WEIGHT_DEFAULTS[cls], DAYS_PER_YEAR, "rel_inec_gpnac", _expansion_factor(row)))
 
     ovine_map = [("gv_ta_menosde6", "ovine_lt6m"), ("gv_ta_masde6", "ovine_gt6m")]
     for col, cls in ovine_map:
@@ -200,7 +231,7 @@ def build_animal_class_stock(con: sqlite3.Connection, coefficients: dict) -> pd.
             v = float(wc.iloc[i])
             if v <= 0:
                 continue
-            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "ovine", "ovine_meat", cls, v, CLASS_WEIGHT_DEFAULTS[cls], DAYS_PER_YEAR, "rel_inec_gvnac", float(row.get("fact_exp_fin", 1.0) or 1.0)))
+            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "ovine", "ovine_meat", cls, v, CLASS_WEIGHT_DEFAULTS[cls], DAYS_PER_YEAR, "rel_inec_gvnac", _expansion_factor(row)))
 
     poultry_map = [
         ("ap_ctponedoras", "layer_hen"),
@@ -220,7 +251,7 @@ def build_animal_class_stock(con: sqlite3.Connection, coefficients: dict) -> pd.
                 continue
             system = "eggs_poultry" if cls in {"layer_hen", "breeder_hen"} else "meat_poultry"
             days_present = broiler_residence_days if cls == "chick" else DAYS_PER_YEAR
-            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "poultry", system, cls, v, CLASS_WEIGHT_DEFAULTS[cls], days_present, "rel_inec_apnac", float(row.get("fact_exp_fin", 1.0) or 1.0)))
+            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "poultry", system, cls, v, CLASS_WEIGHT_DEFAULTS[cls], days_present, "rel_inec_apnac", _expansion_factor(row)))
 
     other_map = [
         ("oe_k1101", "other_livestock_k1101"),
@@ -236,7 +267,7 @@ def build_animal_class_stock(con: sqlite3.Connection, coefficients: dict) -> pd.
             v = float(wc.iloc[i])
             if v <= 0:
                 continue
-            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "other", "other_livestock", cls, v, CLASS_WEIGHT_DEFAULTS[cls], DAYS_PER_YEAR, "rel_inec_oenac", float(row.get("fact_exp_fin", 1.0) or 1.0)))
+            out.append(ClassRecord(str(row["identificador"]), str(row.get("ual_prov", "")), "other", "other_livestock", cls, v, CLASS_WEIGHT_DEFAULTS[cls], DAYS_PER_YEAR, "rel_inec_oenac", _expansion_factor(row)))
 
     stock = pd.DataFrame([r.__dict__ for r in out])
     stock["total_live_weight_kg"] = stock["head_count"] * stock["avg_live_weight_kg"]
@@ -399,7 +430,7 @@ def build_product_lci_v2(stock: pd.DataFrame, emissions: pd.DataFrame, con: sqli
         milk_l = float(_to_num(pd.Series([r.get("gl_litlecvacaje", 0)])).iloc[0])
         if milk_l <= 0:
             milk_l = float(_to_num(pd.Series([r.get("litros_orde_ados", 0)])).iloc[0])
-        exp = float(r.get("fact_exp_fin", 1.0) or 1.0)
+        exp = _expansion_factor(r)
         # ESPAC milk in this pathway is daily-scale; annualize to keep all
         # per-kg intensities on a year-consistent denominator.
         milk_kg_year = milk_l * DAYS_PER_YEAR * exp
@@ -474,7 +505,7 @@ def build_product_lci_v2(stock: pd.DataFrame, emissions: pd.DataFrame, con: sqli
         eggs_prod = float(_to_num(pd.Series([r.get("ap_prod_hcodor", 0)])).iloc[0])
         eggs_sale = float(_to_num(pd.Series([r.get("ap_venta_hcodor", 0)])).iloc[0])
         eggs = eggs_prod if eggs_prod > 0 else eggs_sale
-        exp = float(r.get("fact_exp_fin", 1.0) or 1.0)
+        exp = _expansion_factor(r)
         lw = farm_lw[farm_lw["identificador"] == fid]
         ad_farm = farm_animal_days[farm_animal_days["identificador"] == fid]
         area = farm_area_ha[farm_area_ha["identificador"].astype(str) == fid]
