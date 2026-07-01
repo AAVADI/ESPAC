@@ -1,0 +1,92 @@
+{
+  "appName": "ESPAC LCI Explorer",
+  "generatedAt": "2026-07-01T09:15:46.036010+00:00",
+  "datasetCount": 5,
+  "datasets": [
+    {
+      "id": "crops-stage02-province",
+      "label": "Crops - Stage 02 - Province",
+      "description": "Province-level crop LCI tables generated from the crop pipeline.",
+      "main": {
+        "path": "data/crops-stage02-province-main.json",
+        "source": "02_espac_crop_lci_table__summary_province.csv",
+        "rowCount": 625,
+        "columnCount": 108
+      },
+      "uncertainty": {
+        "path": "data/crops-stage02-province-uncertainty.json",
+        "source": "02_espac_crop_lci_table__summary_province_uncertainty.csv",
+        "rowCount": 625,
+        "columnCount": 218
+      }
+    },
+    {
+      "id": "crops-stage02-crop-group-national",
+      "label": "Crops - Stage 02 - Crop group national",
+      "description": "National crop-group LCI tables from the stage 02 crop output.",
+      "main": {
+        "path": "data/crops-stage02-crop-group-national-main.json",
+        "source": "02_espac_crop_lci_table_filtered__summary_crop_group_national.csv",
+        "rowCount": 7,
+        "columnCount": 112
+      },
+      "uncertainty": {
+        "path": "data/crops-stage02-crop-group-national-uncertainty.json",
+        "source": "02_espac_crop_lci_table_filtered__summary_crop_group_national_uncertainty.csv",
+        "rowCount": 7,
+        "columnCount": 219
+      }
+    },
+    {
+      "id": "livestock-stage02-national",
+      "label": "Livestock - Stage 02 - National",
+      "description": "National livestock LCI tables from the stage 02 livestock output.",
+      "main": {
+        "path": "data/livestock-stage02-national-main.json",
+        "source": "02_espac_livestock_lci_table_filtered__summary_national.csv",
+        "rowCount": 14,
+        "columnCount": 23
+      },
+      "uncertainty": {
+        "path": "data/livestock-stage02-national-uncertainty.json",
+        "source": "02_espac_livestock_lci_table_filtered__summary_national_uncertainty.csv",
+        "rowCount": 14,
+        "columnCount": 39
+      }
+    },
+    {
+      "id": "crops-stage0305-crop-group-national",
+      "label": "Crops - Stage 03-05 - Crop group national",
+      "description": "Crop-group national LCI tables after direct field emissions and XML generation.",
+      "main": {
+        "path": "data/crops-stage0305-crop-group-national-main.json",
+        "source": "03-05_espac_crop_lci_table_filtered_dfe__summary_crop_group_national.csv",
+        "rowCount": 7,
+        "columnCount": 140
+      },
+      "uncertainty": {
+        "path": "data/crops-stage0305-crop-group-national-uncertainty.json",
+        "source": "03-05_espac_crop_lci_table_filtered_dfe__summary_crop_group_national_uncertainty.csv",
+        "rowCount": 7,
+        "columnCount": 241
+      }
+    },
+    {
+      "id": "livestock-stage0305-national",
+      "label": "Livestock - Stage 03-05 - National",
+      "description": "National livestock LCI tables after direct field emissions and XML generation.",
+      "main": {
+        "path": "data/livestock-stage0305-national-main.json",
+        "source": "03-05_espac_livestock_lci_table_filtered_dfe__summary_national.csv",
+        "rowCount": 14,
+        "columnCount": 23
+      },
+      "uncertainty": {
+        "path": "data/livestock-stage0305-national-uncertainty.json",
+        "source": "03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty.csv",
+        "rowCount": 14,
+        "columnCount": 39
+      }
+    }
+  ]
+}
