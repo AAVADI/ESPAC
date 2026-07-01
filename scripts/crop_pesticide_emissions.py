@@ -71,7 +71,7 @@ def _molecule_catalog(coefficients: dict[str, Any]) -> list[str]:
     return [names[token] for token in sorted(names)]
 
 
-def _shares_for_row(row: pd.Series, coefficients: dict[str, Any]) -> dict[str, float]:
+def _molecule_items_for_row(row: pd.Series, coefficients: dict[str, Any]) -> list[tuple[str, float]]:
     crop_name = _row_text(row, "Crop").upper()
     by_crop = coefficients.get("pesticide_molecule_shares_by_crop", {}) or {}
     payload = by_crop.get(crop_name, {}) or {}
@@ -81,13 +81,20 @@ def _shares_for_row(row: pd.Series, coefficients: dict[str, Any]) -> dict[str, f
         by_group = coefficients.get("pesticide_molecule_shares_by_crop_group", {}) or {}
         payload = by_group.get(group, {}) or {}
 
-    shares: dict[str, float] = {}
+    items: list[tuple[str, float]] = []
     for item in payload.get("molecules", []) or []:
         molecule = str(item.get("molecule", "")).strip()
         share = float(item.get("contribution_percent", 0.0) or 0.0)
         if molecule and share > 0:
-            token = _column_token(molecule)
-            shares[token] = shares.get(token, 0.0) + share
+            items.append((molecule, share))
+    return items
+
+
+def _shares_for_row(row: pd.Series, coefficients: dict[str, Any]) -> dict[str, float]:
+    shares: dict[str, float] = {}
+    for molecule, share in _molecule_items_for_row(row, coefficients):
+        token = _column_token(molecule)
+        shares[token] = shares.get(token, 0.0) + share
     return shares
 
 
@@ -96,6 +103,11 @@ def _partition_prefix(row: pd.Series) -> str:
     if crop_type not in CROP_TYPE_PREFIX:
         crop_type = _row_text(row, "crop_type_dfe").lower()
     return CROP_TYPE_PREFIX.get(crop_type, DEFAULT_PREFIX)
+
+
+def _application_phase(prefix: str, factor_details: dict[str, Any]) -> str:
+    details = factor_details.get(f"{prefix}_PrimAir", {}) or {}
+    return str(details.get("current_value", "")).strip()
 
 
 def _emission_column(molecule: str, compartment: str) -> str:
@@ -127,8 +139,11 @@ def add_partitioned_pesticide_emissions(
     )
 
     coefficients = _load_yaml(coefficients_path)
-    factors = (_load_yaml(factors_path).get("knime_factors", {}) or {})
+    factor_config = _load_yaml(factors_path)
+    factors = factor_config.get("knime_factors", {}) or {}
+    factor_details = factor_config.get("knime_factor_details", {}) or {}
     molecules = _molecule_catalog(coefficients)
+    molecule_items_by_row = [_molecule_items_for_row(row, coefficients) for _, row in main.iterrows()]
     shares_by_row = [_shares_for_row(row, coefficients) for _, row in main.iterrows()]
     prefixes = [_partition_prefix(row) for _, row in main.iterrows()]
 
@@ -143,6 +158,36 @@ def add_partitioned_pesticide_emissions(
     )
     total_min = pd.concat([raw_min, raw_max], axis=1).min(axis=1)
     total_max = pd.concat([raw_min, raw_max], axis=1).max(axis=1)
+
+    max_slots = max((len(items) for items in molecule_items_by_row), default=0)
+    for slot in range(1, max_slots + 1):
+        names = pd.Series(
+            [items[slot - 1][0] if len(items) >= slot else None for items in molecule_items_by_row],
+            index=main.index,
+            dtype="object",
+        )
+        shares = pd.Series(
+            [items[slot - 1][1] / 100.0 if len(items) >= slot else 0.0 for items in molecule_items_by_row],
+            index=main.index,
+            dtype=float,
+        )
+        phases = pd.Series(
+            [_application_phase(prefix, factor_details) for prefix in prefixes],
+            index=main.index,
+            dtype="object",
+        )
+        dose_column = f"Dose_kgha_{slot}"
+        name_column = f"Molecule_name_{slot}"
+        phase_column = f"Phase_application_{slot}"
+        main[name_column] = names
+        main[dose_column] = total * shares
+        main[phase_column] = phases
+        uncertainty[f"{name_column}__minValue"] = names
+        uncertainty[f"{name_column}__maxValue"] = names
+        uncertainty[f"{dose_column}__minValue"] = total_min * shares
+        uncertainty[f"{dose_column}__maxValue"] = total_max * shares
+        uncertainty[f"{phase_column}__minValue"] = phases
+        uncertainty[f"{phase_column}__maxValue"] = phases
 
     main_emissions: dict[str, pd.Series] = {}
     uncertainty_emissions: dict[str, pd.Series] = {}
