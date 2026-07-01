@@ -18,35 +18,35 @@ DEFAULT_DOCS_DIR = PROJECT_DIR / "docs"
 DATASETS: list[dict[str, Any]] = [
     {
         "id": "crops-stage02-province",
-        "label": "Crops - Stage 02 - Province",
+        "label": "Crops - Province",
         "description": "Province-level crop LCI tables generated from the crop pipeline.",
         "main_csv": "02_espac_crop_lci_table__summary_province.csv",
         "uncertainty_csv": "02_espac_crop_lci_table__summary_province_uncertainty.csv",
     },
     {
         "id": "crops-stage02-crop-group-national",
-        "label": "Crops - Stage 02 - Crop group national",
-        "description": "National crop-group LCI tables from the stage 02 crop output.",
+        "label": "Crops - Crop group national",
+        "description": "National crop-group LCI tables generated from the crop pipeline.",
         "main_csv": "02_espac_crop_lci_table_filtered__summary_crop_group_national.csv",
         "uncertainty_csv": "02_espac_crop_lci_table_filtered__summary_crop_group_national_uncertainty.csv",
     },
     {
         "id": "livestock-stage02-national",
-        "label": "Livestock - Stage 02 - National",
-        "description": "National livestock LCI tables from the stage 02 livestock output.",
+        "label": "Livestock - National",
+        "description": "National livestock LCI tables generated from the livestock pipeline.",
         "main_csv": "02_espac_livestock_lci_table_filtered__summary_national.csv",
         "uncertainty_csv": "02_espac_livestock_lci_table_filtered__summary_national_uncertainty.csv",
     },
     {
         "id": "crops-stage0305-crop-group-national",
-        "label": "Crops - Stage 03-05 - Crop group national",
+        "label": "Crops - Crop group national - including DFE",
         "description": "Crop-group national LCI tables after direct field emissions and XML generation.",
         "main_csv": "03-05_espac_crop_lci_table_filtered_dfe__summary_crop_group_national.csv",
         "uncertainty_csv": "03-05_espac_crop_lci_table_filtered_dfe__summary_crop_group_national_uncertainty.csv",
     },
     {
         "id": "livestock-stage0305-national",
-        "label": "Livestock - Stage 03-05 - National",
+        "label": "Livestock - National - including DFE",
         "description": "National livestock LCI tables after direct field emissions and XML generation.",
         "main_csv": "03-05_espac_livestock_lci_table_filtered_dfe__summary_national.csv",
         "uncertainty_csv": "03-05_espac_livestock_lci_table_filtered_dfe__summary_national_uncertainty.csv",
@@ -126,7 +126,7 @@ def build_site(source_dir: Path, docs_dir: Path) -> None:
         )
 
     manifest = {
-        "appName": "ESPAC LCI Explorer",
+        "appName": "ESPAC 2024 LCI viewer",
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "datasetCount": len(manifest_datasets),
         "datasets": manifest_datasets,
