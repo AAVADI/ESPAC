@@ -73,9 +73,14 @@
             <p class="section-kicker">Selected output</p>
             <h2 id="dataset-title">Loading...</h2>
           </div>
-          <a id="download-link" class="ghost-link" href="#" target="_blank" rel="noreferrer">
-            Open JSON
-          </a>
+          <div class="download-actions" aria-label="Download selected table">
+            <button id="download-csv" class="ghost-link" type="button" disabled>
+              Download CSV
+            </button>
+            <button id="download-json" class="ghost-link" type="button" disabled>
+              Download JSON
+            </button>
+          </div>
         </div>
         <p id="dataset-description" class="dataset-description"></p>
 

@@ -172,6 +172,13 @@ h1 {
   letter-spacing: -0.03em;
 }
 
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .section-note,
 .dataset-description,
 .table-meta,
@@ -211,12 +218,22 @@ h1 {
 }
 
 .ghost-link {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 10px 14px;
   border-radius: 999px;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
   text-decoration: none;
+}
+
+.ghost-link:disabled {
+  cursor: wait;
+  opacity: 0.5;
+  transform: none;
 }
 
 .summary-grid {

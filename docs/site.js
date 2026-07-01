@@ -12,7 +12,8 @@ const els = {
   picker: document.getElementById("dataset-picker"),
   title: document.getElementById("dataset-title"),
   description: document.getElementById("dataset-description"),
-  downloadLink: document.getElementById("download-link"),
+  downloadCsv: document.getElementById("download-csv"),
+  downloadJson: document.getElementById("download-json"),
   summaryGrid: document.getElementById("summary-grid"),
   tabMain: document.getElementById("tab-main"),
   tabUncertainty: document.getElementById("tab-uncertainty"),
@@ -55,6 +56,51 @@ function datasetById(id) {
 
 function getActiveTableSpec(dataset) {
   return state.activeTab === "uncertainty" ? dataset.uncertainty : dataset.main;
+}
+
+function getActiveCacheKey() {
+  return `${state.dataset.id}:${state.activeTab}`;
+}
+
+function setDownloadAvailability(available) {
+  els.downloadCsv.disabled = !available;
+  els.downloadJson.disabled = !available;
+}
+
+function downloadBlob(content, type, filename) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function csvCell(value) {
+  const text = value == null ? "" : String(value);
+  return `"${text.replaceAll('"', '""')}"`;
+}
+
+function downloadActiveTable(format) {
+  const data = state.cache.get(getActiveCacheKey());
+  if (!data) {
+    return;
+  }
+
+  const sourceStem = getActiveTableSpec(state.dataset).source.replace(/\.csv$/i, "");
+  if (format === "csv") {
+    const lines = [data.columns, ...data.rows].map((row) => row.map(csvCell).join(","));
+    downloadBlob(`\uFEFF${lines.join("\r\n")}`, "text/csv;charset=utf-8", `${sourceStem}.csv`);
+    return;
+  }
+
+  downloadBlob(
+    JSON.stringify(data, null, 2),
+    "application/json;charset=utf-8",
+    `${sourceStem}.json`,
+  );
 }
 
 function renderDatasetPicker() {
@@ -150,11 +196,8 @@ function renderTable(data) {
 }
 
 function updateSelectedDatasetMeta(dataset) {
-  const tableSpec = getActiveTableSpec(dataset);
   els.title.textContent = dataset.label;
   els.description.textContent = dataset.description;
-  els.downloadLink.href = tableSpec.path;
-  els.downloadLink.textContent = state.activeTab === "uncertainty" ? "Open uncertainty JSON" : "Open main JSON";
 }
 
 function renderCurrentDataset() {
@@ -169,13 +212,15 @@ function renderCurrentDataset() {
   updateSelectedDatasetMeta(dataset);
 
   const spec = getActiveTableSpec(dataset);
-  const cacheKey = `${dataset.id}:${state.activeTab}`;
+  const cacheKey = getActiveCacheKey();
   const cached = state.cache.get(cacheKey);
   if (cached) {
     renderTable(cached);
+    setDownloadAvailability(true);
     return;
   }
 
+  setDownloadAvailability(false);
   els.tableStatus.textContent = "Loading table data…";
   els.tableContainer.innerHTML = "";
   fetch(spec.path)
@@ -188,6 +233,7 @@ function renderCurrentDataset() {
     .then((json) => {
       state.cache.set(cacheKey, json);
       renderTable(json);
+      setDownloadAvailability(true);
     })
     .catch((error) => {
       els.tableStatus.textContent = "Failed to load the selected table.";
@@ -208,6 +254,9 @@ async function selectDataset(datasetId) {
 }
 
 function wireUi() {
+  els.downloadCsv.addEventListener("click", () => downloadActiveTable("csv"));
+  els.downloadJson.addEventListener("click", () => downloadActiveTable("json"));
+
   els.tabMain.addEventListener("click", () => {
     if (state.activeTab !== "main") {
       state.activeTab = "main";
@@ -231,7 +280,7 @@ function wireUi() {
 
   els.search.addEventListener("input", (event) => {
     state.filterText = event.target.value || "";
-    const cacheKey = `${state.dataset.id}:${state.activeTab}`;
+    const cacheKey = getActiveCacheKey();
     const cached = state.cache.get(cacheKey);
     if (cached) {
       renderTable(cached);
