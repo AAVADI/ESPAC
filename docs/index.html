@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>ESPAC LCI Explorer</title>
+    <meta
+      name="description"
+      content="Static GitHub Pages explorer for ESPAC generated LCI tables and their uncertainty outputs."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./site.css" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+    <main class="shell">
+      <header class="hero card">
+        <div class="hero-copy">
+          <p class="eyebrow">ESPAC / GitHub Pages</p>
+          <h1>Generated LCI tables, published as a static browser app.</h1>
+          <p class="lede">
+            Pick a canonical ESPAC output and inspect the generated LCI content in a scrollable
+            table. The uncertainty table is included for every dataset.
+          </p>
+        </div>
+        <div class="hero-aside">
+          <div class="hero-stat">
+            <span class="stat-label">Published datasets</span>
+            <strong id="dataset-count">-</strong>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-label">Generated at</span>
+            <strong id="generated-at">-</strong>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-label">Source</span>
+            <strong>outputs/CSVs</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="card controls">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Configuration</p>
+            <h2>Choose a generated table set</h2>
+          </div>
+          <p class="section-note">
+            The controls mirror the published outputs rather than the live pipeline.
+          </p>
+        </div>
+        <div id="dataset-picker" class="pill-row" aria-label="Dataset selector"></div>
+      </section>
+
+      <section class="card active-dataset">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Selected output</p>
+            <h2 id="dataset-title">Loading...</h2>
+          </div>
+          <a id="download-link" class="ghost-link" href="#" target="_blank" rel="noreferrer">
+            Open JSON
+          </a>
+        </div>
+        <p id="dataset-description" class="dataset-description"></p>
+
+        <div class="summary-grid" id="summary-grid"></div>
+
+        <div class="tab-row" role="tablist" aria-label="Table views">
+          <button class="tab active" id="tab-main" type="button" role="tab" aria-selected="true">
+            Main table
+          </button>
+          <button class="tab" id="tab-uncertainty" type="button" role="tab" aria-selected="false">
+            Uncertainty table
+          </button>
+        </div>
+
+        <div class="table-toolbar">
+          <label class="search-wrap" for="table-search">
+            <span>Filter rows</span>
+            <input
+              id="table-search"
+              type="search"
+              placeholder="Search any visible cell"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
+          <div class="table-meta">
+            <span id="table-source">-</span>
+            <span id="table-count">-</span>
+          </div>
+        </div>
+
+        <div class="table-shell">
+          <div id="table-status" class="table-status">Loading data…</div>
+          <div id="table-container" class="table-container" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="./site.js"></script>
+  </body>
+</html>
