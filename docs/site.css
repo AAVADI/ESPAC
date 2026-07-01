@@ -7,6 +7,7 @@
   --muted: #5d6a63;
   --border: rgba(24, 33, 29, 0.12);
   --accent: #1f6b4a;
+  --accent-strong: #155036;
   --accent-2: #7d9b3d;
   --accent-soft: rgba(31, 107, 74, 0.12);
   --shadow: 0 30px 90px rgba(20, 30, 25, 0.14);
@@ -140,6 +141,15 @@ h1 {
 
 .hero-stat strong {
   font-size: 1.05rem;
+}
+
+.source-link {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.source-link:hover {
+  color: var(--accent-strong);
 }
 
 .controls,
