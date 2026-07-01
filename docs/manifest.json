@@ -1,6 +1,6 @@
 {
   "appName": "ESPAC 2024 LCI viewer",
-  "generatedAt": "2026-07-01T09:29:50.924575+00:00",
+  "generatedAt": "2026-07-01T09:57:43.102076+00:00",
   "datasetCount": 5,
   "datasets": [
     {
@@ -62,13 +62,13 @@
         "path": "data/crops-stage0305-crop-group-national-main.json",
         "source": "03-05_espac_crop_lci_table_filtered_dfe__summary_crop_group_national.csv",
         "rowCount": 7,
-        "columnCount": 140
+        "columnCount": 197
       },
       "uncertainty": {
         "path": "data/crops-stage0305-crop-group-national-uncertainty.json",
         "source": "03-05_espac_crop_lci_table_filtered_dfe__summary_crop_group_national_uncertainty.csv",
         "rowCount": 7,
-        "columnCount": 241
+        "columnCount": 355
       }
     },
     {
